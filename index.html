@@ -1,202 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alfaiz | Web Developer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-white text-gray-800 font-sans">
-    <!-- Hero Section -->
-    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4">
-      <h1 class="text-5xl font-bold mb-4">Hi, I'm Alfaiz</h1>
-      <h2 class="text-xl mb-6">Web Developer (WordPress, Shopify, Webflow, Duda, HTML/CSS/JS)</h2>
-      <a href="#projects" class="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition">View My Work</a>
-    </section>
 
-    <!-- About Section -->
-    <section class="px-6 py-16 bg-gray-100" id="about">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-4">About Me</h2>
-        <p class="mb-6">
-          I'm a web designer passionate about creating user-friendly websites that meet diverse business needs. I focus on crafting effective designs that give companies a competitive edge and drive revenue growth. With a blend of creativity and logic, I tackle challenges with a calm and focused approach, solving problems analytically.
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alfaiz | Web Developer Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-gray-800">
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="text-center p-6">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm Alfaiz</h1>
+      <p class="text-xl md:text-2xl mb-6">Web Developer (WordPress, Shopify, Webflow, Duda, Custom HTML/CSS/JS)</p>
+      <a href="#contact" class="px-6 py-3 bg-black text-white rounded-lg shadow hover:bg-gray-800 transition">Let's Talk</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold mb-6 text-center">About Me</h2>
+    <p class="text-lg leading-relaxed mb-6 text-center">
+      I'm a web designer passionate about creating user-friendly websites that meet diverse business needs. I focus on crafting effective designs that give companies a competitive edge and drive revenue growth.
+    </p>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-xl font-semibold mb-2">Skills & Tools</h3>
+        <ul class="list-disc list-inside space-y-2">
+          <li>WordPress, Shopify, Webflow, Wix</li>
+          <li>WooCommerce, Elementor, ACF</li>
+          <li>HTML, CSS, JavaScript</li>
+          <li>SEO Optimization</li>
+          <li>Problem Solving & Communication</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2">What I Do</h3>
+        <p class="leading-relaxed">
+          I build custom, scalable websites that are SEO-friendly and optimized for performance across devices. I work with cross-functional teams and prioritize client satisfaction.
         </p>
-        <h3 class="text-2xl font-semibold mt-10 mb-4">Skills & Tools</h3>
-        <p>
-          Proficient in CMS platforms (WordPress, Shopify, Wix, Webflow) and SEO, with advanced skills in HTML, CSS, JavaScript. Familiar with WooCommerce, Elementor, and backend handling. Experienced in cross-functional collaboration and problem-solving.
-        </p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Projects Section -->
-    <section class="px-6 py-16" id="projects">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-10">Projects</h2>
-        <div class="mb-6 flex flex-wrap justify-center gap-4">
-          <button data-filter="all" class="filter-btn bg-black text-white px-4 py-2 rounded">All</button>
-          <button data-filter="wordpress" class="filter-btn bg-gray-200 px-4 py-2 rounded">WordPress</button>
-          <button data-filter="shopify" class="filter-btn bg-gray-200 px-4 py-2 rounded">Shopify</button>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectGrid">
-          <!-- Projects will be inserted here dynamically -->
-        </div>
+  <!-- Projects Section -->
+  <section id="projects" class="bg-gray-50 py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-bold">Projects</h2>
+        <select id="filter" class="border border-gray-300 rounded px-3 py-2">
+          <option value="all">All</option>
+          <option value="wordpress">WordPress</option>
+          <option value="shopify">Shopify</option>
+        </select>
       </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="px-6 py-16 bg-gray-100" id="experience">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-10">Experience</h2>
-        <div class="border-l-4 border-black pl-4">
-          <div class="mb-6">
-            <h3 class="text-xl font-semibold">EvenDigit – Software Engineer</h3>
-            <p class="text-sm text-gray-600">Indore, MP | June 2021 – Present</p>
-            <p class="mt-2">
-              I'm a web designer passionate about creating user-friendly websites that meet diverse business needs. I focus on crafting effective designs that give companies a competitive edge and drive revenue growth. With a blend of creativity and logic, I tackle challenges with a calm and focused approach, solving problems analytically.
-            </p>
-          </div>
-        </div>
+      <div id="project-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- JS injects projects here -->
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section class="px-6 py-16 text-center" id="contact">
-      <h2 class="text-3xl font-bold mb-6">Contact Me</h2>
-      <p class="mb-4">Feel free to reach out via email or connect with me on social media.</p>
-      <div class="flex justify-center gap-6">
-        <a href="mailto:alfaizkhn18@gmail.com" class="text-blue-600 hover:underline">alfaizkhn18@gmail.com</a>
-        <a href="https://www.linkedin.com/in/alfaiz-khan-75313924b" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a>
-        <a href="https://github.com/Alfaiz18/alfaiz18.github.io" target="_blank" class="text-blue-600 hover:underline">GitHub</a>
+  <!-- Experience Section -->
+  <section id="experience" class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold mb-8 text-center">Experience</h2>
+    <div class="bg-white rounded-xl shadow-md p-6">
+      <h3 class="text-xl font-semibold">EvenDigit – Software Engineer</h3>
+      <p class="text-sm text-gray-500 mb-2">June 2021 – Present, Indore, MP</p>
+      <p>
+        I'm a web designer passionate about creating user-friendly websites that meet diverse business needs. I focus on crafting effective designs that give companies a competitive edge and drive revenue growth.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-gray-900 text-white py-16">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-6">Get in Touch</h2>
+      <p class="mb-4">Email: <a href="mailto:alfaizkhn18@gmail.com" class="underline">alfaizkhn18@gmail.com</a></p>
+      <div class="flex justify-center space-x-6 mt-4">
+        <a href="https://github.com/Alfaiz18/alfaiz18.github.io" target="_blank" class="hover:underline">GitHub</a>
+        <a href="https://www.linkedin.com/in/alfaiz-khan-75313924b" target="_blank" class="hover:underline">LinkedIn</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Projects Script -->
-    <script>
-      const projects = [
-        {
-          name: 'Fidelis Pet',
-          desc: 'Modern UI WooCommerce site serving dog food.',
-          url: 'https://fidelispet.com/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'EvenDigit',
-          desc: 'Modern UI digital marketing site.',
-          url: 'https://www.evendigit.com/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'Softude AI',
-          desc: 'AI-focused WordPress site.',
-          url: 'https://softude.ai/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'Pelazzio Event Venue',
-          desc: 'Event venue website in Houston.',
-          url: 'https://pelazzio.com/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'Alhambra School of Music',
-          desc: 'Music school website.',
-          url: 'https://alhambraschoolofmusic.com/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'Darebin',
-          desc: 'Gas & cooling services website.',
-          url: 'https://www.darebin.com.au/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'Fuel Me',
-          desc: 'Fuel delivery service site.',
-          url: 'https://fuel.me/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'United Renal Services',
-          desc: 'Dialysis services website.',
-          url: 'https://www.unitedrenalservices.com/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'Stargrafix Marketing',
-          desc: 'Commercial wraps portfolio site.',
-          url: 'https://www.stargrafixmarketing.com/',
-          tech: 'wordpress'
-        },
-        {
-          name: 'Pluscenta',
-          desc: 'Placenta encapsulation ecommerce site.',
-          url: 'https://pluscenta.com/',
-          tech: 'shopify'
-        },
-        {
-          name: 'Bearfruit Jewelry',
-          desc: 'Trending jewelry store.',
-          url: 'https://bearfruitjewelry.com/',
-          tech: 'shopify'
-        },
-        {
-          name: 'Yokkao',
-          desc: 'Muay Thai products and events site.',
-          url: 'https://asia.yokkao.com/',
-          tech: 'shopify'
-        },
-        {
-          name: 'Pretty Little Designs',
-          desc: 'Custom labeling and design shop.',
-          url: 'https://prettylittledesigns.com.au/',
-          tech: 'shopify'
-        },
-        {
-          name: 'Shower Toga',
-          desc: 'Portable changing and shower product.',
-          url: 'https://showertoga.com/',
-          tech: 'shopify'
-        },
-        {
-          name: 'Xtend Outdoors',
-          desc: 'Caravan and RV product shop.',
-          url: 'https://www.xtendoutdoors.com.au/',
-          tech: 'shopify'
-        },
-        {
-          name: 'Ageless Zen',
-          desc: 'Natural skin and health products.',
-          url: 'https://agelesszen.us/',
-          tech: 'shopify'
-        },
-      ];
+  <script>
+    const projects = [
+      { name: "Fidelis Pet", tech: "wordpress", url: "https://fidelispet.com/" },
+      { name: "EvenDigit", tech: "wordpress", url: "https://www.evendigit.com/" },
+      { name: "Softude AI", tech: "wordpress", url: "https://softude.ai/" },
+      { name: "Pelazzio", tech: "wordpress", url: "https://pelazzio.com/" },
+      { name: "Alhambra School of Music", tech: "wordpress", url: "https://alhambraschoolofmusic.com/" },
+      { name: "Darebin", tech: "wordpress", url: "https://www.darebin.com.au/" },
+      { name: "Fuel Me", tech: "wordpress", url: "https://fuel.me/" },
+      { name: "United Renal Services", tech: "wordpress", url: "https://www.unitedrenalservices.com/" },
+      { name: "Stargrafix Marketing", tech: "wordpress", url: "https://www.stargrafixmarketing.com/" },
+      { name: "Pluscenta", tech: "shopify", url: "https://pluscenta.com/" },
+      { name: "Bearfruit Jewelry", tech: "shopify", url: "https://bearfruitjewelry.com/" },
+      { name: "Yokkao", tech: "shopify", url: "https://asia.yokkao.com/" },
+      { name: "Pretty Little Designs", tech: "shopify", url: "https://prettylittledesigns.com.au/" },
+      { name: "Shower Toga", tech: "shopify", url: "https://showertoga.com/" },
+      { name: "Xtend Outdoors", tech: "shopify", url: "https://www.xtendoutdoors.com.au/" },
+      { name: "Ageless Zen", tech: "shopify", url: "https://agelesszen.us/" }
+    ];
 
-      const container = document.getElementById('projectGrid');
-      const filterBtns = document.querySelectorAll('.filter-btn');
-
-      function renderProjects(filter = 'all') {
-        container.innerHTML = '';
-        projects
-          .filter(p => filter === 'all' || p.tech === filter)
-          .forEach(p => {
-            container.innerHTML += `
-              <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-semibold">${p.name}</h3>
-                <p class="text-sm mb-2">${p.desc}</p>
-                <a href="${p.url}" target="_blank" class="text-blue-600 hover:underline">Visit Site</a>
-              </div>`;
-          });
-      }
-
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          filterBtns.forEach(b => b.classList.remove('bg-black', 'text-white'));
-          btn.classList.add('bg-black', 'text-white');
-          renderProjects(btn.dataset.filter);
+    function renderProjects(type = 'all') {
+      const grid = document.getElementById('project-grid');
+      grid.innerHTML = '';
+      projects
+        .filter(p => type === 'all' || p.tech === type)
+        .forEach(p => {
+          grid.innerHTML += `
+            <div class="bg-white p-4 rounded-lg shadow-md">
+              <h4 class="text-lg font-semibold mb-2">${p.name}</h4>
+              <p class="text-sm text-gray-600 mb-3 capitalize">${p.tech}</p>
+              <a href="${p.url}" target="_blank" class="text-blue-600 hover:underline">Visit Site</a>
+            </div>
+          `;
         });
-      });
+    }
 
-      renderProjects();
-    </script>
-  </body>
+    document.getElementById('filter').addEventListener('change', e => renderProjects(e.target.value));
+    renderProjects();
+  </script>
+</body>
+
 </html>
