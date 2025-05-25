@@ -38,14 +38,13 @@
   <section id="projects" class="bg-white py-16 px-4">
     <div class="container mx-auto">
       <h3 class="text-2xl font-bold mb-6">Projects</h3>
-      <!-- Cards will be inserted here with filtering functionality using JS -->
-      <div id="project-filter" class="mb-6">
+      <div id="project-filter" class="mb-6 space-x-2">
         <button class="bg-gray-200 text-sm px-4 py-2 rounded hover:bg-blue-100" onclick="filterProjects('all')">All</button>
         <button class="bg-gray-200 text-sm px-4 py-2 rounded hover:bg-blue-100" onclick="filterProjects('WordPress')">WordPress</button>
         <button class="bg-gray-200 text-sm px-4 py-2 rounded hover:bg-blue-100" onclick="filterProjects('Shopify')">Shopify</button>
       </div>
       <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" id="project-grid">
-        <!-- JS will populate project cards here -->
+        <!-- Project cards go here -->
       </div>
     </div>
   </section>
@@ -112,22 +111,22 @@
 
   <script>
     const projects = [
-      { name: "fidelispet.com", tech: "WordPress", url: "https://fidelispet.com/" },
-      { name: "evendigit.com", tech: "WordPress", url: "https://www.evendigit.com/" },
-      { name: "softude.ai", tech: "WordPress", url: "https://softude.ai/" },
-      { name: "pelazzio.com", tech: "WordPress", url: "https://pelazzio.com/" },
-      { name: "alhambraschoolofmusic.com", tech: "WordPress", url: "https://alhambraschoolofmusic.com/" },
-      { name: "darebin.com.au", tech: "WordPress", url: "https://www.darebin.com.au/" },
-      { name: "fuel.me", tech: "WordPress", url: "https://fuel.me/" },
-      { name: "unitedrenalservices.com", tech: "WordPress", url: "https://www.unitedrenalservices.com/" },
-      { name: "stargrafixmarketing.com", tech: "WordPress", url: "https://www.stargrafixmarketing.com/" },
-      { name: "pluscenta.com", tech: "Shopify", url: "https://pluscenta.com/" },
-      { name: "bearfruitjewelry.com", tech: "Shopify", url: "https://bearfruitjewelry.com/" },
-      { name: "asia.yokkao.com", tech: "Shopify", url: "https://asia.yokkao.com/" },
-      { name: "prettylittledesigns.com.au", tech: "Shopify", url: "https://prettylittledesigns.com.au/" },
-      { name: "showertoga.com", tech: "Shopify", url: "https://showertoga.com/" },
-      { name: "xtendoutdoors.com.au", tech: "Shopify", url: "https://www.xtendoutdoors.com.au/" },
-      { name: "agelesszen.us", tech: "Shopify", url: "https://agelesszen.us/" },
+      { name: "fidelispet.com", tech: "WordPress", url: "https://fidelispet.com/", image: "https://alfaiz18.github.io/images/62045_1.jpg" },
+      { name: "evendigit.com", tech: "WordPress", url: "https://www.evendigit.com/", image: "https://alfaiz18.github.io/images/62045_1.jpg" },
+      { name: "softude.ai", tech: "WordPress", url: "https://softude.ai/", image: "https://alfaiz18.github.io/images/62045_1.jpg" },
+      { name: "pelazzio.com", tech: "WordPress", url: "https://pelazzio.com/", image: "https://pelazzio.com/wp-content/uploads/2020/04/Pelazzio-logo.png" },
+      { name: "alhambraschoolofmusic.com", tech: "WordPress", url: "https://alhambraschoolofmusic.com/", image: "https://alhambraschoolofmusic.com/wp-content/uploads/2022/08/ASM_Logo_Black-1.png" },
+      { name: "darebin.com.au", tech: "WordPress", url: "https://www.darebin.com.au/", image: "https://www.darebin.vic.gov.au/-/media/Images/Darebin/Logos/logo-colour.svg" },
+      { name: "fuel.me", tech: "WordPress", url: "https://fuel.me/", image: "https://fuel.me/wp-content/uploads/2021/09/logo-blue.png" },
+      { name: "unitedrenalservices.com", tech: "WordPress", url: "https://www.unitedrenalservices.com/", image: "https://www.unitedrenalservices.com/wp-content/uploads/2021/09/united-renal-services-logo.png" },
+      { name: "stargrafixmarketing.com", tech: "WordPress", url: "https://www.stargrafixmarketing.com/", image: "https://www.stargrafixmarketing.com/wp-content/uploads/2020/05/stargrafix-logo.png" },
+      { name: "pluscenta.com", tech: "Shopify", url: "https://pluscenta.com/", image: "https://cdn.shopify.com/s/files/1/0280/4793/2785/files/pluscenta-logo.png" },
+      { name: "bearfruitjewelry.com", tech: "Shopify", url: "https://bearfruitjewelry.com/", image: "https://bearfruitjewelry.com/cdn/shop/files/bearfruit-logo.png" },
+      { name: "asia.yokkao.com", tech: "Shopify", url: "https://asia.yokkao.com/", image: "https://asia.yokkao.com/cdn/shop/files/yokkao-logo.png" },
+      { name: "prettylittledesigns.com.au", tech: "Shopify", url: "https://prettylittledesigns.com.au/", image: "https://prettylittledesigns.com.au/cdn/shop/files/logo_450x.png" },
+      { name: "showertoga.com", tech: "Shopify", url: "https://showertoga.com/", image: "https://showertoga.com/cdn/shop/files/ST_Logo_2021_300x300.png" },
+      { name: "xtendoutdoors.com.au", tech: "Shopify", url: "https://www.xtendoutdoors.com.au/", image: "https://www.xtendoutdoors.com.au/cdn/shop/files/xtend-logo_120x@2x.png" },
+      { name: "agelesszen.us", tech: "Shopify", url: "https://agelesszen.us/", image: "https://agelesszen.us/cdn/shop/files/agelesszen-logo.png" },
     ];
 
     function filterProjects(filter) {
@@ -137,7 +136,8 @@
       filtered.forEach(p => {
         container.innerHTML += `
           <div class="bg-white p-4 rounded shadow hover:shadow-md transition">
-            <h4 class="font-semibold">${p.name}</h4>
+            <img src="${p.image}" alt="${p.name}" class="w-full h-40 object-contain mb-4 rounded">
+            <h4 class="font-semibold text-lg">${p.name}</h4>
             <p class="text-sm text-gray-600 mb-2">Tech: ${p.tech}</p>
             <a href="${p.url}" target="_blank" class="text-blue-600 underline text-sm">View Project</a>
           </div>
@@ -145,7 +145,6 @@
       });
     }
 
-    // Load all initially
     filterProjects('all');
   </script>
 </body>
