@@ -12,7 +12,7 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #111827;
+      background-color: #0f0f0f;
       color: #e5e7eb;
     }
     .nav-link {
@@ -21,7 +21,7 @@
     }
     .nav-link:hover,
     .nav-link.active {
-      color: #8b5cf6;
+      color: #4bffa5;
     }
     .project-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -37,30 +37,7 @@
     .text-muted {
       color: #9ca3af !important;
     }
-    .btn-outline-dark {
-      color: #e5e7eb;
-      border-color: #6b7280;
-    }
-    .btn-outline-dark:hover {
-      background-color: #374151;
-      border-color: #6b7280;
-    }
-    .btn-success {
-      background-color: #8b5cf6;
-      border-color: #8b5cf6;
-    }
-    .btn-success:hover {
-      background-color: #7c3aed;
-      border-color: #7c3aed;
-    }
-    .btn-outline-success {
-      color: #8b5cf6;
-      border-color: #8b5cf6;
-    }
-    .btn-outline-success:hover {
-      background-color: #8b5cf6;
-      color: #fff;
-    }
+
     .text-success {
       color: #8b5cf6 !important;
     }
@@ -73,12 +50,26 @@
     .shadow-sm {
       box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5) !important;
     }
+    .navbar-brand {
+    color: #ffffff;
+}
+.btn {
+    color: #000000;
+    background-color: #4bffa5;
+    padding: 10px 40px;
+    border: navajowhite;
+}
+.btn:hover {
+    color: #4bffa5;
+    background-color: unset;
+    border: 1px solid #4bffa5;
+}
   </style>
 </head>
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3">
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top py-3">
     <div class="container d-flex justify-content-between align-items-center">
       <a class="navbar-brand fw-bold fs-4" href="#">Alfaiz Khan</a>
       <div class="d-none d-lg-block mx-auto">
@@ -91,7 +82,7 @@
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
       </div>
-      <a href="#contact" class="btn btn-outline-dark btn-sm">Hire Me ✦</a>
+      <a href="#contact" class="btn btn-sm">Contact Me ></a>
     </div>
   </nav>
 
@@ -115,7 +106,7 @@
             <p class="text-muted">Hello There!</p>
             <h1 class="fw-bold fs-3">I’m <span class="text-success">Alfaiz Khan</span>, a Web Designer crafting user-centric websites with pixel-perfect precision.</h1>
             <p class="mt-3"><i class="bi bi-circle-fill text-success me-1"></i>Available for Freelancing</p>
-            <a href="#" class="btn btn-success btn-sm mt-2">Download CV <i class="bi bi-download ms-1"></i></a>
+            <a href="#" class="btn btn-sm mt-2">Download CV <i class="bi bi-download ms-1"></i></a>
           </div>
         </div>
       </div>
@@ -277,7 +268,7 @@
             <div class="p-3">
               <small class="text-muted d-block">${p.category}</small>
               <h6 class="fw-bold">${p.name}</h6>
-              <a href="${p.url}" target="_blank" class="btn btn-outline-success btn-sm mt-2">View Site</a>
+              <a href="${p.url}" target="_blank" class="btn btn-sm mt-2">View Site</a>
             </div>
           </div>
         `;
