@@ -9,109 +9,94 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<style>
-  body {
-    font-family: 'poppins', sans-serif;
-    background-color: #0f0f0f;
-    color: #ffffff;
-    font-size: 18px;
-  }
-
-  @media (max-width: 768px) {
+  <style>
     body {
-      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0f0f;
+      color: #ffffff;
+      font-size: 18px;
     }
-  }
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+    }
 
-  h1, h2, h3, h4, h5, h6, p, small, span, a {
-    color: #ffffff;
-  }
+    h1, h2, h3, h4, h5, h6, p, small, span, a {
+      color: #ffffff;
+    }
 
-  .nav-link {
-    font-weight: 600;
-    color: #ffffff;
-  }
+    .nav-link {
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .nav-link:hover,
+    .nav-link.active,
+    a:hover,
+    .btn:hover {
+      color: #4bffa5 !important;
+    }
 
-  .nav-link:hover,
-  .nav-link.active,
-  a:hover,
-  .btn:hover {
-    color: #4bffa5 !important;
-  }
+    section {
+      padding: 5rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    section:first-of-type {
+      border-top: none;
+    }
 
-  .project-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+    .card-box {
+      background-color: transparent !important;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+    }
 
-  .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-  }
+    .text-muted {
+      color: #9ca3af !important;
+    }
+    .text-success {
+      color: #4bffa5 !important;
+    }
+    .bg-dark {
+      background-color: #0f172a !important;
+    }
+    .border {
+      border-color: rgba(255, 255, 255, 0.07) !important;
+    }
+    .shadow-sm {
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5) !important;
+    }
 
-  /* Removed white backgrounds, replaced with transparent */
-  .card-box,
-  .section-box,
-  .card-box {
-    background-color: transparent !important;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 0.5rem;
-  }
+    .navbar-brand {
+      color: #ffffff;
+    }
+    .navbar-brand:hover {
+      color: #ffffff;
+    }
 
-  .text-muted {
-    color: #9ca3af !important;
-  }
+    .btn {
+      color: #000000;
+      background-color: #4bffa5;
+      padding: 10px 40px;
+      border: none;
+    }
+    .btn:hover {
+      color: #4bffa5;
+      background-color: transparent;
+      border: 1px solid #4bffa5;
+    }
 
-  .text-success {
-    color: #4bffa5 !important;
-  }
-
-  .bg-dark {
-    background-color: #0f172a !important;
-    color: #ffffff !important;
-  }
-
-  .border {
-    border-color: rgba(255, 255, 255, 0.07) !important;
-  }
-
-  .shadow-sm {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5) !important;
-  }
-
-  .navbar-brand {
-    color: #ffffff;
-  }
-
-  .navbar-brand:hover {
-    color: #ffffff;
-  }
-
-  .btn {
-    color: #000000;
-    background-color: #4bffa5;
-    padding: 10px 40px;
-    border: none;
-  }
-
-  .btn:hover {
-    color: #4bffa5;
-    background-color: transparent;
-    border: 1px solid #4bffa5;
-  }
-
-  .sticky-top {
-    background-color: #000000;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #4bffa5;
-  }
-</style>
+    .sticky-top {
+      background-color: #000000;
+    }
+    a {
+      text-decoration: none;
+    }
+    a:hover {
+      color: #4bffa5;
+    }
+  </style>
 
 
 </head>
