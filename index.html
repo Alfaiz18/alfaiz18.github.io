@@ -8,25 +8,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
     body {
       font-family: 'Inter', sans-serif;
       background-color: #f8f9fa;
-    }
-    .hero-section {
-      background-image: url('https://rxdtheme.com/html/tf/dorbesh/assets/images/slider/1.jpg');
-      background-size: cover;
-      background-position: center;
-      color: #fff;
-      text-align: center;
-      padding: 120px 20px;
-    }
-    .hero-section h2 {
-      font-size: 3rem;
-      font-weight: 700;
-    }
-    .hero-section p {
-      font-size: 1.25rem;
     }
     .nav-link {
       font-weight: 600;
@@ -42,14 +28,12 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">Alfaiz Khan</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand fw-bold fs-4" href="#">Alfaiz Khan</a>
+      <div class="d-none d-lg-block mx-auto">
+        <ul class="navbar-nav flex-row gap-3">
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
           <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
@@ -58,17 +42,38 @@
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
       </div>
+      <a href="#contact" class="btn btn-outline-dark btn-sm">Hire Me ✦</a>
     </div>
   </nav>
 
-  <section class="hero-section" data-aos="fade-up">
+  <!-- Hero Section -->
+  <section class="py-5 bg-light" data-aos="fade-up">
     <div class="container">
-      <h2>Hi, I'm Alfaiz Khan</h2>
-      <p>Web Designer | CMS Specialist | Front-End Developer</p>
-      <a href="#contact" class="btn btn-outline-light mt-3">Get In Touch</a>
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center mb-4 mb-md-0">
+          <div class="bg-white rounded-4 p-4 shadow-sm">
+            <img src="https://alfaiz18.github.io/images/fidelispet.png" class="rounded-circle border border-3 border-success p-1" alt="Alfaiz Khan" width="150">
+            <h4 class="mt-3 fw-bold">Alfaiz Khan</h4>
+            <p class="text-muted small">Web Designer based in Indore</p>
+            <div class="d-flex justify-content-center gap-3 mt-2">
+              <a href="https://www.linkedin.com/in/alfaiz-khan-75313924b" target="_blank"><i class="bi bi-linkedin fs-5"></i></a>
+              <a href="https://github.com/Alfaiz18/alfaiz18.github.io" target="_blank"><i class="bi bi-github fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bg-white rounded-4 p-4 shadow-sm">
+            <p class="text-muted">Hello There!</p>
+            <h1 class="fw-bold fs-3">I’m <span class="text-success">Alfaiz Khan</span>, a Web Designer crafting user-centric websites with pixel-perfect precision.</h1>
+            <p class="mt-3"><i class="bi bi-circle-fill text-success me-1"></i>Available for Freelancing</p>
+            <a href="#" class="btn btn-success btn-sm mt-2">Download CV <i class="bi bi-download ms-1"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- About Section -->
   <section id="about" class="py-5" data-aos="fade-up">
     <div class="container">
       <h3 class="mb-4">About Me</h3>
@@ -76,65 +81,116 @@
     </div>
   </section>
 
-  <section id="projects" class="py-5 bg-white" data-aos="fade-up">
+  <!-- Services Section -->
+  <section id="services" class="py-5 bg-light" data-aos="fade-up">
     <div class="container">
-      <h3 class="mb-4">Projects</h3>
-      <div class="row" id="project-grid"></div>
-    </div>
-  </section>
-
-  <section id="experience" class="py-5" data-aos="fade-up">
-    <div class="container">
-      <h3 class="mb-4">Experience</h3>
-      <div class="card p-4">
-        <h4 class="fw-semibold">EvenDigit, Indore, MP <small class="text-muted">– June 2021 – Present</small></h4>
-        <p>Software Engineer – Web Designer passionate about creating user-friendly websites that meet diverse business needs. Focused on crafting effective designs that give companies a competitive edge and drive revenue growth.</p>
+      <div class="text-center mb-5">
+        <small class="text-muted">Services</small>
+        <h2 class="fw-bold">Quality Services</h2>
       </div>
-    </div>
-  </section>
-
-  <section id="education" class="py-5 bg-light" data-aos="fade-up">
-    <div class="container">
-      <h3 class="mb-4">Education</h3>
-      <div class="card p-4">
-        <h4>St. Paul Institute of Professional Studies – May 2020</h4>
-        <p>Bachelor of Computer Applications, Indore, MP</p>
-        <ul>
-          <li>Received first prize at a science exhibition for a physics-based sewage treatment system.</li>
-          <li>Secured second prize at a college festival for culinary excellence at a food stall.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills" class="py-5" data-aos="fade-up">
-    <div class="container">
-      <h3 class="mb-4">Skills & Interests</h3>
-      <div class="row">
-        <div class="col-md-6">
-          <h5>Skills</h5>
-          <ul>
-            <li>CMS: WordPress, Shopify, Wix, Webflow</li>
-            <li>SEO, HTML, CSS, JavaScript</li>
-            <li>WooCommerce, Elementor, Responsive Design</li>
-            <li>Backend Operations, Debugging, Optimization</li>
-            <li>Communication, Collaboration, Attention to Detail</li>
-          </ul>
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+          <div class="border rounded p-4 text-center bg-white h-100">
+            <i class="bi bi-globe2 fs-1 text-success mb-3"></i>
+            <h5 class="fw-bold">Brand Identity Design</h5>
+            <p class="text-muted">Brand kits and blocks to launch your brand identity in minutes.</p>
+          </div>
         </div>
-        <div class="col-md-6">
-          <h5>Interests</h5>
-          <ul>
-            <li>Traveling</li>
-            <li>Cricket</li>
-            <li>Snooker</li>
-            <li>Cooking</li>
-            <li>Movies</li>
-          </ul>
+        <div class="col-md-4">
+          <div class="border rounded p-4 text-center bg-white h-100">
+            <i class="bi bi-vector-pen fs-1 text-success mb-3"></i>
+            <h5 class="fw-bold">Website Design</h5>
+            <p class="text-muted">Pixel-perfect websites using the best front-end and CMS tools.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="border rounded p-4 text-center bg-white h-100">
+            <i class="bi bi-layout-text-window fs-1 text-success mb-3"></i>
+            <h5 class="fw-bold">Application Design</h5>
+            <p class="text-muted">Modern UI/UX for web and mobile applications with usability in mind.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Experience & Education -->
+  <section class="py-5" data-aos="fade-up">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="bg-white rounded p-4 shadow-sm h-100">
+            <h5 class="fw-bold mb-4">Experience</h5>
+            <div class="mb-3">
+              <h6 class="fw-semibold mb-1">EvenDigit, Indore</h6>
+              <small class="text-muted">2021 – Present</small>
+              <p class="mb-0 text-muted small">Web Designer | Delivering user-first websites and CMS solutions.</p>
+            </div>
+            <div class="mb-3">
+              <h6 class="fw-semibold mb-1">Freelancer Projects</h6>
+              <small class="text-muted">2019 – 2021</small>
+              <p class="mb-0 text-muted small">Worked with 15+ international clients across eCommerce and SaaS.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white rounded p-4 shadow-sm h-100">
+            <h5 class="fw-bold mb-4">Education</h5>
+            <div class="mb-3">
+              <h6 class="fw-semibold mb-1">Bachelor of Computer Applications</h6>
+              <small class="text-muted">St. Paul Institute, 2017 – 2020</small>
+              <p class="mb-0 text-muted small">Specialized in web technologies and development practices.</p>
+            </div>
+            <div class="mb-3">
+              <h6 class="fw-semibold mb-1">Higher Secondary</h6>
+              <small class="text-muted">Indore Public School, 2015 – 2017</small>
+              <p class="mb-0 text-muted small">Completed science stream with focus on computer fundamentals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-5 bg-light" data-aos="fade-up">
+    <div class="container">
+      <div class="text-center mb-5">
+        <small class="text-muted">Pro Skills</small>
+        <h2 class="fw-bold">Let’s Explore My Skills</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="bg-white rounded-4 text-center p-3 border h-100">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Figma" width="40" class="mb-2">
+            <h6 class="fw-bold">Figma</h6>
+            <div class="progress rounded-pill mt-2" style="height: 20px;">
+              <div class="progress-bar bg-success fw-semibold" style="width: 99%;">99%</div>
+            </div>
+          </div>
+        </div>
+        <!-- Repeat similar blocks for Tailwind, Photoshop, WordPress, Angular, Webflow, Python, Sketch -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-5 bg-light" data-aos="fade-up">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold">Works & Projects</h2>
+        <p class="text-muted">Check out some of my design projects, meticulously crafted with love and dedication, each one reflecting the passion and soul I poured into every detail.</p>
+      </div>
+      <ul class="nav justify-content-center mb-4" id="projectFilter">
+        <li class="nav-item"><a class="nav-link active fw-semibold text-success" href="#" data-filter="all">Show All</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-filter="WordPress">WordPress</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" data-filter="Shopify">Shopify</a></li>
+      </ul>
+      <div class="row g-4" id="projectGrid"></div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
   <section id="contact" class="py-5 bg-dark text-white" data-aos="fade-up">
     <div class="container text-center">
       <h3>Let's Connect</h3>
@@ -151,39 +207,45 @@
   <script>
     AOS.init();
     const projects = [
-      { name: "fidelispet.com", tech: "WordPress", url: "https://fidelispet.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "evendigit.com", tech: "WordPress", url: "https://www.evendigit.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "softude.ai", tech: "WordPress", url: "https://softude.ai/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "pelazzio.com", tech: "WordPress", url: "https://pelazzio.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "alhambraschoolofmusic.com", tech: "WordPress", url: "https://alhambraschoolofmusic.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "darebin.com.au", tech: "WordPress", url: "https://www.darebin.com.au/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "fuel.me", tech: "WordPress", url: "https://fuel.me/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "unitedrenalservices.com", tech: "WordPress", url: "https://www.unitedrenalservices.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "stargrafixmarketing.com", tech: "WordPress", url: "https://www.stargrafixmarketing.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "pluscenta.com", tech: "Shopify", url: "https://pluscenta.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "bearfruitjewelry.com", tech: "Shopify", url: "https://bearfruitjewelry.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "asia.yokkao.com", tech: "Shopify", url: "https://asia.yokkao.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "prettylittledesigns.com.au", tech: "Shopify", url: "https://prettylittledesigns.com.au/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "showertoga.com", tech: "Shopify", url: "https://showertoga.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "xtendoutdoors.com.au", tech: "Shopify", url: "https://www.xtendoutdoors.com.au/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "agelesszen.us", tech: "Shopify", url: "https://agelesszen.us/", image: "https://alfaiz18.github.io/images/fidelispet.png" }
+      { name: "fidelispet.com", category: "WordPress", url: "https://fidelispet.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
+      { name: "pluscenta.com", category: "Shopify", url: "https://pluscenta.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
+      { name: "softude.ai", category: "WordPress", url: "https://softude.ai/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
+      { name: "xtendoutdoors.com.au", category: "Shopify", url: "https://xtendoutdoors.com.au/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
+      { name: "showertoga.com", category: "Shopify", url: "https://showertoga.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
+      { name: "evendigit.com", category: "WordPress", url: "https://www.evendigit.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" }
     ];
 
-    const grid = document.getElementById("project-grid");
-    projects.forEach(p => {
-      const col = document.createElement("div");
-      col.className = "col-md-4 mb-4";
-      col.innerHTML = `
-        <div class="card project-card h-100">
-          <img src="${p.image}" class="card-img-top" alt="${p.name}">
-          <div class="card-body">
-            <h5 class="card-title">${p.name}</h5>
-            <p class="card-text">${p.tech}</p>
-            <a href="${p.url}" target="_blank" class="btn btn-outline-primary btn-sm">View Project</a>
+    function renderProjects(filter = "all") {
+      const grid = document.getElementById("projectGrid");
+      grid.innerHTML = "";
+      const filtered = filter === "all" ? projects : projects.filter(p => p.category === filter);
+      filtered.forEach(p => {
+        const col = document.createElement("div");
+        col.className = "col-md-4";
+        col.innerHTML = `
+          <div class="bg-white border rounded-4 overflow-hidden shadow-sm h-100">
+            <img src="${p.image}" alt="${p.name}" class="img-fluid">
+            <div class="p-3">
+              <small class="text-muted d-block">${p.category}</small>
+              <h6 class="fw-bold">${p.name}</h6>
+              <a href="${p.url}" target="_blank" class="btn btn-outline-success btn-sm mt-2">View Site</a>
+            </div>
           </div>
-        </div>`;
-      grid.appendChild(col);
+        `;
+        grid.appendChild(col);
+      });
+    }
+
+    document.querySelectorAll("#projectFilter .nav-link").forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelectorAll("#projectFilter .nav-link").forEach(l => l.classList.remove("active", "text-success"));
+        this.classList.add("active", "text-success");
+        renderProjects(this.dataset.filter);
+      });
     });
+
+    renderProjects();
   </script>
 </body>
 
