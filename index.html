@@ -302,7 +302,7 @@
     function renderProjects(filter = "all") {
       const grid = document.getElementById("projectGrid");
       grid.innerHTML = "";
-      const filtered = filter === "all" ? projects : projects.filter(p => p.category === filter);
+      const filtered = filter === "all" ? projects : projects.filter(p => p.tech === filter);
       filtered.forEach(p => {
         const col = document.createElement("div");
         col.className = "col-md-4";
