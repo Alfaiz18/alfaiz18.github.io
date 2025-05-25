@@ -5,65 +5,101 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alfaiz Khan – Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .hero-section {
+      background-image: url('https://rxdtheme.com/html/tf/dorbesh/assets/images/slider/1.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+      padding: 120px 20px;
+    }
+    .hero-section h2 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    .hero-section p {
+      font-size: 1.25rem;
+    }
+    .nav-link {
+      font-weight: 600;
+    }
+    .project-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900 font-[Inter]">
-  <header class="bg-white shadow-md sticky top-0 z-10">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-extrabold tracking-wide">Alfaiz Khan</h1>
-      <nav class="space-x-6 hidden md:flex text-sm font-semibold">
-        <a href="#about" class="hover:text-blue-600 transition duration-300">About</a>
-        <a href="#projects" class="hover:text-blue-600 transition duration-300">Projects</a>
-        <a href="#experience" class="hover:text-blue-600 transition duration-300">Experience</a>
-        <a href="#education" class="hover:text-blue-600 transition duration-300">Education</a>
-        <a href="#skills" class="hover:text-blue-600 transition duration-300">Skills</a>
-        <a href="#contact" class="hover:text-blue-600 transition duration-300">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="bg-gradient-to-r from-blue-700 to-indigo-600 text-white py-24 text-center" data-aos="fade-up">
-    <h2 class="text-5xl font-extrabold mb-4">Hi, I'm Alfaiz Khan</h2>
-    <p class="text-xl font-medium mb-6">Web Designer | CMS Specialist | Front-End Developer</p>
-    <a href="#contact" class="inline-block px-8 py-3 bg-white text-blue-700 font-bold rounded-full shadow-lg hover:bg-gray-100 transition duration-300">Get In Touch</a>
-  </section>
-
-  <section id="about" class="container mx-auto px-4 py-20" data-aos="fade-up">
-    <h3 class="text-3xl font-bold mb-6 border-l-4 border-blue-600 pl-3">About Me</h3>
-    <p class="leading-relaxed text-lg">I'm a web designer passionate about creating user-friendly websites that meet diverse business needs. I focus on crafting effective designs that give companies a competitive edge and drive revenue growth. With a blend of creativity and logic, I tackle challenges with a calm and focused approach, solving problems analytically.</p>
-  </section>
-
-  <section id="projects" class="bg-white py-20 px-4" data-aos="fade-up">
-    <div class="container mx-auto">
-      <h3 class="text-3xl font-bold mb-8 border-l-4 border-blue-600 pl-3">Projects</h3>
-      <div id="project-filter" class="mb-10 space-x-2 text-center">
-        <button class="bg-blue-100 text-blue-700 font-medium px-4 py-2 rounded hover:bg-blue-200" onclick="filterProjects('all')">All</button>
-        <button class="bg-gray-100 text-gray-700 font-medium px-4 py-2 rounded hover:bg-blue-100" onclick="filterProjects('WordPress')">WordPress</button>
-        <button class="bg-gray-100 text-gray-700 font-medium px-4 py-2 rounded hover:bg-blue-100" onclick="filterProjects('Shopify')">Shopify</button>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Alfaiz Khan</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
       </div>
-      <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" id="project-grid"></div>
+    </div>
+  </nav>
+
+  <section class="hero-section" data-aos="fade-up">
+    <div class="container">
+      <h2>Hi, I'm Alfaiz Khan</h2>
+      <p>Web Designer | CMS Specialist | Front-End Developer</p>
+      <a href="#contact" class="btn btn-outline-light mt-3">Get In Touch</a>
     </div>
   </section>
 
-  <section id="experience" class="container mx-auto px-4 py-20" data-aos="fade-up">
-    <h3 class="text-3xl font-bold mb-6 border-l-4 border-blue-600 pl-3">Experience</h3>
-    <div class="bg-white rounded-lg p-6 shadow-lg">
-      <h4 class="font-semibold text-lg">EvenDigit, Indore, MP <span class="text-sm text-gray-600">– June 2021 – Present</span></h4>
-      <p class="mt-4 text-gray-700 leading-relaxed">Software Engineer – Web Designer passionate about creating user-friendly websites that meet diverse business needs. Focused on crafting effective designs that give companies a competitive edge and drive revenue growth.</p>
+  <section id="about" class="py-5" data-aos="fade-up">
+    <div class="container">
+      <h3 class="mb-4">About Me</h3>
+      <p>I'm a web designer passionate about creating user-friendly websites that meet diverse business needs. I focus on crafting effective designs that give companies a competitive edge and drive revenue growth. With a blend of creativity and logic, I tackle challenges with a calm and focused approach, solving problems analytically.</p>
     </div>
   </section>
 
-  <section id="education" class="bg-gray-100 py-20 px-4" data-aos="fade-up">
-    <div class="container mx-auto">
-      <h3 class="text-3xl font-bold mb-6 border-l-4 border-blue-600 pl-3">Education</h3>
-      <div class="bg-white p-6 rounded shadow-lg">
-        <h4 class="text-lg font-semibold">St. Paul Institute of Professional Studies – May 2020</h4>
+  <section id="projects" class="py-5 bg-white" data-aos="fade-up">
+    <div class="container">
+      <h3 class="mb-4">Projects</h3>
+      <div class="row" id="project-grid"></div>
+    </div>
+  </section>
+
+  <section id="experience" class="py-5" data-aos="fade-up">
+    <div class="container">
+      <h3 class="mb-4">Experience</h3>
+      <div class="card p-4">
+        <h4 class="fw-semibold">EvenDigit, Indore, MP <small class="text-muted">– June 2021 – Present</small></h4>
+        <p>Software Engineer – Web Designer passionate about creating user-friendly websites that meet diverse business needs. Focused on crafting effective designs that give companies a competitive edge and drive revenue growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="py-5 bg-light" data-aos="fade-up">
+    <div class="container">
+      <h3 class="mb-4">Education</h3>
+      <div class="card p-4">
+        <h4>St. Paul Institute of Professional Studies – May 2020</h4>
         <p>Bachelor of Computer Applications, Indore, MP</p>
-        <ul class="list-disc ml-6 mt-2 text-sm text-gray-700 space-y-1">
+        <ul>
           <li>Received first prize at a science exhibition for a physics-based sewage treatment system.</li>
           <li>Secured second prize at a college festival for culinary excellence at a food stall.</li>
         </ul>
@@ -71,45 +107,49 @@
     </div>
   </section>
 
-  <section id="skills" class="container mx-auto px-4 py-20" data-aos="fade-up">
-    <h3 class="text-3xl font-bold mb-6 border-l-4 border-blue-600 pl-3">Skills & Interests</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <div>
-        <h4 class="font-semibold text-lg mb-2">Skills:</h4>
-        <ul class="list-disc ml-6 text-gray-700 space-y-1">
-          <li>CMS: WordPress, Shopify, Wix, Webflow</li>
-          <li>SEO, HTML, CSS, JavaScript</li>
-          <li>WooCommerce, Elementor, Responsive Design</li>
-          <li>Backend Operations, Debugging, Optimization</li>
-          <li>Communication, Collaboration, Attention to Detail</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-semibold text-lg mb-2">Interests:</h4>
-        <ul class="list-disc ml-6 text-gray-700 space-y-1">
-          <li>Traveling</li>
-          <li>Cricket</li>
-          <li>Snooker</li>
-          <li>Cooking</li>
-          <li>Movies</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="bg-gradient-to-r from-blue-700 to-indigo-600 text-white py-20" data-aos="fade-up">
-    <div class="container mx-auto px-4 text-center">
-      <h3 class="text-3xl font-bold mb-4">Let's Connect</h3>
-      <p class="mb-4 text-lg">Feel free to reach out via email or connect on social media.</p>
-      <p class="mb-2 text-white font-medium">📧 <a href="mailto:alfaizkhn18@gmail.com" class="underline">alfaizkhn18@gmail.com</a></p>
-      <div class="flex justify-center space-x-6 mt-6 text-lg">
-        <a href="https://www.linkedin.com/in/alfaiz-khan-75313924b" class="hover:underline" target="_blank">LinkedIn</a>
-        <a href="https://github.com/Alfaiz18/alfaiz18.github.io" class="hover:underline" target="_blank">GitHub</a>
+  <section id="skills" class="py-5" data-aos="fade-up">
+    <div class="container">
+      <h3 class="mb-4">Skills & Interests</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Skills</h5>
+          <ul>
+            <li>CMS: WordPress, Shopify, Wix, Webflow</li>
+            <li>SEO, HTML, CSS, JavaScript</li>
+            <li>WooCommerce, Elementor, Responsive Design</li>
+            <li>Backend Operations, Debugging, Optimization</li>
+            <li>Communication, Collaboration, Attention to Detail</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h5>Interests</h5>
+          <ul>
+            <li>Traveling</li>
+            <li>Cricket</li>
+            <li>Snooker</li>
+            <li>Cooking</li>
+            <li>Movies</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
+  <section id="contact" class="py-5 bg-dark text-white" data-aos="fade-up">
+    <div class="container text-center">
+      <h3>Let's Connect</h3>
+      <p>Email: <a href="mailto:alfaizkhn18@gmail.com" class="text-white">alfaizkhn18@gmail.com</a></p>
+      <p>
+        <a href="https://www.linkedin.com/in/alfaiz-khan-75313924b" class="text-light">LinkedIn</a> |
+        <a href="https://github.com/Alfaiz18/alfaiz18.github.io" class="text-light">GitHub</a>
+      </p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    AOS.init();
     const projects = [
       { name: "fidelispet.com", tech: "WordPress", url: "https://fidelispet.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
       { name: "evendigit.com", tech: "WordPress", url: "https://www.evendigit.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
@@ -126,27 +166,24 @@
       { name: "prettylittledesigns.com.au", tech: "Shopify", url: "https://prettylittledesigns.com.au/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
       { name: "showertoga.com", tech: "Shopify", url: "https://showertoga.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
       { name: "xtendoutdoors.com.au", tech: "Shopify", url: "https://www.xtendoutdoors.com.au/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "agelesszen.us", tech: "Shopify", url: "https://agelesszen.us/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
+      { name: "agelesszen.us", tech: "Shopify", url: "https://agelesszen.us/", image: "https://alfaiz18.github.io/images/fidelispet.png" }
     ];
 
-    function filterProjects(filter) {
-      const container = document.getElementById("project-grid");
-      container.innerHTML = "";
-      const filtered = filter === 'all' ? projects : projects.filter(p => p.tech === filter);
-      filtered.forEach(p => {
-        container.innerHTML += `
-          <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-1">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-contain mb-4 rounded">
-            <h4 class="font-bold text-lg mb-1">${p.name}</h4>
-            <p class="text-sm text-gray-600 mb-2">Tech: ${p.tech}</p>
-            <a href="${p.url}" target="_blank" class="text-blue-600 font-medium underline text-sm">View Project</a>
+    const grid = document.getElementById("project-grid");
+    projects.forEach(p => {
+      const col = document.createElement("div");
+      col.className = "col-md-4 mb-4";
+      col.innerHTML = `
+        <div class="card project-card h-100">
+          <img src="${p.image}" class="card-img-top" alt="${p.name}">
+          <div class="card-body">
+            <h5 class="card-title">${p.name}</h5>
+            <p class="card-text">${p.tech}</p>
+            <a href="${p.url}" target="_blank" class="btn btn-outline-primary btn-sm">View Project</a>
           </div>
-        `;
-      });
-    }
-
-    filterProjects('all');
-    AOS.init();
+        </div>`;
+      grid.appendChild(col);
+    });
   </script>
 </body>
 
