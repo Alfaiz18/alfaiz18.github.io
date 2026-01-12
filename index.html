@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alfaiz Khan – Portfolio</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <style>
-    /* Root Theme */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alfaiz Khan | Web Designer</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= ROOT THEME ================= */
 :root {
   --primary: #22c55e;
   --secondary: #14b8a6;
   --dark: #0f172a;
-  --light: #f8fafc;
   --muted: #64748b;
   --glass: rgba(255, 255, 255, 0.75);
 }
 
-/* Base */
+/* ================= BASE ================= */
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 0;
-  padding: 0;
   background: linear-gradient(135deg, #f0fdf4, #ecfeff);
   color: var(--dark);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
-/* Headings */
-h1, h2, h3 {
-  letter-spacing: -0.5px;
+section {
+  padding: 80px 0;
 }
 
-/* Hero Section */
+/* ================= HERO ================= */
 .hero {
-  padding: 6rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .hero h1 span {
@@ -46,365 +50,162 @@ h1, h2, h3 {
   -webkit-text-fill-color: transparent;
 }
 
-/* Availability Badge */
 .status {
   display: inline-flex;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--primary);
-  margin-top: 1rem;
+  margin-top: 15px;
 }
 
 .status i {
   font-size: 0.6rem;
-  margin-right: 0.4rem;
+  margin-right: 6px;
   animation: pulse 1.5s infinite;
 }
 
-/* Buttons */
-.btn {
-  padding: 0.55rem 1.2rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 500;
+/* ================= BUTTON ================= */
+.btn-modern {
+  padding: 10px 22px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  font-size: 0.9rem;
   border: none;
-  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
+.btn-modern:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(34, 197, 94, 0.35);
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
-}
-
-/* Glass Card */
+/* ================= GLASS CARD ================= */
 .card-box {
   background: var(--glass);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 2rem;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 35px;
+  border: 1px solid rgba(255,255,255,0.4);
+  transition: all 0.35s ease;
 }
 
 .card-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
 
-/* Section Titles */
-section h2 {
-  font-weight: 700;
-  margin-bottom: 1rem;
+/* ================= SERVICES ================= */
+.service-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.3rem;
 }
 
+/* ================= TEXT ================= */
 .text-muted {
-  color: var(--muted);
+  color: var(--muted) !important;
 }
 
-/* Animations */
+/* ================= ANIMATION ================= */
 @keyframes pulse {
   0% { opacity: 0.4; }
   50% { opacity: 1; }
   100% { opacity: 0.4; }
 }
-  </style>
-
+</style>
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light sticky-top py-3">
-    <div class="container d-flex justify-content-between align-items-center">
-      <a class="navbar-brand fw-bold fs-4" href="#">Alfaiz Khan</a>
-      <div class="d-none d-lg-block mx-auto">
-        <ul class="navbar-nav flex-row gap-3">
-          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <a href="#contact" class="btn btn-sm">Contact Me ></a>
-    </div>
-  </nav>
 
-  <!-- Hero Section -->
-  <section class="py-5 " data-aos="fade-up">
-    <div class="container">
-      <div class="row align-items-center">
-<!--         <div class="col-md-4 text-center mb-4 mb-md-0">
-          <div class="card-box rounded-4 p-4 shadow-sm">
-            <img src="https://alfaiz18.github.io/images/fidelispet.png" class="rounded-circle border border-3 border-success p-1" alt="Alfaiz Khan" width="150">
-            <h4 class="mt-3 fw-bold">Alfaiz Khan</h4>
-            <p class="text-muted small">Web Designer based in Indore</p>
-            <div class="d-flex justify-content-center gap-3 mt-2">
-              <a href="https://www.linkedin.com/in/alfaiz-khan-75313924b" target="_blank"><i class="bi bi-linkedin fs-5"></i></a>
-              <a href="https://github.com/Alfaiz18/alfaiz18.github.io" target="_blank"><i class="bi bi-github fs-5"></i></a>
-            </div>
-          </div>
-        </div> -->
-        <div class="col-md-12">
-          <div class="card-box rounded-4 p-4 shadow-sm">
-            <p class="text-muted">Hello There!</p>
-            <h1 class="fw-bold fs-3">I’m <span class="text-success">Alfaiz Khan</span>, a Web Designer crafting user-centric websites with pixel-perfect precision.</h1>
-<p class="status">
-  <i class="bi bi-circle-fill"></i> Available for Freelancing
-</p>
-<a href="https://alfaiz18.github.io/images/Alfaiz_Khan_Resume.pdf"
-   class="btn btn-primary mt-3">
-  Download CV <i class="bi bi-download ms-1"></i>
-</a>
-          </div>
-        </div>
+<!-- ================= HERO SECTION ================= -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+
+        <p class="text-muted">Hello There!</p>
+
+        <h1 class="fw-bold fs-2">
+          I’m <span>Alfaiz Khan</span>, a Web Designer crafting user-centric websites with pixel-perfect precision.
+        </h1>
+
+        <p class="status">
+          <i class="bi bi-circle-fill"></i> Available for Freelancing
+        </p>
+
+        <a href="https://alfaiz18.github.io/images/Alfaiz_Khan_Resume.pdf"
+           class="btn btn-modern mt-3">
+          Download CV <i class="bi bi-download ms-1"></i>
+        </a>
+
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- About Section -->
-  <section id="about" class="py-5" data-aos="fade-up">
-    <div class="container">
-      <h2 class="mb-4">About Me</h2>
-      <p class="text-muted">I'm a web designer passionate about creating user-friendly websites that meet diverse business needs. Creative and detail-oriented Web Designer with 4+ years of experience in building responsive, user-friendly websites across WordPress, Shopify, Wix, and Webflow. Proven track record of solving content and UI/UX challenges through logic-driven problem-solving and a strong design sense. Experienced in optimizing for SEO and improving customer engagement through effective, scalable design systems.</p>
-    </div>
-  </section>
+<!-- ================= ABOUT SECTION ================= -->
+<section id="about">
+  <div class="container">
+    <h2 class="fw-bold mb-4">About Me</h2>
+    <p class="text-muted">
+      I'm a web designer passionate about creating user-friendly websites that meet diverse business needs.
+      Creative and detail-oriented Web Designer with 4+ years of experience building responsive websites across
+      WordPress, Shopify, Wix, and Webflow. Strong in UI/UX, SEO optimization, and scalable design systems.
+    </p>
+  </div>
+</section>
 
-  <!-- Services Section -->
-  <section id="services" class="py-5" data-aos="fade-up">
-    <div class="container">
-      <div class="text-center mb-5">
-        <small class="text-muted">Services</small>
-        <h2 class="fw-bold">Quality Services</h2>
-      </div>
-      <div class="row g-4 justify-content-center">
-        <div class="col-md-4">
-          <div class="border rounded p-4 text-center card-box h-100">
-            <i class="bi bi-palette fs-1 text-success mb-3"></i>
-            <h4 class="fw-bold">Custom Web Design</h4>
-            <p class="text-muted">Responsive, engaging websites tailored for desktop and mobile using WordPress, HTML/CSS, JavaScript, and Elementor.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="border rounded p-4 text-center card-box h-100">
-            <i class="bi bi-shop-window fs-1 text-success mb-3"></i>
-            <h4 class="fw-bold">E-Commerce Development</h4>
-            <p class="text-muted">Shopify and WooCommerce stores customized for performance and conversions, with payment gateway integrations like Stripe.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="border rounded p-4 text-center card-box h-100">
-            <i class="bi bi-speedometer2 fs-1 text-success mb-3"></i>
-            <h4 class="fw-bold">Performance & UX Enhancement</h4>
-            <p class="text-muted">Improve loading times, mobile usability, and user interactions with design and speed optimization best practices.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="border rounded p-4 text-center card-box h-100">
-            <i class="bi bi-graph-up fs-1 text-success mb-3"></i>
-            <h4 class="fw-bold">SEO Optimization</h4>
-            <p class="text-muted">On-page SEO, meta tag management, and keyword structuring to boost organic visibility and engagement.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="border rounded p-4 text-center card-box h-100">
-            <i class="bi bi-layers fs-1 text-success mb-3"></i>
-            <h4 class="fw-bold">CMS Integration</h4>
-            <p class="text-muted">Flexible and scalable content management systems using WordPress, Webflow, Wix, and custom ACF/Liquid setups.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="border rounded p-4 text-center card-box h-100">
-            <i class="bi bi-code-slash fs-1 text-success mb-3"></i>
-            <h4 class="fw-bold">Landing Pages & Microsites</h4>
-            <p class="text-muted">Fast-loading, conversion-focused landing pages designed for campaigns, products, and lead generation funnels.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience & Education -->
-  <section class="py-5" data-aos="fade-up">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-md-6">
-          <div class="card-box rounded p-4 shadow-sm h-100">
-            <h2 class="fw-bold mb-4">Experience</h2>
-            <div class="mb-3">
-              <h6 class="fw-semibold mb-1">EvenDigit, Indore</h6>
-              <small class="text-muted">2021 – Present</small>
-              <p class="mb-0 text-muted small">Web Designer | Delivering user-first websites and CMS solutions.</p>
-            </div>
-            <div class="mb-3">
-              <h6 class="fw-semibold mb-1">Freelancer Projects</h6>
-              <small class="text-muted">2019 – 2021</small>
-              <p class="mb-0 text-muted small">Worked with 15+ international clients across eCommerce and SaaS.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card-box rounded p-4 shadow-sm h-100">
-            <h2 class="fw-bold mb-4">Education</h2>
-            <div class="mb-3">
-              <h6 class="fw-semibold mb-1">Bachelor of Computer Applications</h6>
-              <small class="text-muted">St. Paul Institute, 2017 – 2020</small>
-              <p class="mb-0 text-muted small">Specialized in web technologies and development practices.</p>
-            </div>
-            <div class="mb-3">
-              <h6 class="fw-semibold mb-1">Higher Secondary</h6>
-              <small class="text-muted">Board of Secondary Education, 2015 – 2016</small>
-              <p class="mb-0 text-muted small">Completed maths stream with focus on computer fundamentals.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-<!-- Skills Section -->
-<section id="skills" class="py-5" data-aos="fade-up">
+<!-- ================= SERVICES SECTION ================= -->
+<section id="services">
   <div class="container">
     <div class="text-center mb-5">
-      <small class="text-muted">Pro Skills</small>
-      <h2 class="fw-bold">Let’s Explore My Skills</h2>
+      <small class="text-muted">Services</small>
+      <h2 class="fw-bold">Quality Services</h2>
     </div>
-    <div class="row g-4">
-      <!-- Figma -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Figma" width="40" class="mb-2">
-          <h6 class="fw-bold">Figma</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-success fw-semibold" style="width: 99%;">99%</div>
+
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-md-4">
+        <div class="card-box text-center h-100">
+          <div class="service-icon">
+            <i class="bi bi-laptop"></i>
           </div>
+          <h5 class="fw-semibold">Web Design</h5>
+          <p class="text-muted">
+            Modern, responsive, and user-focused website designs tailored to your business needs.
+          </p>
         </div>
       </div>
 
-      <!-- Tailwind -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="Tailwind" width="40" class="mb-2">
-          <h6 class="fw-bold">Tailwind</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-info fw-semibold" style="width: 90%;">90%</div>
+      <div class="col-md-4">
+        <div class="card-box text-center h-100">
+          <div class="service-icon">
+            <i class="bi bi-phone"></i>
           </div>
+          <h5 class="fw-semibold">UI/UX Design</h5>
+          <p class="text-muted">
+            Intuitive interfaces designed to improve user engagement and conversion.
+          </p>
         </div>
       </div>
 
-      <!-- Photoshop -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968520.png" alt="Photoshop" width="40" class="mb-2">
-          <h6 class="fw-bold">Photoshop</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-primary fw-semibold" style="width: 85%;">85%</div>
+      <div class="col-md-4">
+        <div class="card-box text-center h-100">
+          <div class="service-icon">
+            <i class="bi bi-graph-up"></i>
           </div>
-        </div>
-      </div>
-
-      <!-- WordPress -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://alfaiz18.github.io/images/Wordpress_Blue_logo.png" alt="WordPress" width="40" class="mb-2">
-          <h6 class="fw-bold">WordPress</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-dark fw-semibold" style="width: 92%;">92%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SEO -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://cdn-icons-png.flaticon.com/512/2721/2721294.png" alt="SEO" width="40" class="mb-2">
-          <h6 class="fw-bold">SEO</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-warning fw-semibold" style="width: 95%;">95%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Webflow -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://alfaiz18.github.io/images/webflow-logo.png" alt="Webflow" width="40" class="mb-2">
-          <h6 class="fw-bold">Webflow</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-secondary fw-semibold" style="width: 88%;">88%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HTML -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML" width="40" class="mb-2">
-          <h6 class="fw-bold">HTML</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-danger fw-semibold" style="width: 97%;">97%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CSS -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS" width="40" class="mb-2">
-          <h6 class="fw-bold">CSS</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-info fw-semibold" style="width: 94%;">94%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Wix -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://alfaiz18.github.io/images/Wix-Logo.png" alt="Wix" width="40" class="mb-2">
-          <h6 class="fw-bold">Wix</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-primary fw-semibold" style="width: 89%;">89%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Unbounce -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://cdn-icons-png.flaticon.com/512/906/906343.png" alt="Unbounce" width="40" class="mb-2">
-          <h6 class="fw-bold">Unbounce</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-success fw-semibold" style="width: 87%;">87%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Duda CMS -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://alfaiz18.github.io/images/Duda-Logo.png" alt="Duda CMS" width="40" class="mb-2">
-          <h6 class="fw-bold">Duda CMS</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-info fw-semibold" style="width: 84%;">84%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BigCommerce -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card-box rounded-4 text-center p-3 border h-100">
-          <img src="https://alfaiz18.github.io/images/Big-Commarce-Logo.png" alt="BigCommerce" width="40" class="mb-2">
-          <h6 class="fw-bold">BigCommerce</h6>
-          <div class="progress rounded-pill mt-2" style="height: 20px;">
-            <div class="progress-bar bg-dark fw-semibold" style="width: 90%;">90%</div>
-          </div>
+          <h5 class="fw-semibold">SEO Optimization</h5>
+          <p class="text-muted">
+            SEO-friendly layouts that help improve visibility and performance.
+          </p>
         </div>
       </div>
 
@@ -412,92 +213,5 @@ section h2 {
   </div>
 </section>
 
-
-  <!-- Projects Section -->
-  <section id="projects" class="py-5 " data-aos="fade-up">
-    <div class="container">
-      <div class="text-center mb-4">
-        <h2 class="fw-bold">Works & Projects</h2>
-        <p class="text-muted">Check out some of my design projects, meticulously crafted with love and dedication, each one reflecting the passion and soul I poured into every detail.</p>
-      </div>
-      <ul class="nav justify-content-center mb-4" id="projectFilter">
-        <li class="nav-item"><a class="nav-link active fw-semibold text-success" href="#" data-filter="all">Show All</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-filter="WordPress">WordPress</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" data-filter="Shopify">Shopify</a></li>
-      </ul>
-      <div class="row g-4" id="projectGrid"></div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-5 text-white" data-aos="fade-up">
-    <div class="container text-center">
-      <h2>Let's Connect</h2>
-      <p>Email: <a href="mailto:alfaizkhn18@gmail.com" class="text-white">alfaizkhn18@gmail.com</a></p>
-      <p>Phone: <a href="tel:8878490186" class="text-white">8878490186</a></p>
-      <p>
-        <a href="https://www.linkedin.com/in/alfaiz-khan-75313924b" class="text-light">LinkedIn</a> |
-        <a href="https://github.com/Alfaiz18/alfaiz18.github.io" class="text-light">GitHub</a>
-      </p>
-    </div>
-  </section>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-    const projects = [
-       { name: "fidelispet.com", tech: "WordPress", url: "https://fidelispet.com/", image: "https://alfaiz18.github.io/images/fidelispet.png" },
-      { name: "evendigit.com", tech: "WordPress", url: "https://www.evendigit.com/", image: "https://alfaiz18.github.io/images/EvenDigit-Logo.png" },
-      { name: "softude.ai", tech: "WordPress", url: "https://softude.ai/", image: "https://alfaiz18.github.io/images/SoftudeAi-Logo.png" },
-      { name: "pelazzio.com", tech: "WordPress", url: "https://pelazzio.com/", image: "https://alfaiz18.github.io/images/Pelazzio-Logo.png" },
-      { name: "alhambraschoolofmusic.com", tech: "WordPress", url: "https://alhambraschoolofmusic.com/", image: "https://alfaiz18.github.io/images/Alhambraschool-Logo.png" },
-      { name: "darebin.com.au", tech: "WordPress", url: "https://www.darebin.com.au/", image: "https://alfaiz18.github.io/images/Darebin-Logo.png" },
-      { name: "fuel.me", tech: "WordPress", url: "https://fuel.me/", image: "https://alfaiz18.github.io/images/FuelMe-logo.png" },
-      { name: "unitedrenalservices.com", tech: "WordPress", url: "https://www.unitedrenalservices.com/", image: "https://alfaiz18.github.io/images/UnitedRenal-Logo.png" },
-      { name: "stargrafixmarketing.com", tech: "WordPress", url: "https://www.stargrafixmarketing.com/", image: "https://alfaiz18.github.io/images/Stargrafix-Logo.png" },
-      { name: "pluscenta.com", tech: "Shopify", url: "https://pluscenta.com/", image: "https://alfaiz18.github.io/images/Pluscenta-Logo.png" },
-      { name: "bearfruitjewelry.com", tech: "Shopify", url: "https://bearfruitjewelry.com/", image: "https://alfaiz18.github.io/images/BearFruit-Logo.png" },
-      { name: "asia.yokkao.com", tech: "Shopify", url: "https://asia.yokkao.com/", image: "https://alfaiz18.github.io/images/Yokkao-Logo.png" },
-      { name: "prettylittledesigns.com.au", tech: "Shopify", url: "https://prettylittledesigns.com.au/", image: "https://alfaiz18.github.io/images/PLD-Logo.png" },
-      { name: "showertoga.com", tech: "Shopify", url: "https://showertoga.com/", image: "https://alfaiz18.github.io/images/ShowerToga-Logo.png" },
-      { name: "xtendoutdoors.com.au", tech: "Shopify", url: "https://www.xtendoutdoors.com.au/", image: "https://alfaiz18.github.io/images/XtendOutdoor-Logo.png" },
-      { name: "agelesszen.us", tech: "Shopify", url: "https://agelesszen.us/", image: "https://alfaiz18.github.io/images/AgelessZen-Logo.png" },
-    ];
-
-    function renderProjects(filter = "all") {
-      const grid = document.getElementById("projectGrid");
-      grid.innerHTML = "";
-      const filtered = filter === "all" ? projects : projects.filter(p => p.tech === filter);
-      filtered.forEach(p => {
-        const col = document.createElement("div");
-        col.className = "col-md-4";
-        col.innerHTML = `
-          <div class="card-box border rounded-4 overflow-hidden shadow-sm h-100">
-            <img src="${p.image}" alt="${p.name}" class="img-fluid">
-            <div class="p-3">
-              <small class="text-muted d-block">${p.tech}</small>
-              <h6 class="fw-bold">${p.name}</h6>
-              <a href="${p.url}" target="_blank" class="btn btn-sm mt-2">View Site</a>
-            </div>
-          </div>
-        `;
-        grid.appendChild(col);
-      });
-    }
-
-    document.querySelectorAll("#projectFilter .nav-link").forEach(link => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        document.querySelectorAll("#projectFilter .nav-link").forEach(l => l.classList.remove("active", "text-success"));
-        this.classList.add("active", "text-success");
-        renderProjects(this.dataset.filter);
-      });
-    });
-
-    renderProjects();
-  </script>
 </body>
-
 </html>
-
