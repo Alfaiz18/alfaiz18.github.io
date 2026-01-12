@@ -15,16 +15,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ================= ROOT THEME ================= */
 :root {
   --primary: #22c55e;
   --secondary: #14b8a6;
   --dark: #0f172a;
-  --muted: #64748b;
-  --glass: rgba(255, 255, 255, 0.75);
+  --light-bg: #f8fafc;
+  --footer-bg: #0d283b;
+  --footer-text: #e1e8ed;
 }
-
-/* ================= BASE ================= */
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
@@ -33,11 +31,9 @@ body {
   line-height: 1.7;
 }
 
-section {
-  padding: 80px 0;
-}
+section { padding: 80px 0; }
 
-/* ================= HERO ================= */
+/* Hero */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -57,14 +53,13 @@ section {
   color: var(--primary);
   margin-top: 15px;
 }
-
 .status i {
   font-size: 0.6rem;
   margin-right: 6px;
   animation: pulse 1.5s infinite;
 }
 
-/* ================= BUTTON ================= */
+/* Buttons */
 .btn-modern {
   padding: 10px 22px;
   border-radius: 50px;
@@ -74,28 +69,26 @@ section {
   border: none;
   transition: all 0.3s ease;
 }
-
 .btn-modern:hover {
   transform: translateY(-3px);
   box-shadow: 0 15px 30px rgba(34, 197, 94, 0.35);
 }
 
-/* ================= GLASS CARD ================= */
+/* Glass card */
 .card-box {
-  background: var(--glass);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(14px);
   border-radius: 18px;
   padding: 35px;
   border: 1px solid rgba(255,255,255,0.4);
   transition: all 0.35s ease;
 }
-
 .card-box:hover {
   transform: translateY(-10px);
   box-shadow: 0 25px 50px rgba(0,0,0,0.08);
 }
 
-/* ================= SERVICES ================= */
+/* Services icon */
 .service-icon {
   width: 55px;
   height: 55px;
@@ -109,109 +102,103 @@ section {
   font-size: 1.3rem;
 }
 
-/* ================= TEXT ================= */
-.text-muted {
-  color: var(--muted) !important;
+/* Footer */
+footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 40px 0;
+  text-align: center;
 }
-
-/* ================= ANIMATION ================= */
+footer a {
+  color: var(--footer-text);
+  text-decoration: none;
+}
+footer a:hover {
+  color: var(--primary);
+}
 @keyframes pulse {
   0% { opacity: 0.4; }
   50% { opacity: 1; }
   100% { opacity: 0.4; }
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- ================= HERO SECTION ================= -->
-<section class="hero">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-7">
-
-        <p class="text-muted">Hello There!</p>
-
-        <h1 class="fw-bold fs-2">
-          I’m <span>Alfaiz Khan</span>, a Web Designer crafting user-centric websites with pixel-perfect precision.
-        </h1>
-
-        <p class="status">
-          <i class="bi bi-circle-fill"></i> Available for Freelancing
-        </p>
-
-        <a href="https://alfaiz18.github.io/images/Alfaiz_Khan_Resume.pdf"
-           class="btn btn-modern mt-3">
-          Download CV <i class="bi bi-download ms-1"></i>
-        </a>
-
-      </div>
+    <a class="navbar-brand fw-bold" href="#">Alfaiz Khan</a>
+    <button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
     </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero text-center">
+  <div class="container">
+    <p class="text-muted">Hello There!</p>
+    <h1 class="fw-bold fs-2">
+      I’m <span>Alfaiz Khan</span>, a Web Designer crafting user-centric experiences.
+    </h1>
+    <p class="status"><i class="bi bi-circle-fill"></i> Available for Freelancing</p>
+    <a href="https://alfaiz18.github.io/images/Alfaiz_Khan_Resume.pdf"
+       class="btn btn-modern mt-3">Download CV <i class="bi bi-download ms-1"></i></a>
   </div>
 </section>
 
-<!-- ================= ABOUT SECTION ================= -->
+<!-- About -->
 <section id="about">
   <div class="container">
     <h2 class="fw-bold mb-4">About Me</h2>
-    <p class="text-muted">
-      I'm a web designer passionate about creating user-friendly websites that meet diverse business needs.
-      Creative and detail-oriented Web Designer with 4+ years of experience building responsive websites across
-      WordPress, Shopify, Wix, and Webflow. Strong in UI/UX, SEO optimization, and scalable design systems.
-    </p>
+    <p class="text-muted">I'm a web designer passionate about creating user-friendly websites that meet diverse business needs…</p>
   </div>
 </section>
 
-<!-- ================= SERVICES SECTION ================= -->
+<!-- Services -->
 <section id="services">
   <div class="container">
     <div class="text-center mb-5">
       <small class="text-muted">Services</small>
       <h2 class="fw-bold">Quality Services</h2>
     </div>
-
     <div class="row g-4 justify-content-center">
-
       <div class="col-md-4">
         <div class="card-box text-center h-100">
-          <div class="service-icon">
-            <i class="bi bi-laptop"></i>
-          </div>
-          <h5 class="fw-semibold">Web Design</h5>
-          <p class="text-muted">
-            Modern, responsive, and user-focused website designs tailored to your business needs.
-          </p>
+          <div class="service-icon"><i class="bi bi-laptop"></i></div>
+          <h5>Web Design</h5>
+          <p class="text-muted">Modern responsive designs to grow your business.</p>
         </div>
       </div>
-
-      <div class="col-md-4">
-        <div class="card-box text-center h-100">
-          <div class="service-icon">
-            <i class="bi bi-phone"></i>
-          </div>
-          <h5 class="fw-semibold">UI/UX Design</h5>
-          <p class="text-muted">
-            Intuitive interfaces designed to improve user engagement and conversion.
-          </p>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card-box text-center h-100">
-          <div class="service-icon">
-            <i class="bi bi-graph-up"></i>
-          </div>
-          <h5 class="fw-semibold">SEO Optimization</h5>
-          <p class="text-muted">
-            SEO-friendly layouts that help improve visibility and performance.
-          </p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
+<!-- Contact -->
+<section id="contact">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Let’s Connect</h2>
+    <p class="text-muted">Email: alfaizkhn18@gmail.com</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Alfaiz Khan — Designed with passion.</p>
+  <p><a href="https://linkedin.com">LinkedIn</a> | <a href="https://github.com">GitHub</a></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
