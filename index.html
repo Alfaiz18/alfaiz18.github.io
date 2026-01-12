@@ -10,98 +10,110 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0f0f0f;
-      color: #ffffff;
-      font-size: 18px;
-    }
-    @media (max-width: 768px) {
-      body {
-        font-size: 16px;
-      }
-    }
+    /* Root Theme */
+:root {
+  --primary: #22c55e;
+  --secondary: #14b8a6;
+  --dark: #0f172a;
+  --light: #f8fafc;
+  --muted: #64748b;
+  --glass: rgba(255, 255, 255, 0.75);
+}
 
-    h1, h2, h3, h4, h5, h6, p, small, span, a {
-      color: #ffffff;
-    }
+/* Base */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #f0fdf4, #ecfeff);
+  color: var(--dark);
+  line-height: 1.6;
+}
 
-    .nav-link {
-      font-weight: 600;
-      color: #ffffff;
-    }
-    .nav-link:hover,
-    .nav-link.active,
-    a:hover,
-    .btn:hover {
-      color: #4bffa5 !important;
-    }
+/* Headings */
+h1, h2, h3 {
+  letter-spacing: -0.5px;
+}
 
-    section {
-      padding: 5rem 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
-    }
-    section:first-of-type {
-      border-top: none;
-    }
+/* Hero Section */
+.hero {
+  padding: 6rem 1rem;
+}
 
-    .card-box {
-      background-color: transparent !important;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-    }
+.hero h1 span {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    .text-muted {
-      color: #9ca3af !important;
-    }
-    .text-success {
-      color: #4bffa5 !important;
-    }
-    .bg-dark {
-      background-color: #0f172a !important;
-    }
-    .border {
-      border-color: rgba(255, 255, 255, 0.07) !important;
-    }
-    .shadow-sm {
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5) !important;
-    }
+/* Availability Badge */
+.status {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--primary);
+  margin-top: 1rem;
+}
 
-    .navbar-brand {
-      color: #ffffff;
-    }
-    .navbar-brand:hover {
-      color: #ffffff;
-    }
+.status i {
+  font-size: 0.6rem;
+  margin-right: 0.4rem;
+  animation: pulse 1.5s infinite;
+}
 
-    .btn {
-      color: #000000;
-      background-color: #4bffa5;
-      padding: 10px 40px;
-      border: none;
-    }
-    .btn:hover {
-      color: #4bffa5;
-      background-color: transparent;
-      border: 1px solid #4bffa5;
-    }
+/* Buttons */
+.btn {
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    .sticky-top {
-      background-color: #000000;
-    }
-    a {
-      text-decoration: none;
-    }
-    a:hover {
-      color: #4bffa5;
-    }
-    #projects .img-fluid {
-    max-width: 100%;
-    height: 160px;
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+}
+
+/* Glass Card */
+.card-box {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.card-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Section Titles */
+section h2 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
 }
   </style>
-
 
 </head>
 
@@ -488,4 +500,5 @@
 </body>
 
 </html>
+
 
