@@ -85,6 +85,16 @@ body {
   overflow-x: hidden;
 }
 
+/* Site-wide mouse-reactive dust/particle field — one fixed canvas behind
+   every section on every page (drawn by script.js). Sits below all normal
+   content since sections/cards paint their own backgrounds on top of it. */
+.site-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
@@ -335,14 +345,6 @@ textarea:focus-visible {
   overflow: hidden;
 }
 
-/* Dense, mouse-reactive dust/particle field (canvas, drawn by script.js) */
-.hero-particles {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none; /* mouse is tracked on the parent .hero element instead */
-}
-
 .hero-inner { position: relative; z-index: 1; }
 
 .hero-kicker {
@@ -581,16 +583,18 @@ textarea:focus-visible {
 .tech-marquee {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.75rem;
   margin: 0 calc(var(--gutter) * -1);
-  padding-block: 0.5rem;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  padding: 1.25rem 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
 .tech-marquee-row {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   width: 100%;
+  padding-block: 0.75rem; /* room for hover lift/scale so it never clips */
 }
 
 .tech-track {
@@ -600,12 +604,15 @@ textarea:focus-visible {
   width: max-content;
   will-change: transform;
 }
-.track-left { animation: marqueeLeft 34s linear infinite; }
-.track-right { animation: marqueeRight 34s linear infinite; }
+.track-left { animation: marqueeLeft 48s linear infinite; }
+.track-right { animation: marqueeRight 48s linear infinite; }
 .tech-marquee-row:hover .tech-track { animation-play-state: paused; }
 
-@keyframes marqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes marqueeRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+/* Tracks are duplicated 4x in the HTML for a seamless loop — translating
+   exactly one quarter of the total width lands back on an identical copy,
+   so the wrap is invisible regardless of how many icons are in a row. */
+@keyframes marqueeLeft { from { transform: translateX(0); } to { transform: translateX(-25%); } }
+@keyframes marqueeRight { from { transform: translateX(-25%); } to { transform: translateX(0); } }
 @media (prefers-reduced-motion: reduce) {
   .track-left, .track-right { animation: none; }
 }
@@ -853,7 +860,7 @@ textarea:focus-visible {
 
 .contact-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.25rem;
   margin-top: clamp(3.5rem, 8vw, 6rem);
 }
@@ -861,7 +868,7 @@ textarea:focus-visible {
   --card-accent: var(--accent-wp);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 1.6rem;
+  padding: 1.5rem 1.6rem;
   position: relative;
   transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
   display: flex;
@@ -870,6 +877,7 @@ textarea:focus-visible {
   text-align: left;
   background: var(--bg-card);
   overflow: hidden;
+  min-height: 84px;
 }
 .contact-card::before {
   content: "";
@@ -894,53 +902,39 @@ textarea:focus-visible {
   display: flex; align-items: center; justify-content: center;
   background: color-mix(in srgb, var(--card-accent) 14%, transparent);
   color: var(--card-accent);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
   transition: transform var(--dur-fast) var(--ease);
 }
 .contact-card-icon svg { width: 20px; height: 20px; }
 .contact-card:hover .contact-card-icon { transform: scale(1.08) rotate(-4deg); }
 
-.contact-card-text { flex: 1; min-width: 0; position: relative; z-index: 1; }
+.contact-card-text {
+  flex: 1;
+  min-width: 0; /* required so the ellipsis rule below can actually kick in */
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
 .contact-card-label {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  margin-bottom: 0.3rem;
 }
 .contact-card-value {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.02rem;
-  word-break: break-word;
+  font-size: 1rem;
   display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* long emails/numbers truncate cleanly instead of wrapping */
 }
-
-.copy-btn {
-  flex-shrink: 0;
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text-tertiary);
-  position: relative;
-  z-index: 1;
-  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
-}
-.copy-btn:hover { border-color: var(--card-accent); color: var(--card-accent); }
-.copy-btn svg { width: 14px; height: 14px; }
-.copy-flag {
-  position: absolute;
-  top: 0.75rem; right: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--accent-shopify);
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
-  z-index: 2;
-}
-.copy-flag.is-shown { opacity: 1; transform: translateY(0); }
 
 /* ---------- Footer ---------- */
 .site-footer {
@@ -965,20 +959,51 @@ textarea:focus-visible {
 .footer-socials a:hover { color: var(--text-primary); }
 
 /* ---------- Custom cursor (desktop only, decorative) ---------- */
-.cursor-dot {
+.cursor-ring {
   position: fixed;
   top: 0; left: 0;
-  width: 8px; height: 8px;
+  width: 26px; height: 26px;
   border-radius: 50%;
-  background: var(--text-primary);
+  border: 1.5px solid color-mix(in srgb, var(--accent-wp) 70%, transparent);
+  background: color-mix(in srgb, var(--accent-wp) 8%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent-wp) 35%, transparent);
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-  mix-blend-mode: difference;
+  opacity: 0;
+  transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease), opacity 0.25s var(--ease);
 }
-.cursor-dot.is-hovering { width: 44px; height: 44px; background: var(--text-primary); }
-@media (hover: none), (max-width: 900px) { .cursor-dot { display: none; } }
+.cursor-ring-dot {
+  position: absolute;
+  inset: 0; margin: auto;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent-shopify);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.cursor-ring.is-hovering {
+  width: 56px; height: 56px;
+  border-color: color-mix(in srgb, var(--accent-shopify) 75%, transparent);
+  background: color-mix(in srgb, var(--accent-shopify) 10%, transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--accent-shopify) 40%, transparent);
+}
+.cursor-ring.is-hovering .cursor-ring-dot { opacity: 0; transform: scale(0.3); }
+
+html.has-custom-cursor,
+html.has-custom-cursor a,
+html.has-custom-cursor button,
+html.has-custom-cursor .project-card,
+html.has-custom-cursor .tech-tile {
+  cursor: none;
+}
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor select {
+  cursor: text;
+}
+@media (hover: none), (max-width: 900px) {
+  .cursor-ring { display: none; }
+  html.has-custom-cursor, html.has-custom-cursor a, html.has-custom-cursor button { cursor: auto; }
+}
 
 /* ---------- Misc project-detail-page shared bits (also used via projects/*.css import of this file) ---------- */
 .breadcrumb-bar {
