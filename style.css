@@ -46,7 +46,9 @@
   /* Layout */
   --container: 1240px;
   --gutter: clamp(1.5rem, 5vw, 5rem);
-  --section-pad: clamp(5rem, 12vw, 10rem);
+  /* Applied to BOTH top and bottom of every section, so two adjacent
+     sections combine to a consistent ~80px visual gap instead of doubling. */
+  --section-pad: clamp(2.25rem, 4vw, 2.75rem);
 
   /* Motion */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -213,12 +215,17 @@ textarea:focus-visible {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 1.4rem var(--gutter);
+  padding: 1.4rem 0;
+  transition: transform var(--dur-med) var(--ease), background var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease), padding var(--dur-med) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.site-nav-inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: transform var(--dur-med) var(--ease), background var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease), padding var(--dur-med) var(--ease);
-  border-bottom: 1px solid transparent;
 }
 .site-nav.is-scrolled {
   background: rgba(10, 10, 12, 0.72);
@@ -341,6 +348,34 @@ textarea:focus-visible {
   stroke-width: 1;
   stroke-linecap: round;
   opacity: 0.5;
+}
+
+/* Mouse-reactive particle field (canvas, drawn by script.js) */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none; /* mouse is tracked on the parent .hero element instead */
+}
+
+/* Floating dev-themed glyphs — brackets, tags, nodes drifting slowly */
+.hero-glyphs { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.float-glyph {
+  position: absolute;
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+  opacity: 0.22;
+  user-select: none;
+  animation: floatDrift 16s ease-in-out infinite;
+}
+.float-glyph.accent-wp-glyph { color: var(--accent-wp); }
+.float-glyph.accent-shopify-glyph { color: var(--accent-shopify); }
+@keyframes floatDrift {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(14px, -18px) rotate(4deg); }
+  50%  { transform: translate(-8px, 10px) rotate(-3deg); }
+  75%  { transform: translate(10px, 16px) rotate(2deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 .hero-inner { position: relative; z-index: 1; }
@@ -577,6 +612,116 @@ textarea:focus-visible {
 }
 .skill-card:hover .skill-tag { border-color: var(--border-strong); }
 
+/* ---------- Skills — interactive tech icon grid ---------- */
+.tech-category { margin-bottom: 2.5rem; }
+.tech-category:last-child { margin-bottom: 0; }
+.tech-category-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1.1rem;
+}
+.tech-category-label .dot-sm { width: 6px; height: 6px; border-radius: 50%; }
+.tech-category-label.wp .dot-sm { background: var(--accent-wp); }
+.tech-category-label.shopify .dot-sm { background: var(--accent-shopify); }
+.tech-category-label.neutral .dot-sm { background: var(--text-tertiary); }
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 0.9rem;
+}
+
+.tech-tile {
+  --tile-accent: var(--text-secondary);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1.1rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
+  cursor: default;
+  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.tech-tile:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  border-color: var(--tile-accent);
+  background: var(--bg-elevated-2);
+}
+.tech-tile.wp { --tile-accent: var(--accent-wp); }
+.tech-tile.shopify { --tile-accent: var(--accent-shopify); }
+
+.tech-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: var(--tile-accent);
+  background: color-mix(in srgb, var(--tile-accent) 14%, transparent);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.tech-tile:hover .tech-icon { transform: scale(1.12) rotate(6deg); }
+
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  text-align: center;
+  letter-spacing: 0.01em;
+  transition: color var(--dur-fast) var(--ease);
+}
+.tech-tile:hover .tech-label { color: var(--text-primary); }
+
+/* ---------- Process / workflow section ---------- */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  position: relative;
+}
+@media (max-width: 900px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .process-grid { grid-template-columns: 1fr; } }
+
+.process-step {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem 1.5rem;
+  background: var(--bg-card);
+  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  position: relative;
+}
+.process-step:hover { transform: translateY(-6px); border-color: var(--border-hover); }
+.process-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin-bottom: 1rem;
+}
+.process-title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.6rem; }
+.process-desc { color: var(--text-secondary); font-size: 0.88rem; }
+.process-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 2.4rem;
+  right: -0.9rem;
+  width: 0.9rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-wp), var(--accent-shopify));
+  opacity: 0.5;
+}
+@media (max-width: 900px) { .process-step::after { display: none; } }
+
 /* ---------- Projects ---------- */
 .filters {
   display: flex;
@@ -684,56 +829,112 @@ textarea:focus-visible {
 
 .contact-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.25rem;
   margin-top: clamp(3.5rem, 8vw, 6rem);
 }
 .contact-card {
+  --card-accent: var(--accent-wp);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1.6rem;
   position: relative;
-  transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  cursor: pointer;
+  align-items: center;
+  gap: 1rem;
   text-align: left;
   background: var(--bg-card);
+  overflow: hidden;
 }
-.contact-card:hover { border-color: var(--border-hover); transform: translateY(-4px); }
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120px circle at 0% 0%, color-mix(in srgb, var(--card-accent) 16%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease);
+  pointer-events: none;
+}
+.contact-card:hover {
+  border-color: var(--card-accent);
+  transform: translateY(-5px);
+  background: var(--bg-elevated-2);
+}
+.contact-card:hover::before { opacity: 1; }
+
+.contact-card-icon {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--card-accent) 14%, transparent);
+  color: var(--card-accent);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.contact-card-icon svg { width: 20px; height: 20px; }
+.contact-card:hover .contact-card-icon { transform: scale(1.08) rotate(-4deg); }
+
+.contact-card-text { flex: 1; min-width: 0; position: relative; z-index: 1; }
 .contact-card-label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-tertiary);
+  margin-bottom: 0.3rem;
 }
-.contact-card-value { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; word-break: break-word; }
+.contact-card-value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  word-break: break-word;
+  display: block;
+}
+
+.copy-btn {
+  flex-shrink: 0;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-tertiary);
+  position: relative;
+  z-index: 1;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.copy-btn:hover { border-color: var(--card-accent); color: var(--card-accent); }
+.copy-btn svg { width: 14px; height: 14px; }
 .copy-flag {
   position: absolute;
-  top: 1.1rem; right: 1.1rem;
+  top: 0.75rem; right: 1rem;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: var(--accent-shopify);
   opacity: 0;
   transform: translateY(-4px);
   transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  z-index: 2;
 }
 .copy-flag.is-shown { opacity: 1; transform: translateY(0); }
 
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--border);
-  padding: 2.5rem var(--gutter);
+  padding: 2.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+.site-footer-inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-tertiary);
 }
 .footer-socials { display: flex; gap: 1.25rem; }
 .footer-socials a { color: var(--text-secondary); transition: color var(--dur-fast) var(--ease); }
@@ -757,6 +958,8 @@ textarea:focus-visible {
 
 /* ---------- Misc project-detail-page shared bits (also used via projects/*.css import of this file) ---------- */
 .breadcrumb-bar {
+  max-width: var(--container);
+  margin-inline: auto;
   padding: 6.5rem var(--gutter) 2rem;
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -767,6 +970,8 @@ textarea:focus-visible {
 .breadcrumb-bar a:hover { color: var(--text-primary); }
 
 .project-hero {
+  max-width: var(--container);
+  margin-inline: auto;
   padding: 1rem var(--gutter) 3rem;
 }
 .project-hero-title {
@@ -788,7 +993,8 @@ textarea:focus-visible {
 .meta-block-value { font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-secondary); }
 
 .project-hero-media {
-  margin: 0 var(--gutter);
+  max-width: calc(var(--container) - (var(--gutter) * 2));
+  margin: 0 auto;
   aspect-ratio: 16/9;
   border-radius: 20px;
   overflow: hidden;
