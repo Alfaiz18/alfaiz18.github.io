@@ -236,7 +236,67 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------------
-     9. Site-wide background — dense, physics-based dust field
+     9. Hero background — animated flowing SVG lines
+     Three soft bezier paths that draw themselves in, then drift
+     gently. Hero-only, distinct from the site-wide particle field.
+  --------------------------------------------------- */
+  const heroBg = document.querySelector(".hero-bg");
+  if (heroBg) {
+    const paths = [
+      "M -100 150 C 200 50, 500 350, 900 120 S 1400 300, 1700 100",
+      "M -100 300 C 250 450, 550 100, 950 320 S 1400 150, 1700 350",
+      "M -100 480 C 300 350, 600 550, 1000 400 S 1450 500, 1700 420",
+    ];
+    const colors = ["var(--accent-wp)", "var(--accent-shopify)", "var(--accent-wp)"];
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 1600 600");
+    svg.setAttribute("preserveAspectRatio", "none");
+
+    paths.forEach((d, i) => {
+      const path = document.createElementNS(svgNS, "path");
+      path.setAttribute("d", d);
+      path.setAttribute("class", "flow-line");
+      path.setAttribute("stroke", colors[i % colors.length]);
+      svg.appendChild(path);
+
+      if (!prefersReducedMotion) {
+        const length = 2200;
+        path.style.strokeDasharray = String(length);
+        path.style.strokeDashoffset = String(length);
+        path.animate(
+          [
+            { strokeDashoffset: length },
+            { strokeDashoffset: 0 },
+          ],
+          {
+            duration: 5000 + i * 900,
+            delay: i * 300,
+            easing: "cubic-bezier(0.16,1,0.3,1)",
+            fill: "forwards",
+          }
+        );
+        path.animate(
+          [
+            { transform: "translateY(0px)" },
+            { transform: `translateY(${i % 2 === 0 ? "-" : ""}14px)` },
+            { transform: "translateY(0px)" },
+          ],
+          {
+            duration: 7000 + i * 500,
+            delay: 5000,
+            iterations: Infinity,
+            easing: "ease-in-out",
+          }
+        );
+      }
+    });
+
+    heroBg.appendChild(svg);
+  }
+
+  /* ---------------------------------------------------
+     10. Site-wide background — dense, physics-based dust field
      Thousands of tiny particles drift slowly and are gently
      displaced by the cursor, then ease back — like dust or
      smoke currents. Runs as one fixed full-viewport canvas behind
@@ -259,12 +319,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const colorShopify = rootStyles.getPropertyValue("--accent-shopify").trim() || "#6fbf8a";
     const colorNeutral = "#f5f5f3";
 
-    // Roughly one particle per ~1400px^2 of viewport, capped for performance.
-    // Slightly sparser than a hero-only version since this now covers the
-    // whole page continuously.
+    // One particle per ~550px^2 of viewport, capped for performance.
+    // This matches (and slightly exceeds) how dense the original
+    // hero-only version looked, now spread across the whole page.
     function particleCount() {
       const area = width * height;
-      return Math.min(1800, Math.max(400, Math.round(area / 1400)));
+      return Math.min(2600, Math.max(700, Math.round(area / 550)));
     }
 
     function makeParticle() {
@@ -277,8 +337,8 @@ document.addEventListener("DOMContentLoaded", () => {
         vx: 0, vy: 0,
         driftAngle: Math.random() * Math.PI * 2,
         driftSpeed: 0.04 + Math.random() * 0.1,
-        r: Math.random() * 1.2 + 0.35,
-        alpha: Math.random() * 0.4 + 0.12,
+        r: Math.random() * 1.5 + 0.6,
+        alpha: Math.random() * 0.5 + 0.28,
         color: roll < 0.42 ? colorWp : roll < 0.8 ? colorNeutral : colorShopify,
       };
     }
@@ -380,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* ---------------------------------------------------
-     10. Footer year
+     11. Footer year
   --------------------------------------------------- */
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
