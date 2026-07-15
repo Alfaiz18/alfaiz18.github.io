@@ -59,27 +59,31 @@
 
 <!-- ================= NAV ================= -->
 <nav class="site-nav" aria-label="Primary">
-  <a href="#hero" class="nav-logo">Alfaiz<span>.</span></a>
+  <div class="site-nav-inner">
+    <a href="#hero" class="nav-logo">Alfaiz<span>.</span></a>
 
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
 
-  <div class="nav-cta">
-    <a href="resume/resume.pdf" class="btn btn-ghost btn-small magnetic" download>Resume</a>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-      <span></span>
-    </button>
+    <div class="nav-cta">
+      <a href="resume/resume.pdf" class="btn btn-ghost btn-small magnetic" download>Resume</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
 <div class="mobile-nav" id="mobile-nav">
   <a href="#about">About</a>
   <a href="#skills">Skills</a>
+  <a href="#process">Process</a>
   <a href="#experience">Experience</a>
   <a href="#projects">Projects</a>
   <a href="#contact">Contact</a>
@@ -90,6 +94,16 @@
   <!-- ================= HERO ================= -->
   <section class="hero" id="hero">
     <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-particles" aria-hidden="true"></div>
+    <div class="hero-glyphs" aria-hidden="true">
+      <span class="float-glyph accent-wp-glyph" style="top:14%; left:8%; font-size:1.4rem; animation-delay:0s;">&lt;/&gt;</span>
+      <span class="float-glyph accent-shopify-glyph" style="top:22%; left:88%; font-size:1.1rem; animation-delay:1.2s;">{ }</span>
+      <span class="float-glyph" style="top:68%; left:6%; font-size:1rem; animation-delay:2.4s;">WP</span>
+      <span class="float-glyph accent-shopify-glyph" style="top:78%; left:92%; font-size:1rem; animation-delay:0.6s;">SH</span>
+      <span class="float-glyph accent-wp-glyph" style="top:48%; left:94%; font-size:1.6rem; animation-delay:3s;">&#8226;</span>
+      <span class="float-glyph" style="top:8%; left:52%; font-size:1.2rem; animation-delay:1.8s;">;</span>
+      <span class="float-glyph accent-shopify-glyph" style="top:86%; left:40%; font-size:1.3rem; animation-delay:2.1s;">&lt;&gt;</span>
+    </div>
 
     <div class="container hero-inner">
       <p class="hero-kicker reveal"><span class="dot"></span> Available for Freelance Projects</p>
@@ -169,84 +183,88 @@
         <p class="section-desc reveal">WordPress and Shopify expertise shown side by side — I work across both, not one or the other.</p>
       </div>
 
-      <div class="skills-grid">
-        <article class="skill-card wp reveal">
-          <div class="skill-card-head">
-            <h3 class="skill-card-title">WordPress</h3>
-            <span class="skill-card-icon">WP</span>
-          </div>
-          <div class="skill-tags">
-            <span class="skill-tag">Custom Themes</span>
-            <span class="skill-tag">Elementor</span>
-            <span class="skill-tag">Divi</span>
-            <span class="skill-tag">ACF</span>
-            <span class="skill-tag">WooCommerce</span>
-            <span class="skill-tag">Hooks</span>
-            <span class="skill-tag">CPT</span>
-            <span class="skill-tag">WPBakery</span>
-          </div>
-        </article>
+      <div class="tech-category reveal">
+        <p class="tech-category-label wp"><span class="dot-sm"></span> WordPress</p>
+        <div class="tech-grid">
+          <div class="tech-tile wp"><span class="tech-icon">CT</span><span class="tech-label">Custom Themes</span></div>
+          <div class="tech-tile wp"><span class="tech-icon">EL</span><span class="tech-label">Elementor</span></div>
+          <div class="tech-tile wp"><span class="tech-icon">DI</span><span class="tech-label">Divi</span></div>
+          <div class="tech-tile wp"><span class="tech-icon">ACF</span><span class="tech-label">ACF</span></div>
+          <div class="tech-tile wp"><span class="tech-icon">WC</span><span class="tech-label">WooCommerce</span></div>
+          <div class="tech-tile wp"><span class="tech-icon">HK</span><span class="tech-label">Hooks</span></div>
+          <div class="tech-tile wp"><span class="tech-icon">CPT</span><span class="tech-label">CPT</span></div>
+          <div class="tech-tile wp"><span class="tech-icon">WPB</span><span class="tech-label">WPBakery</span></div>
+        </div>
+      </div>
 
-        <article class="skill-card shopify reveal">
-          <div class="skill-card-head">
-            <h3 class="skill-card-title">Shopify</h3>
-            <span class="skill-card-icon">SH</span>
-          </div>
-          <div class="skill-tags">
-            <span class="skill-tag">Liquid</span>
-            <span class="skill-tag">Metafields</span>
-            <span class="skill-tag">Metaobjects</span>
-            <span class="skill-tag">Checkout Optimization</span>
-            <span class="skill-tag">Theme Development</span>
-          </div>
-        </article>
+      <div class="tech-category reveal">
+        <p class="tech-category-label shopify"><span class="dot-sm"></span> Shopify</p>
+        <div class="tech-grid">
+          <div class="tech-tile shopify"><span class="tech-icon">LQ</span><span class="tech-label">Liquid</span></div>
+          <div class="tech-tile shopify"><span class="tech-icon">MF</span><span class="tech-label">Metafields</span></div>
+          <div class="tech-tile shopify"><span class="tech-icon">MO</span><span class="tech-label">Metaobjects</span></div>
+          <div class="tech-tile shopify"><span class="tech-icon">CO</span><span class="tech-label">Checkout Opt.</span></div>
+          <div class="tech-tile shopify"><span class="tech-icon">TD</span><span class="tech-label">Theme Dev</span></div>
+        </div>
+      </div>
 
-        <article class="skill-card neutral reveal">
-          <div class="skill-card-head">
-            <h3 class="skill-card-title">Frontend</h3>
-            <span class="skill-card-icon">FE</span>
-          </div>
-          <div class="skill-tags">
-            <span class="skill-tag">HTML</span>
-            <span class="skill-tag">CSS</span>
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">GSAP</span>
-          </div>
-        </article>
+      <div class="tech-category reveal">
+        <p class="tech-category-label neutral"><span class="dot-sm"></span> Frontend &amp; Backend</p>
+        <div class="tech-grid">
+          <div class="tech-tile"><span class="tech-icon">H5</span><span class="tech-label">HTML</span></div>
+          <div class="tech-tile"><span class="tech-icon">C3</span><span class="tech-label">CSS</span></div>
+          <div class="tech-tile"><span class="tech-icon">JS</span><span class="tech-label">JavaScript</span></div>
+          <div class="tech-tile"><span class="tech-icon">GS</span><span class="tech-label">GSAP</span></div>
+          <div class="tech-tile"><span class="tech-icon">PHP</span><span class="tech-label">PHP</span></div>
+        </div>
+      </div>
 
-        <article class="skill-card neutral reveal">
-          <div class="skill-card-head">
-            <h3 class="skill-card-title">Backend</h3>
-            <span class="skill-card-icon">BE</span>
-          </div>
-          <div class="skill-tags">
-            <span class="skill-tag">PHP</span>
-          </div>
-        </article>
+      <div class="tech-category reveal">
+        <p class="tech-category-label neutral"><span class="dot-sm"></span> Other &amp; Headless</p>
+        <div class="tech-grid">
+          <div class="tech-tile"><span class="tech-icon">GIT</span><span class="tech-label">Git</span></div>
+          <div class="tech-tile"><span class="tech-icon">SEO</span><span class="tech-label">SEO</span></div>
+          <div class="tech-tile"><span class="tech-icon">CWV</span><span class="tech-label">Core Web Vitals</span></div>
+          <div class="tech-tile"><span class="tech-icon">API</span><span class="tech-label">WP REST API</span></div>
+          <div class="tech-tile"><span class="tech-icon">GQL</span><span class="tech-label">GraphQL</span></div>
+          <div class="tech-tile"><span class="tech-icon">HYD</span><span class="tech-label">Shopify Hydrogen</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <article class="skill-card neutral reveal">
-          <div class="skill-card-head">
-            <h3 class="skill-card-title">Other</h3>
-            <span class="skill-card-icon">◆</span>
-          </div>
-          <div class="skill-tags">
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">SEO</span>
-            <span class="skill-tag">Core Web Vitals</span>
-          </div>
-        </article>
+  <!-- ================= PROCESS ================= -->
+  <section class="section" id="process">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow reveal">How I Work</p>
+          <h2 class="section-title reveal">A clear process, start to finish.</h2>
+        </div>
+        <p class="section-desc reveal">The same four-stage approach on every WordPress or Shopify build, whether it's a small storefront or a full custom platform.</p>
+      </div>
 
-        <article class="skill-card neutral reveal">
-          <div class="skill-card-head">
-            <h3 class="skill-card-title">Headless</h3>
-            <span class="skill-card-icon">◇</span>
-          </div>
-          <div class="skill-tags">
-            <span class="skill-tag">WordPress REST API</span>
-            <span class="skill-tag">GraphQL</span>
-            <span class="skill-tag">Shopify Hydrogen</span>
-          </div>
-        </article>
+      <div class="process-grid">
+        <div class="process-step reveal">
+          <p class="process-num">01</p>
+          <h3 class="process-title">Discover &amp; Plan</h3>
+          <p class="process-desc">Understand the brief, the business goal, and the technical constraints before writing a single line of code.</p>
+        </div>
+        <div class="process-step reveal">
+          <p class="process-num">02</p>
+          <h3 class="process-title">Design &amp; Architect</h3>
+          <p class="process-desc">Plan the theme/data architecture — metafields, metaobjects, ACF fields, or CPTs — so the client team can manage content independently later.</p>
+        </div>
+        <div class="process-step reveal">
+          <p class="process-num">03</p>
+          <h3 class="process-title">Build &amp; Integrate</h3>
+          <p class="process-desc">Develop with performance and SEO in mind from the start, integrating any third-party tools, APIs, or automations the project needs.</p>
+        </div>
+        <div class="process-step reveal">
+          <p class="process-num">04</p>
+          <h3 class="process-title">Launch &amp; Support</h3>
+          <p class="process-desc">QA across devices, ship it, and stay available for fixes, iteration, or the next phase of the project.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -395,26 +413,44 @@
       </div>
 
       <div class="contact-cards">
-        <button class="contact-card reveal" data-copy="alfaizkhn18@gmail.com" aria-label="Copy email address">
+        <a class="contact-card reveal" href="mailto:alfaizkhn18@gmail.com" aria-label="Email alfaizkhn18@gmail.com" style="--card-accent:var(--accent-wp);">
           <span class="copy-flag">Copied</span>
-          <span class="contact-card-label">Email</span>
-          <span class="contact-card-value">alfaizkhn18@gmail.com</span>
-        </button>
-
-        <button class="contact-card reveal" data-copy="+91 8878 490 186" aria-label="Copy phone number">
-          <span class="copy-flag">Copied</span>
-          <span class="contact-card-label">Phone</span>
-          <span class="contact-card-value">+91 8878 490 186</span>
-        </button>
-
-        <a href="https://linkedin.com/in/alfaiz-khan" class="contact-card reveal" target="_blank" aria-label="Visit LinkedIn profile">
-          <span class="contact-card-label">LinkedIn</span>
-          <span class="contact-card-value">linkedin.com/in/alfaiz-khan</span>
+          <span class="contact-card-icon">@</span>
+          <span class="contact-card-text">
+            <span class="contact-card-label">Email</span>
+            <span class="contact-card-value">alfaizkhn18@gmail.com</span>
+          </span>
+          <button class="copy-btn" type="button" data-copy="alfaizkhn18@gmail.com" aria-label="Copy email address">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
         </a>
 
-        <a href="https://github.com/alfaiz18" class="contact-card reveal" target="_blank" aria-label="Visit GitHub profile">
-          <span class="contact-card-label">GitHub</span>
-          <span class="contact-card-value">github.com/alfaiz18</span>
+        <a class="contact-card reveal" href="tel:+918878490186" aria-label="Call +91 8878 490 186" style="--card-accent:var(--accent-shopify);">
+          <span class="copy-flag">Copied</span>
+          <span class="contact-card-icon">☎</span>
+          <span class="contact-card-text">
+            <span class="contact-card-label">Phone</span>
+            <span class="contact-card-value">+91 8878 490 186</span>
+          </span>
+          <button class="copy-btn" type="button" data-copy="+91 8878 490 186" aria-label="Copy phone number">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </a>
+
+        <a href="https://linkedin.com/in/alfaiz-khan" class="contact-card reveal" target="_blank" rel="noopener" aria-label="Visit LinkedIn profile" style="--card-accent:var(--accent-wp);">
+          <span class="contact-card-icon">in</span>
+          <span class="contact-card-text">
+            <span class="contact-card-label">LinkedIn</span>
+            <span class="contact-card-value">@alfaiz-khan</span>
+          </span>
+        </a>
+
+        <a href="https://github.com/alfaiz18" class="contact-card reveal" target="_blank" rel="noopener" aria-label="Visit GitHub profile" style="--card-accent:var(--accent-shopify);">
+          <span class="contact-card-icon">GH</span>
+          <span class="contact-card-text">
+            <span class="contact-card-label">GitHub</span>
+            <span class="contact-card-value">@alfaiz18</span>
+          </span>
         </a>
       </div>
     </div>
@@ -424,10 +460,12 @@
 
 <!-- ================= FOOTER ================= -->
 <footer class="site-footer">
-  <p>© <span id="year">2026</span> Alfaiz Khan. All rights reserved.</p>
-  <div class="footer-socials">
-    <a href="https://linkedin.com/in/alfaiz-khan" target="_blank" aria-label="LinkedIn">LinkedIn</a>
-    <a href="https://github.com/alfaiz18" target="_blank" aria-label="GitHub">GitHub</a>
+  <div class="site-footer-inner">
+    <p>© <span id="year">2026</span> Alfaiz Khan. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://linkedin.com/in/alfaiz-khan" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+      <a href="https://github.com/alfaiz18" target="_blank" aria-label="GitHub">GitHub</a>
+    </div>
   </div>
 </footer>
 
