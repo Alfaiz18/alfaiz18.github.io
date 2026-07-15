@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
         driftAngle: Math.random() * Math.PI * 2,
         driftSpeed: 0.04 + Math.random() * 0.1,
         r: Math.random() * 1.5 + 0.6,
-        alpha: Math.random() * 0.25 + 0.8,
+        alpha: Math.random() * 0.18 + 0.6,
         color: roll < 0.42 ? colorWp : roll < 0.8 ? colorNeutral : colorShopify,
       };
     }
