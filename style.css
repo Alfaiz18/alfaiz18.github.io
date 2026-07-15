@@ -335,47 +335,12 @@ textarea:focus-visible {
   overflow: hidden;
 }
 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.55;
-  pointer-events: none;
-}
-.hero-bg svg { width: 100%; height: 100%; }
-.hero-bg .flow-line {
-  fill: none;
-  stroke-width: 1;
-  stroke-linecap: round;
-  opacity: 0.5;
-}
-
-/* Mouse-reactive particle field (canvas, drawn by script.js) */
+/* Dense, mouse-reactive dust/particle field (canvas, drawn by script.js) */
 .hero-particles {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none; /* mouse is tracked on the parent .hero element instead */
-}
-
-/* Floating dev-themed glyphs — brackets, tags, nodes drifting slowly */
-.hero-glyphs { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.float-glyph {
-  position: absolute;
-  font-family: var(--font-mono);
-  color: var(--text-tertiary);
-  opacity: 0.22;
-  user-select: none;
-  animation: floatDrift 16s ease-in-out infinite;
-}
-.float-glyph.accent-wp-glyph { color: var(--accent-wp); }
-.float-glyph.accent-shopify-glyph { color: var(--accent-shopify); }
-@keyframes floatDrift {
-  0%   { transform: translate(0, 0) rotate(0deg); }
-  25%  { transform: translate(14px, -18px) rotate(4deg); }
-  50%  { transform: translate(-8px, 10px) rotate(-3deg); }
-  75%  { transform: translate(10px, 16px) rotate(2deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 .hero-inner { position: relative; z-index: 1; }
@@ -612,76 +577,104 @@ textarea:focus-visible {
 }
 .skill-card:hover .skill-tag { border-color: var(--border-strong); }
 
-/* ---------- Skills — interactive tech icon grid ---------- */
-.tech-category { margin-bottom: 2.5rem; }
-.tech-category:last-child { margin-bottom: 0; }
-.tech-category-label {
+/* ---------- Skills — premium infinite logo marquee ---------- */
+.tech-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0 calc(var(--gutter) * -1);
+  padding-block: 0.5rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.tech-marquee-row {
+  overflow: hidden;
+  width: 100%;
+}
+
+.tech-track {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  margin-bottom: 1.1rem;
+  gap: 1rem;
+  width: max-content;
+  will-change: transform;
 }
-.tech-category-label .dot-sm { width: 6px; height: 6px; border-radius: 50%; }
-.tech-category-label.wp .dot-sm { background: var(--accent-wp); }
-.tech-category-label.shopify .dot-sm { background: var(--accent-shopify); }
-.tech-category-label.neutral .dot-sm { background: var(--text-tertiary); }
+.track-left { animation: marqueeLeft 34s linear infinite; }
+.track-right { animation: marqueeRight 34s linear infinite; }
+.tech-marquee-row:hover .tech-track { animation-play-state: paused; }
 
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-  gap: 0.9rem;
+@keyframes marqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes marqueeRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .track-left, .track-right { animation: none; }
 }
 
 .tech-tile {
-  --tile-accent: var(--text-secondary);
-  position: relative;
+  --tile-hex: var(--text-secondary);
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  padding: 1.1rem 0.6rem;
+  gap: 0.7rem;
+  width: 128px;
+  padding: 1.5rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 18px;
   background: var(--bg-card);
-  cursor: default;
-  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
 }
 .tech-tile:hover {
-  transform: translateY(-6px) rotate(-1deg);
-  border-color: var(--tile-accent);
+  transform: translateY(-8px) scale(1.05);
+  border-color: var(--tile-hex);
   background: var(--bg-elevated-2);
+  box-shadow: 0 16px 40px -18px color-mix(in srgb, var(--tile-hex) 55%, transparent);
 }
-.tech-tile.wp { --tile-accent: var(--accent-wp); }
-.tech-tile.shopify { --tile-accent: var(--accent-shopify); }
 
-.tech-icon {
-  width: 38px; height: 38px;
-  border-radius: 10px;
+.tech-tile-icon {
+  width: 40px; height: 40px;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 0.72rem;
-  color: var(--tile-accent);
-  background: color-mix(in srgb, var(--tile-accent) 14%, transparent);
-  transition: transform var(--dur-fast) var(--ease);
+  filter: grayscale(1) opacity(0.7);
+  transition: filter var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
 }
-.tech-tile:hover .tech-icon { transform: scale(1.12) rotate(6deg); }
+.tech-tile-icon svg { width: 100%; height: 100%; }
+.tech-tile:hover .tech-tile-icon {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.12) rotate(-4deg);
+}
 
-.tech-label {
+.tech-tile-label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--text-secondary);
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
   text-align: center;
   letter-spacing: 0.01em;
   transition: color var(--dur-fast) var(--ease);
 }
-.tech-tile:hover .tech-label { color: var(--text-primary); }
+.tech-tile:hover .tech-tile-label { color: var(--text-primary); }
+
+/* Secondary skills that don't have an official mark — quiet pill list */
+.extra-skills { margin-top: 2.5rem; }
+.extra-skills-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 0.9rem;
+}
+.extra-skills-list { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.extra-skill-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.85rem;
+  border-radius: 100px;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.extra-skill-pill:hover { border-color: var(--border-hover); color: var(--text-primary); }
 
 /* ---------- Process / workflow section ---------- */
 .process-grid {
@@ -723,6 +716,37 @@ textarea:focus-visible {
 @media (max-width: 900px) { .process-step::after { display: none; } }
 
 /* ---------- Projects ---------- */
+.dev-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3.5rem 0 0.75rem;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.dev-divider::before, .dev-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.projects-grid-dev {
+  border: 1px dashed var(--border-strong);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+.projects-grid-dev .project-card { opacity: 0.92; }
+
+.project-category-pill.dev-pill {
+  background: rgba(224, 168, 62, 0.16);
+  border-color: rgba(224, 168, 62, 0.4);
+  color: #e0a83e;
+}
+
 .filters {
   display: flex;
   flex-wrap: wrap;
