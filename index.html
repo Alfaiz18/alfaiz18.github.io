@@ -1,866 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alfaiz Khan — Senior WordPress & Shopify Developer</title>
-<meta name="description" content="Alfaiz Khan — Senior Web Developer specializing in WordPress and Shopify. 5+ years, 50+ projects, 15+ international clients.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-
-/* ============================================================
-   TOKENS
-============================================================ */
-:root{
-  --maxw: 1180px;
-  --edge: 40px;
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-mono: 'Space Mono', monospace;
-  --dur: 0.6s;
-  --ease: cubic-bezier(.22,.9,.28,1);
-
-  --sp-xs: 10px;
-  --sp-sm: 20px;
-  --sp-md: 36px;
-  --sp-lg: 64px;
-  --sp-xl: 140px;
-}
-
-body.mode-wordpress{
-  --bg: #FFFFFF;
-  --bg2: #F4F8FD;
-  --surface: #FFFFFF;
-  --surface2: #EAF1FB;
-  --accent: #2563AE;
-  --accent2: #164A85;
-  --on-accent: #FFFFFF;
-  --border: rgba(37,99,174,0.18);
-  --glow: rgba(37,99,174,0.10);
-  --card-grad-1: linear-gradient(135deg,#EAF2FC,#D3E5FA);
-  --card-grad-2: linear-gradient(135deg,#DEEBFC,#C6DEF7);
-  --card-grad-3: linear-gradient(135deg,#E6EFFC,#CFE1F8);
-}
-
-body.mode-shopify{
-  --bg: #FFFFFF;
-  --bg2: #F5FAF1;
-  --surface: #FFFFFF;
-  --surface2: #EAF4E0;
-  --accent: #55852A;
-  --accent2: #3E6B1E;
-  --on-accent: #FFFFFF;
-  --border: rgba(85,133,42,0.18);
-  --glow: rgba(85,133,42,0.10);
-  --card-grad-1: linear-gradient(135deg,#EEF6E4,#DBEBC7);
-  --card-grad-2: linear-gradient(135deg,#E7F3D9,#D1E7BB);
-  --card-grad-3: linear-gradient(135deg,#F0F6E9,#DCEBCB);
-}
-
-*{ box-sizing:border-box; margin:0; padding:0; }
-html{ scroll-behavior:smooth; overflow-x:hidden; }
-body{ overflow-x:hidden; max-width:100vw; }
-body{
-  background:var(--bg); color:var(--text, #ECF3FB);
-  font-family:var(--font-body);
-  transition: background var(--dur) var(--ease);
-  overflow-x:hidden; position:relative; cursor:default;
-}
-body.mode-wordpress{ --text:#16233A; --muted:#5C6B82; }
-body.mode-shopify{ --text:#18240F; --muted:#5E7350; }
-
-body::before{
-  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(760px 560px at 88% -8%, var(--glow), transparent 60%),
-    radial-gradient(620px 520px at -12% 38%, var(--glow), transparent 55%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-  transition: background var(--dur) var(--ease);
-}
-
-.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 var(--edge); position:relative; z-index:2; }
-
-/* ===== GLOBAL HEADING FONT RULE (Unifying all headings) ===== */
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
-
-h2 {
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.5px;
-}
-
-h3, h4 {
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-/* ===== SECTION SPACING ===== */
-section{ position:relative; z-index:2; padding:var(--sp-xl) 0; scroll-margin-top:100px; }
-@media (max-width:768px){
-  :root{ --edge:22px; --sp-xl:90px; }
-  section{ scroll-margin-top:80px; }
-}
-
-a{ color:inherit; text-decoration:none; }
-ul{ list-style:none; }
-::selection{ background:var(--accent); color:var(--on-accent); }
-
-/* ============================================================
-   MARQUEE TICKER (Hardened to prevent breaking)
-============================================================ */
-.marquee-wrap{
-  position:relative; 
-  width:100%; /* Changed from 100vw trick to prevent layout bugs */
-  background:var(--accent); overflow:hidden; padding:22px 0;
-  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-  margin: var(--sp-lg) 0;
-}
-.marquee-track{
-  display:none !important; /* Protected from generic overrides */
-  align-items:center;
-  gap:20px;
-  width:max-content;
-  will-change: transform;
-  animation: marqueeScroll 28s linear infinite;
-}
-body.mode-wordpress .marquee-track[data-mode-only="wordpress"]{ display:flex !important; }
-body.mode-shopify  .marquee-track[data-mode-only="shopify"]{ display:flex !important; }
-.marquee-track span{
-  font-family:var(--font-display); font-weight:700; font-size:15px;
-  color:var(--on-accent); white-space:nowrap;
-  text-transform:uppercase; letter-spacing:0.5px;
-}
-.marquee-track span.dot{ font-size:12px; opacity:0.7; }
-@keyframes marqueeScroll{
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-header{
-  position:fixed; top:0; left:0; right:0; z-index:40; padding:22px 0;
-  backdrop-filter:blur(16px);
-  background:color-mix(in srgb, var(--bg) 62%, transparent);
-  border-bottom:1px solid var(--border);
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-.nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:24px; }
-
-.logo{ display:flex; align-items:center; gap:10px; }
-.logo-mark{ width:38px; height:38px; }
-.logo-mark path,.logo-mark circle{ transition: fill var(--dur) var(--ease), stroke var(--dur) var(--ease); }
-.logo-word{ font-family:var(--font-display); font-weight:600; font-size:17px; letter-spacing:0.2px; white-space:nowrap; }
-
-nav.links{ display:flex; gap:32px; font-size:14px; }
-nav.links a{ color:var(--muted); font-weight:500; position:relative; padding:4px 0; }
-nav.links a:hover{ color:var(--text); }
-nav.links a::after{ content:''; position:absolute; left:0; bottom:0; height:1px; width:0%; background:var(--accent); transition: width 0.3s var(--ease); }
-nav.links a:hover::after{ width:100%; }
-@media (max-width:900px){ nav.links{ display:none; } }
-
-.switcher-wrap{ display:flex; align-items:center; gap:12px; }
-.switcher{
-  position:relative; display:flex; padding:4px; border-radius:999px;
-  background:var(--surface2); border:1px solid var(--border);
-}
-.switcher button{
-  position:relative; z-index:2; display:flex; align-items:center; gap:7px;
-  padding:8px 16px; border-radius:999px; font-family:var(--font-mono); font-size:12px;
-  font-weight:500; color:var(--muted); background:none; border:none; cursor:pointer;
-  transition: color var(--dur) var(--ease);
-}
-.switcher button svg{ width:14px; height:14px; opacity:0.8; }
-.switcher button.active{ color:var(--on-accent); font-weight:600; }
-.switcher-pill{
-  position:absolute; top:4px; left:4px; height:calc(100% - 8px); width:calc(50% - 4px);
-  background:var(--accent); border-radius:999px; z-index:1;
-  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
-  box-shadow:0 0 18px var(--glow);
-}
-body.mode-shopify .switcher-pill{ transform:translateX(100%); }
-
-.switcher-hint{
-  font-family:var(--font-mono); font-size:11px; color:var(--accent2);
-  display:flex; align-items:center; gap:6px; white-space:nowrap;
-  animation: hintPulse 2.6s ease-in-out infinite;
-}
-.switcher-hint svg{ width:12px; height:12px; }
-@keyframes hintPulse{ 0%,100%{ opacity:0.55; } 50%{ opacity:1; } }
-@media (max-width:640px){ .switcher-hint{ display:none; } }
-@media (max-width:480px){
-  .switcher button{ padding:8px 11px; font-size:11px; gap:5px; }
-  .switcher button span.btn-text{ display:none; }
-  .logo-word{ font-size:14px; }
-  .logo-mark{ width:32px; height:32px; }
-  .nav-inner{ gap:12px; }
-}
-
-/* ============================================================
-   REVEAL
-============================================================ */
-.reveal{ opacity:0; transform:translateY(30px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-.reveal.in-view{ opacity:1; transform:translateY(0); }
-
-/* ============================================================
-   HERO
-============================================================ */
-.hero{ min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-top:120px; }
-.mode-flag{
-  display:inline-flex; align-items:center; gap:10px; font-family:var(--font-mono);
-  font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--accent2);
-  padding:8px 16px; border:1px solid var(--border); border-radius:999px; margin-bottom:var(--sp-md);
-}
-.mode-flag .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); }
-
-h1.name{
-  font-weight:800; font-size:clamp(42px,8vw,96px);
-  line-height:0.98; margin-bottom:var(--sp-md); text-transform:uppercase;
-}
-h1.name em{ font-style:normal; color:var(--accent); }
-
-.hero-role{ font-family:var(--font-mono); font-size:clamp(15px,2vw,19px); color:var(--muted); margin-bottom:var(--sp-md); max-width:680px; line-height:1.7; }
-.hero-role b{ color:var(--accent2); font-weight:500; }
-.hero-summary{ max-width:640px; font-size:17px; line-height:1.85; color:var(--text); opacity:0.88; margin-bottom:var(--sp-lg); }
-
-.stat-row{ display:flex; gap:var(--sp-lg); margin-bottom:var(--sp-lg); flex-wrap:wrap; }
-.stat b{ display:block; font-family:var(--font-display); font-size:36px; color:var(--accent2); font-weight:600; }
-.stat span{ font-size:12px; color:var(--muted); font-family:var(--font-mono); letter-spacing:0.5px; }
-
-.cta-row{ display:flex; gap:16px; flex-wrap:wrap; }
-.btn{ display:inline-flex; align-items:center; gap:9px; padding:15px 28px; border-radius:999px; font-weight:600; font-size:14px; transition: transform .35s var(--ease), background .3s, color .3s, box-shadow .3s; }
-.btn-primary{ background:var(--accent); color:var(--on-accent); }
-.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 12px 28px var(--glow); }
-.btn-ghost{ border:1px solid var(--border); color:var(--text); }
-.btn-ghost:hover{ border-color:var(--accent); color:var(--accent2); transform:translateY(-3px); }
-
-/* ============================================================
-   SECTION HEADS
-============================================================ */
-.head{ margin-bottom:var(--sp-lg); max-width:660px; }
-.head .kicker{ font-family:var(--font-mono); font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
-.head .kicker::before{ content:''; width:22px; height:1px; background:var(--accent); }
-.head p{ margin-top:18px; color:var(--muted); font-size:15.5px; line-height:1.75; }
-
-/* ============================================================
-   ABOUT
-============================================================ */
-.about-grid{ display:grid; grid-template-columns:1.25fr 1fr; gap:var(--sp-lg); align-items:start; }
-.about-text p{ font-size:17.5px; line-height:1.9; color:var(--text); opacity:0.92; }
-@media (max-width:900px){ .about-grid{ grid-template-columns:1fr; gap:var(--sp-md); } }
-
-.panel{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:var(--sp-md); box-shadow:0 2px 14px rgba(20,40,80,0.06); }
-.panel-label{ font-family:var(--font-mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent2); margin-bottom:18px; display:flex; align-items:center; gap:8px; }
-.panel-label .status{ width:7px; height:7px; border-radius:50%; background:#5FD37E; box-shadow:0 0 6px #5FD37E; }
-.panel .row{ display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px dashed var(--border); font-family:var(--font-mono); font-size:13px; }
-.panel .row:last-child{ border-bottom:none; }
-.panel .row span:first-child{ color:var(--muted); }
-.panel .row span:last-child{ color:var(--accent2); font-weight:500; text-align:right; }
-
-/* ============================================================
-   SKILLS
-============================================================ */
-.skill-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-md); }
-@media (max-width:900px){ .skill-grid{ grid-template-columns:1fr 1fr; } }
-@media (max-width:600px){ .skill-grid{ grid-template-columns:1fr; } }
-
-.skill-tile{
-  background:var(--surface); border:1px solid var(--border); border-radius:16px;
-  padding:var(--sp-sm); transition: transform .4s var(--ease), border-color .4s, box-shadow .4s;
-  box-shadow:0 2px 14px rgba(20,40,80,0.06);
-}
-.skill-tile:hover{ transform:translateY(-7px); border-color:var(--accent); box-shadow:0 16px 30px rgba(20,40,80,0.14); }
-.skill-tile-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
-.skill-tile-icon{
-  width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-  background:var(--surface2); color:var(--accent2); font-family:var(--font-mono); font-weight:600; font-size:14px;
-}
-.skill-tile h4{ font-size:15.5px; } 
-.skill-status{ font-family:var(--font-mono); font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:4px 9px; border-radius:999px; }
-body.mode-wordpress .skill-status{ background:rgba(91,159,224,0.16); color:var(--accent2); }
-body.mode-shopify .skill-status{ background:rgba(141,187,67,0.18); color:var(--accent2); }
-.skill-tile .tags{ display:flex; flex-wrap:wrap; gap:9px; }
-.skill-tile .tags span{ font-size:12.5px; padding:5px 11px; border-radius:999px; background:var(--surface2); color:var(--text); opacity:0.9; }
-
-.headless-note{ margin-top:var(--sp-lg); background:var(--surface); border:1px dashed var(--border); border-radius:16px; padding:var(--sp-sm); }
-.headless-note h4{ font-size:14px; letter-spacing:0.3px; text-transform:uppercase; color:var(--accent2); margin-bottom:10px; }
-.headless-note .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
-.headless-note .tags span{ font-size:12.5px; padding:5px 12px; border-radius:999px; background:var(--surface2); }
-.headless-note p{ font-size:13px; color:var(--muted); }
-
-/* ============================================================
-   EXPERIENCE
-============================================================ */
-.timeline{ position:relative; padding-left:44px; border-left:1px solid var(--border); }
-.job{ position:relative; margin-bottom:var(--sp-lg); }
-.job:last-child{ margin-bottom:0; }
-.job-icon{
-  position:absolute; left:-63px; top:-2px; width:38px; height:38px; border-radius:50%;
-  background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
-}
-.job-icon svg{ width:17px; height:17px; fill:var(--accent2); }
-.job-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
-.job-role{ font-size:23px; }
-.job-role span{ color:var(--accent2); }
-.job-meta{ font-family:var(--font-mono); font-size:12px; color:var(--muted); }
-.job ul{ margin-top:18px; display:flex; flex-direction:column; gap:11px; }
-.job li{ font-size:15px; line-height:1.65; color:var(--text); opacity:0.9; padding-left:20px; position:relative; }
-.job li::before{ content:''; position:absolute; left:0; top:9px; width:7px; height:1.5px; background:var(--accent); }
-@media (max-width:600px){ .timeline{ padding-left:32px; } .job-icon{ left:-47px; width:30px; height:30px; } }
-
-/* ============================================================
-   PROJECTS
-============================================================ */
-.project-lede{ display:flex; align-items:center; gap:14px; margin-bottom:var(--sp-md); font-family:var(--font-mono); font-size:12px; color:var(--muted); }
-.project-lede b{ color:var(--accent2); }
-
-.grid-editorial{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-lg); }
-.grid-editorial .card:first-child{ grid-column:1 / -1; }
-.grid-editorial .card:first-child .card-media{ height:220px; }
-@media (max-width:860px){ .grid-editorial{ grid-template-columns:1fr; } .grid-editorial .card:first-child{ grid-column:auto; } }
-
-.card{ background:var(--surface); border:1px solid var(--border); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; transition: transform .45s var(--ease), border-color .45s, box-shadow .45s; box-shadow:0 2px 14px rgba(20,40,80,0.06); }
-.card:hover{ transform:translateY(-8px); border-color:var(--accent); box-shadow:0 20px 40px rgba(0,0,0,0.3); }
-.card-media{ height:150px; position:relative; overflow:hidden; }
-.card-media .m1{ position:absolute; inset:0; }
-.card:hover .card-media .m1{ transform:scale(1.06); }
-.card-media .m1{ transition: transform .6s var(--ease); }
-.card-tag{
-  position:absolute; top:14px; left:14px; font-family:var(--font-mono); font-size:10px; letter-spacing:1px;
-  text-transform:uppercase; padding:5px 11px; border-radius:999px; backdrop-filter:blur(6px);
-  background:rgba(0,0,0,0.35); color:#fff; border:1px solid rgba(255,255,255,0.2);
-}
-.card-tag.dev{ background:rgba(0,0,0,0.5); color:var(--accent2); border-color:var(--accent); }
-.card-body{ padding:var(--sp-sm) var(--sp-sm) var(--sp-md); display:flex; flex-direction:column; gap:12px; flex-grow:1; }
-.card-meta{ font-family:var(--font-mono); font-size:11px; color:var(--accent2); display:flex; gap:8px; align-items:center; }
-.card-title{ font-size:22px; }
-.card-desc{ font-size:14.5px; line-height:1.65; color:var(--text); opacity:0.85; flex-grow:1; }
-.card-cta{ display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--accent2); margin-top:4px; }
-.card-cta svg{ width:13px; height:13px; transition: transform .3s var(--ease); }
-.card:hover .card-cta svg{ transform:translate(4px,-4px); }
-
-.grid-store{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-md); }
-@media (max-width:900px){ .grid-store{ grid-template-columns:1fr 1fr; } }
-@media (max-width:600px){ .grid-store{ grid-template-columns:1fr; } }
-.grid-store .card{ border-radius:16px; }
-.grid-store .card-media{ height:170px; }
-.grid-store .card-body{ padding:var(--sp-sm); }
-.grid-store .card-title{ font-size:18px; }
-.store-badge{
-  position:absolute; top:0; right:0; background:var(--accent); color:var(--on-accent);
-  font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:0.5px;
-  padding:6px 12px; border-bottom-left-radius:10px;
-}
-.store-cta{
-  margin-top:6px; display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px 14px;
-  font-size:13px; font-weight:600; transition: background .3s, border-color .3s;
-}
-.card:hover .store-cta{ background:var(--accent); color:var(--on-accent); border-color:var(--accent); }
-
-.g1{ background:var(--card-grad-1); } .g2{ background:var(--card-grad-2); } .g3{ background:var(--card-grad-3); }
-
-.dev-divider{ display:flex; align-items:center; gap:16px; margin:var(--sp-xs) 0; }
-.dev-divider span{ font-family:var(--font-mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent2); white-space:nowrap; }
-.dev-divider::after{ content:''; flex-grow:1; height:1px; background:var(--border); }
-
-[data-mode-only]{ display:none; }
-body.mode-wordpress [data-mode-only="wordpress"]{ display:block; }
-body.mode-shopify [data-mode-only="shopify"]{ display:block; }
-.card[data-mode-only]{ display:none; }
-body.mode-wordpress .card[data-mode-only="wordpress"]{ display:flex; }
-body.mode-shopify .card[data-mode-only="shopify"]{ display:flex; }
-.grid-editorial, .grid-store{ display:none; }
-body.mode-wordpress .dev-divider[data-mode-only="wordpress"]{ display:flex; }
-body.mode-shopify .dev-divider[data-mode-only="shopify"]{ display:flex; }
-body.mode-wordpress .skill-grid[data-mode-only="wordpress"]{ display:grid; }
-body.mode-shopify .skill-grid[data-mode-only="shopify"]{ display:grid; }
-body.mode-wordpress .grid-editorial{ display:grid; }
-body.mode-shopify .grid-store{ display:grid; }
-span[data-mode-only]{ display:none; }
-body.mode-wordpress span[data-mode-only="wordpress"]{ display:inline; }
-body.mode-shopify span[data-mode-only="shopify"]{ display:inline; }
-
-/* ============================================================
-   EDUCATION / STRENGTHS
-============================================================ */
-.dual{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-lg); }
-@media (max-width:860px){ .dual{ grid-template-columns:1fr; gap:var(--sp-md); } }
-.dual h3{ font-size:21px; margin-bottom:22px; color:var(--accent2); }
-.edu-item{ margin-bottom:20px; }
-.edu-item b{ display:block; font-size:16px; margin-bottom:5px; }
-.edu-item span{ font-family:var(--font-mono); font-size:12px; color:var(--muted); }
-.strength-list{ display:flex; flex-direction:column; gap:14px; }
-.strength-list li{ font-size:14.5px; line-height:1.65; padding-left:24px; position:relative; opacity:0.9; }
-.strength-list li::before{ content:'—'; position:absolute; left:0; color:var(--accent); }
-
-/* ============================================================
-   CONTACT (Unified Heading Styles)
-============================================================ */
-#contact{ padding-bottom:0; }
-.contact-panel{
-  position:relative; border-radius:28px; padding:var(--sp-xl) var(--sp-lg);
-  background:linear-gradient(150deg, var(--surface), var(--bg2));
-  border:1px solid var(--border); overflow:hidden; text-align:center;
-}
-.contact-panel::before{
-  content:''; position:absolute; inset:0; opacity:0.7; pointer-events:none;
-  background:radial-gradient(500px 300px at 50% 0%, var(--glow), transparent 70%);
-}
-.availability{
-  position:relative; z-index:2; display:inline-flex; align-items:center; gap:9px;
-  font-family:var(--font-mono); font-size:12px; color:var(--accent2);
-  border:1px solid var(--border); padding:8px 16px; border-radius:999px; margin-bottom:var(--sp-md);
-}
-.availability .dot{ width:7px; height:7px; border-radius:50%; background:#5FD37E; box-shadow:0 0 8px #5FD37E; animation:pulseDot 1.8s ease-in-out infinite; }
-@keyframes pulseDot{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
-
-.contact-panel h2{ position:relative; z-index:2; margin:0 auto var(--sp-lg); text-align:center; }
-.statement { text-align:center; text-transform:none; } /* Overrides previous uppercase styling to match standard h2 */
-.statement .line-solid, .statement .line-outline {
-  display:block;
-  font-size: inherit; 
-  font-weight: inherit; 
-  line-height: inherit; 
-  letter-spacing: inherit;
-}
-.statement .line-solid{ color:var(--text); }
-.statement .line-outline{
-  color:transparent;
-  -webkit-text-stroke:1.5px var(--accent);
-  text-stroke:1.5px var(--accent);
-}
-
-.contact-grid{ position:relative; z-index:2; display:grid; grid-template-columns:repeat(4,1fr); gap:24px; max-width:920px; margin:0 auto; }
-@media (max-width:860px){ .contact-grid{ grid-template-columns:1fr 1fr; } }
-@media (max-width:520px){ .contact-grid{ grid-template-columns:1fr; } }
-
-.contact-item{
-  position:relative;
-  display:flex; flex-direction:column; align-items:center; gap:10px; padding:22px 14px;
-  border:1px solid var(--border); border-radius:16px; background:var(--surface2);
-  transition: transform .35s var(--ease), border-color .35s;
-  cursor:pointer;
-}
-.contact-item:hover{ transform:translateY(-5px); border-color:var(--accent); }
-.contact-item svg{ width:20px; height:20px; color:var(--accent2); }
-.contact-item .label{ font-family:var(--font-mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
-.contact-item .value{ font-size:13px; font-weight:600; word-break:break-all; }
-.copy-flash{ font-size:10px; color:var(--accent2); font-family:var(--font-mono); opacity:0; transition:opacity .3s; }
-.copy-flash.show{ opacity:1; }
-
-
-footer{ padding:var(--sp-md) 0 var(--sp-md); }
-.footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--muted); font-family:var(--font-mono); padding-top:var(--sp-md); border-top:1px solid var(--border); margin-top:var(--sp-lg); }
-.back-top{ display:flex; align-items:center; gap:6px; }
-.back-top svg{ width:12px; height:12px; }
-
-</style>
-</head>
-<body class="mode-wordpress">
-
-<header>
-  <div class="wrap nav-inner">
-    <div class="logo">
-      <svg class="logo-mark" viewBox="0 0 48 48" fill="none">
-        <rect x="2" y="2" width="44" height="44" rx="13" stroke="var(--accent)" stroke-width="2"/>
-        <path d="M14 34 L20 14 L24 14 L30 34 L25.5 34 L24.3 29.5 L19.5 29.5 L18.3 34 Z M20.6 25.5 L23.4 25.5 L22 19.5 Z" fill="var(--accent2)"/>
-        <circle cx="35" cy="14" r="3" fill="var(--accent)"/>
-      </svg>
-      <div class="logo-word">Alfaiz Khan</div>
-    </div>
-
-    <nav class="links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="switcher-wrap">
-      <span class="switcher-hint" id="hintText"></span>
-      <div class="switcher">
-        <div class="switcher-pill"></div>
-        <button id="btnWP" class="active">
-          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 10h2l2 7 2-6 2 6 2-7h2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="btn-text">WordPress</span>
-        </button>
-        <button id="btnShopify">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8Z" stroke-linejoin="round"/><path d="M9 8a3 3 0 0 1 6 0" stroke-linecap="round"/></svg>
-          <span class="btn-text">Shopify</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- ============ HERO ============ -->
-<section class="hero wrap">
-  <div class="mode-flag reveal"><span class="dot"></span> Mode: <span data-mode-only="wordpress">WordPress</span><span data-mode-only="shopify">Shopify</span></div>
-  <h1 class="name reveal">Alfaiz <em>Khan</em></h1>
-  <p class="hero-role reveal">
-    <span data-mode-only="wordpress">Senior <b>WordPress Developer</b> — custom themes, ACF-driven content models, and editorial-grade architecture.</span>
-    <span data-mode-only="shopify">Senior <b>Shopify Developer</b> — custom Liquid themes, metafield-driven storefronts, and conversion-focused builds.</span>
-  </p>
-  <p class="hero-summary reveal" id="heroSummary"></p>
-
-  <div class="stat-row reveal">
-    <div class="stat"><b>5+</b><span>YEARS EXPERIENCE</span></div>
-    <div class="stat"><b>50+</b><span>PROJECTS DELIVERED</span></div>
-    <div class="stat"><b>15+</b><span>INTL. CLIENTS</span></div>
-  </div>
-
-  <div class="cta-row reveal">
-    <a href="#projects" class="btn btn-primary" id="heroCtaPrimary">View Projects →</a>
-    <a href="#contact" class="btn btn-ghost">Get in touch</a>
-  </div>
-</section>
-
-<!-- ============ MARQUEE TICKER ============ -->
-<div class="marquee-wrap">
-  <div class="marquee-track" data-mode-only="wordpress">
-    <span>WORDPRESS DEVELOPMENT</span><span class="dot">✦</span>
-    <span>CUSTOM THEMES</span><span class="dot">✦</span>
-    <span>ACF &amp; ELEMENTOR</span><span class="dot">✦</span>
-    <span>5+ YEARS EXPERIENCE</span><span class="dot">✦</span>
-    <span>50+ PROJECTS DELIVERED</span><span class="dot">✦</span>
-    <span>WORDPRESS DEVELOPMENT</span><span class="dot">✦</span>
-    <span>CUSTOM THEMES</span><span class="dot">✦</span>
-    <span>ACF &amp; ELEMENTOR</span><span class="dot">✦</span>
-    <span>5+ YEARS EXPERIENCE</span><span class="dot">✦</span>
-    <span>50+ PROJECTS DELIVERED</span><span class="dot">✦</span>
-  </div>
-  <div class="marquee-track" data-mode-only="shopify">
-    <span>SHOPIFY DEVELOPMENT</span><span class="dot">✦</span>
-    <span>CUSTOM LIQUID THEMES</span><span class="dot">✦</span>
-    <span>CHECKOUT OPTIMIZATION</span><span class="dot">✦</span>
-    <span>5+ YEARS EXPERIENCE</span><span class="dot">✦</span>
-    <span>50+ PROJECTS DELIVERED</span><span class="dot">✦</span>
-    <span>SHOPIFY DEVELOPMENT</span><span class="dot">✦</span>
-    <span>CUSTOM LIQUID THEMES</span><span class="dot">✦</span>
-    <span>CHECKOUT OPTIMIZATION</span><span class="dot">✦</span>
-    <span>5+ YEARS EXPERIENCE</span><span class="dot">✦</span>
-    <span>50+ PROJECTS DELIVERED</span><span class="dot">✦</span>
-  </div>
-</div>
-
-<!-- ============ ABOUT ============ -->
-<section id="about" class="wrap">
-  <div class="head reveal">
-    <p class="kicker">About</p>
-    <h2 id="aboutHeading"></h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-text reveal"><p id="aboutParagraph"></p></div>
-
-    <div class="panel reveal" data-mode-only="wordpress">
-      <div class="panel-label"><span class="status"></span> Post Meta</div>
-      <div class="row"><span>Post Type</span><span>Developer</span></div>
-      <div class="row"><span>Status</span><span>Published</span></div>
-      <div class="row"><span>Categories</span><span>WordPress, PHP, ACF</span></div>
-      <div class="row"><span>Author</span><span>Alfaiz Khan</span></div>
-      <div class="row"><span>Last Updated</span><span>2026</span></div>
-    </div>
-
-    <div class="panel reveal" data-mode-only="shopify">
-      <div class="panel-label"><span class="status"></span> Product Spec</div>
-      <div class="row"><span>SKU</span><span>SR-DEV-05</span></div>
-      <div class="row"><span>Availability</span><span>In Stock</span></div>
-      <div class="row"><span>Collection</span><span>Senior Developers</span></div>
-      <div class="row"><span>Ships From</span><span>Bangalore, IN</span></div>
-      <div class="row"><span>Vendor</span><span>Alfaiz Khan</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SKILLS ============ -->
-<section id="skills" class="wrap">
-  <div class="head reveal">
-    <p class="kicker">Skills</p>
-    <h2 data-mode-only="wordpress">Plugin directory<span style="display:none">.</span></h2>
-    <h2 data-mode-only="shopify">The app stack</h2>
-    <p data-mode-only="wordpress">Every tool I reach for on a WordPress build, listed the way WP itself would list it.</p>
-    <p data-mode-only="shopify">Every tool I reach for on a Shopify build, listed the way the App Store would list it.</p>
-  </div>
-
-  <div class="skill-grid reveal" data-mode-only="wordpress">
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">CMS</div><span class="skill-status">Active</span></div><h4 style="margin-bottom:10px;">CMS & Platforms</h4><div class="tags"><span>WordPress</span><span>WooCommerce</span><span>Webflow</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">ACF</div><span class="skill-status">Active</span></div><h4 style="margin-bottom:10px;">WP Development</h4><div class="tags"><span>Custom Post Types</span><span>ACF</span><span>Hooks</span><span>Custom Themes</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">PB</div><span class="skill-status">Active</span></div><h4 style="margin-bottom:10px;">Page Builders</h4><div class="tags"><span>Elementor</span><span>Divi</span><span>WPBakery</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">SEO</div><span class="skill-status">Active</span></div><h4 style="margin-bottom:10px;">SEO & Performance</h4><div class="tags"><span>On-page SEO</span><span>Schema Markup</span><span>Core Web Vitals</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">JS</div><span class="skill-status">Active</span></div><h4 style="margin-bottom:10px;">Frontend</h4><div class="tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">GIT</div><span class="skill-status">Active</span></div><h4 style="margin-bottom:10px;">Languages & Tools</h4><div class="tags"><span>PHP</span><span>Git</span><span>Liquid</span></div></div>
-  </div>
-
-  <div class="skill-grid reveal" data-mode-only="shopify">
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">CMS</div><span class="skill-status">Installed</span></div><h4 style="margin-bottom:10px;">CMS & Platforms</h4><div class="tags"><span>Shopify</span><span>WordPress</span><span>WooCommerce</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">SHP</div><span class="skill-status">Installed</span></div><h4 style="margin-bottom:10px;">E-commerce</h4><div class="tags"><span>Theme Dev</span><span>Checkout Optimization</span><span>Collections</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">PB</div><span class="skill-status">Installed</span></div><h4 style="margin-bottom:10px;">Page Builders</h4><div class="tags"><span>PageFly</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">SEO</div><span class="skill-status">Installed</span></div><h4 style="margin-bottom:10px;">SEO & Performance</h4><div class="tags"><span>On-page SEO</span><span>Schema Markup</span><span>Core Web Vitals</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">JS</div><span class="skill-status">Installed</span></div><h4 style="margin-bottom:10px;">Frontend</h4><div class="tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div></div>
-    <div class="skill-tile"><div class="skill-tile-top"><div class="skill-tile-icon">GIT</div><span class="skill-status">Installed</span></div><h4 style="margin-bottom:10px;">Languages & Tools</h4><div class="tags"><span>Liquid</span><span>PHP</span><span>Git</span></div></div>
-  </div>
-
-  <div class="headless-note reveal" data-mode-only="wordpress">
-    <h4>Headless WordPress — Working Knowledge</h4>
-    <div class="tags"><span>Headless WordPress (REST/GraphQL API)</span></div>
-    <p>Explored through local/practice projects — not yet used in a production build.</p>
-  </div>
-
-  <div class="headless-note reveal" data-mode-only="shopify">
-    <h4>Headless Shopify — Working Knowledge</h4>
-    <div class="tags"><span>Headless Shopify (Hydrogen)</span></div>
-    <p>Explored through local/practice projects — not yet used in a production build.</p>
-  </div>
-</section>
-
-<!-- ============ EXPERIENCE ============ -->
-<section id="experience" class="wrap">
-  <div class="head reveal">
-    <p class="kicker">Experience</p>
-    <h2>Where I've built it</h2>
-  </div>
-  <div class="timeline">
-    <div class="job reveal">
-      <div class="job-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7l8-4 8 4-8 4-8-4Z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg>
-      </div>
-      <div class="job-top">
-        <div class="job-role">Senior Web Developer — <span>Brandshark</span></div>
-        <div class="job-meta">01/2026 – Current · Bangalore</div>
-      </div>
-      <ul data-mode-only="wordpress" style="display:block">
-        <li>Implement advanced WordPress solutions, including custom post types, ACF integration, and performance tuning.</li>
-        <li>Lead WordPress and Shopify development projects end-to-end, from planning through deployment.</li>
-        <li>Manage SEO optimization, including structured schema, meta optimization, and Core Web Vitals improvements.</li>
-        <li>Collaborate with UI/UX designers, marketing teams, and clients to deliver scalable digital solutions.</li>
-      </ul>
-      <ul data-mode-only="shopify" style="display:block">
-        <li>Develop custom Shopify themes, optimize checkout flows, and improve store performance.</li>
-        <li>Build high-converting eCommerce stores for D2C brands across beauty, wellness, and lifestyle sectors.</li>
-        <li>Lead Shopify and WordPress development projects end-to-end, from planning through deployment.</li>
-        <li>Collaborate with UI/UX designers, marketing teams, and clients to deliver scalable digital solutions.</li>
-      </ul>
-    </div>
-    <div class="job reveal">
-      <div class="job-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16M9 13h6"/></svg>
-      </div>
-      <div class="job-top">
-        <div class="job-role">Associate Software Engineer — <span>EvenDigit</span></div>
-        <div class="job-meta">06/2021 – 01/2026 · Indore</div>
-      </div>
-      <ul>
-        <li>Developed and customized websites using WordPress, Shopify, Wix, and Webflow.</li>
-        <li>Built responsive layouts using HTML, CSS, and JavaScript.</li>
-        <li>Implemented SEO best practices to improve search rankings and site performance.</li>
-        <li>Optimized website performance, resolved content and layout issues, and improved user experience.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PROJECTS ============ -->
-<section id="projects" class="wrap">
-  <div class="head reveal">
-    <p class="kicker">Projects</p>
-    <h2 data-mode-only="wordpress">Case studies</h2>
-    <h2 data-mode-only="shopify">The storefront collection</h2>
-    <p data-mode-only="wordpress">Content-driven builds — every one a live client site unless marked in development.</p>
-    <p data-mode-only="shopify">Commerce-driven builds — every one a live store unless marked in development.</p>
-  </div>
-
-  <div class="project-lede reveal">Showing <b data-mode-only="wordpress" style="display:inline">11 WordPress builds</b><b data-mode-only="shopify" style="display:inline">8 Shopify builds</b></div>
-
-  <div class="grid-editorial reveal">
-    <div class="card" data-mode-only="wordpress">
-      <div class="card-media g1"><div class="m1" style="position:absolute;inset:0;"></div><span class="card-tag">Case Study</span></div>
-      <div class="card-body">
-        <div class="card-meta">WORDPRESS · SEO SAAS</div>
-        <div class="card-title">CometRank</div>
-        <p class="card-desc">AI-powered SEO SaaS platform — WordPress marketing site with animated dashboard mockups, agent-based product sections, and a conversion-focused demo-booking flow.</p>
-        <a class="card-cta" href="https://cometrank.ai/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-      </div>
-    </div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g2"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS · ELEMENTOR</div><div class="card-title">Planet Ganges</div><p class="card-desc">Strategy consulting firm — custom WordPress build with Elementor, structured service and case-study architecture.</p><a class="card-cta" href="https://planetganges.com/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g3"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS · ELEMENTOR</div><div class="card-title">Pelazzio</div><p class="card-desc">Luxury brand website with refined design, custom Elementor layouts, and performance optimization.</p><a class="card-cta" href="https://pelazzio.com/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g1"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS · ACF</div><div class="card-title">Procloz</div><p class="card-desc">HR & payroll SaaS platform — custom WordPress build with advanced ACF fields and dynamic content blocks.</p><a class="card-cta" href="https://procloz.com/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g2"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS · WOOCOMMERCE</div><div class="card-title">Fidelis Pet</div><p class="card-desc">Premium pet care brand with custom WordPress theme and WooCommerce integration.</p><a class="card-cta" href="https://fidelispet.com/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g3"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS · CUSTOM JS</div><div class="card-title">Softude AI</div><p class="card-desc">AI company branding & website built on WordPress with custom JS animations and dynamic sections.</p><a class="card-cta" href="https://softude.ai/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g1"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS · ANIMATIONS</div><div class="card-title">EvenDigit</div><p class="card-desc">Digital agency website with performance-first WordPress architecture and custom animations.</p><a class="card-cta" href="https://www.evendigit.com/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g2"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS</div><div class="card-title">Alhambra School of Music</div><p class="card-desc">Music school website with course catalog, custom booking flows and responsive design.</p><a class="card-cta" href="https://alhambraschoolofmusic.com/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g3"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS</div><div class="card-title">India Talents</div><p class="card-desc">Creative talent management & production platform — covering ad films, fashion weeks and full talent management.</p><a class="card-cta" href="https://www.indiatalents.com/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="card" data-mode-only="wordpress"><div class="card-media g1"><span class="card-tag">Case Study</span></div><div class="card-body"><div class="card-meta">WORDPRESS + SHOPIFY</div><div class="card-title">Betterhood</div><p class="card-desc">Science-backed preventive pain-care brand — dual WordPress + Shopify architecture with custom JS integrations.</p><a class="card-cta" href="https://betterhood.in/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-
-    <div class="dev-divider" data-mode-only="wordpress" style="grid-column:1/-1;">
-      <span>Currently in Development</span>
-    </div>
-    <div class="card" data-mode-only="wordpress"><div class="card-media g2"><span class="card-tag dev">In Development</span></div><div class="card-body"><div class="card-meta">WORDPRESS · ANIMATED SECTIONS</div><div class="card-title">Trifid (Brandshark)</div><p class="card-desc">Agency/brand website — custom WordPress build with animated hero sections, currently in development.</p><a class="card-cta" href="https://trifid.brandshark.in/" target="_blank" rel="noopener">Read the build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></div></div>
-  </div>
-
-  <div class="grid-store reveal">
-    <div class="card" data-mode-only="shopify"><div class="card-media g1"><div class="store-badge">LIVE STORE</div></div><div class="card-body"><div class="card-meta">SHOPIFY · METAFIELDS</div><div class="card-title">Oulac Cosmetics</div><p class="card-desc">Premium cosmetics — custom Shopify build with metafields, metaobjects & a JS product configurator.</p><a class="store-cta" href="https://www.oulaccosmetics.com/" target="_blank" rel="noopener">View Store →</a></div></div>
-
-    <div class="card" data-mode-only="shopify"><div class="card-media g2"><div class="store-badge">LIVE STORE</div></div><div class="card-body"><div class="card-meta">SHOPIFY</div><div class="card-title">Elan India</div><p class="card-desc">Luxury cosmetics e-commerce with a bespoke Shopify theme and enhanced UX flows.</p><a class="store-cta" href="https://www.elanindia.co/" target="_blank" rel="noopener">View Store →</a></div></div>
-
-    <div class="card" data-mode-only="shopify"><div class="card-media g3"><div class="store-badge">LIVE STORE</div></div><div class="card-body"><div class="card-meta">SHOPIFY · METAFIELDS</div><div class="card-title">Bear Fruit Jewelry</div><p class="card-desc">Artisan jewelry store with metafield-driven product pages and a custom engraving feature.</p><a class="store-cta" href="https://bearfruitjewelry.com/" target="_blank" rel="noopener">View Store →</a></div></div>
-
-    <div class="card" data-mode-only="shopify"><div class="card-media g1"><div class="store-badge">LIVE STORE</div></div><div class="card-body"><div class="card-meta">SHOPIFY</div><div class="card-title">Yokkao Asia</div><p class="card-desc">Premium Muay Thai gear — high-performance store for Asian markets with custom filter UX.</p><a class="store-cta" href="https://asia.yokkao.com/" target="_blank" rel="noopener">View Store →</a></div></div>
-
-    <div class="card" data-mode-only="shopify"><div class="card-media g2"><div class="store-badge">LIVE STORE</div></div><div class="card-body"><div class="card-meta">SHOPIFY</div><div class="card-title">Ageless Zen</div><p class="card-desc">Wellness & anti-ageing brand store with subscription flows and before/after sections.</p><a class="store-cta" href="https://agelesszen.us/" target="_blank" rel="noopener">View Store →</a></div></div>
-
-    <div class="card" data-mode-only="shopify"><div class="card-media g3"><div class="store-badge">LIVE STORE</div></div><div class="card-body"><div class="card-meta">SHOPIFY</div><div class="card-title">Pluscenta</div><p class="card-desc">Beauty & skincare store with a custom theme, collection pages and conversion-focused PDPs.</p><a class="store-cta" href="https://pluscenta.com/" target="_blank" rel="noopener">View Store →</a></div></div>
-
-    <div class="card" data-mode-only="shopify"><div class="card-media g1"><div class="store-badge">LIVE STORE</div></div><div class="card-body"><div class="card-meta">WORDPRESS + SHOPIFY</div><div class="card-title">Betterhood</div><p class="card-desc">Preventive pain-care brand — dual WordPress + Shopify architecture with custom JS integrations.</p><a class="store-cta" href="https://betterhood.in/" target="_blank" rel="noopener">View Store →</a></div></div>
-
-    <div class="dev-divider" data-mode-only="shopify" style="grid-column:1/-1;">
-      <span>Currently in Development</span>
-    </div>
-    <div class="card" data-mode-only="shopify"><div class="card-media g2"><div class="store-badge" style="background:var(--surface2);color:var(--accent2);">IN DEV</div></div><div class="card-body"><div class="card-meta">SHOPIFY</div><div class="card-title">PetGlow India</div><p class="card-desc">Pet care brand — Shopify store currently in development (password-protected, not yet publicly live).</p><a class="store-cta" href="https://petglow-india.myshopify.com/" target="_blank" rel="noopener">View Store →</a></div></div>
-  </div>
-</section>
-
-<!-- ============ EDUCATION / STRENGTHS ============ -->
-<section id="education" class="wrap">
-  <div class="head reveal">
-    <p class="kicker">Background</p>
-    <h2>Education & Strengths</h2>
-  </div>
-  <div class="dual">
-    <div class="reveal">
-      <h3>Education</h3>
-      <div class="edu-item"><b>Bachelor of Computer Applications</b><span>St. Paul Institute of Professional Studies, Indore, MP · 05/2020</span></div>
-      <div class="edu-item"><span>First Prize — Science Exhibition (Physics-based Sewage Treatment System)</span></div>
-      <div class="edu-item"><span>Second Prize — College Festival Culinary Event</span></div>
-    </div>
-    <div class="reveal">
-      <h3>Strengths</h3>
-      <ul class="strength-list">
-        <li>Technical problem-solving across CMS platforms with strong debugging ability.</li>
-        <li>Clear client communication and requirement analysis, translating business needs into technical specs.</li>
-        <li>Comfortable owning projects end-to-end — from planning through deployment and optimization.</li>
-        <li>Cross-functional collaboration with designers, marketing teams, and stakeholders.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CONTACT ============ -->
-<section id="contact" class="wrap">
-  <div class="contact-panel reveal">
-    <div class="availability"><span class="dot"></span> Open to full-time & freelance roles</div>
-    <h2 class="statement">
-      <span class="line-solid">Let's Build</span>
-      <span class="line-outline" data-mode-only="wordpress">WordPress</span>
-      <span class="line-outline" data-mode-only="shopify">Shopify</span>
-      <span class="line-solid">Together.</span>
-    </h2>
-
-    <div class="contact-grid">
-      <div class="contact-item" data-copy="alfaizkhn18@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        <span class="label">Email</span>
-        <span class="value">alfaizkhn18@gmail.com</span>
-        <span class="copy-flash">Copied ✓</span>
-      </div>
-      <div class="contact-item" data-copy="+91 8878490186">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5c0 8 7 15 15 15l2-4-6-2-2 2c-3-1.5-5-4-6-6l2-2-2-6Z"/></svg>
-        <span class="label">Phone</span>
-        <span class="value">+91 8878490186</span>
-        <span class="copy-flash">Copied ✓</span>
-      </div>
-      <a class="contact-item" href="https://www.linkedin.com/in/alfaiz-khan-75313924b/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.6 4.1 5.5 3 5.5S1 4.6 1 3.5 1.9 1.5 3 1.5s1.98.9 1.98 2ZM1.5 8.5h3V22h-3V8.5ZM8.5 8.5h3v1.8h.04c.42-.8 1.44-1.8 3.46-1.8 3.7 0 4.5 2.4 4.5 5.6V22h-3v-6.8c0-1.6-.03-3.7-2.3-3.7-2.3 0-2.7 1.8-2.7 3.6V22h-3V8.5Z"/></svg>
-        <span class="label">LinkedIn</span>
-        <span class="value">alfaiz-khan</span>
-      </a>
-      <a class="contact-item" href="https://alfaiz18.github.io/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a11 11 0 0 0-3.48 21.44c.55.1.75-.24.75-.53v-2.06c-3.06.66-3.7-1.34-3.7-1.34-.5-1.27-1.22-1.6-1.22-1.6-1-.68.07-.67.07-.67 1.1.08 1.68 1.13 1.68 1.13.98 1.67 2.57 1.19 3.2.9.1-.7.38-1.19.7-1.46-2.44-.28-5-1.22-5-5.44 0-1.2.43-2.18 1.13-2.95-.11-.28-.49-1.4.11-2.93 0 0 .93-.3 3.04 1.12a10.5 10.5 0 0 1 5.54 0c2.1-1.42 3.03-1.12 3.03-1.12.6 1.53.22 2.65.11 2.93.7.77 1.13 1.75 1.13 2.95 0 4.23-2.57 5.16-5.02 5.43.4.34.75 1.02.75 2.06v3.05c0 .29.2.64.76.53A11 11 0 0 0 12 1Z"/></svg>
-        <span class="label">Portfolio</span>
-        <span class="value">alfaiz18.github.io</span>
-      </a>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-bottom">
-      <span>© 2026 Alfaiz Khan · Bangalore, India</span>
-      <a href="#" class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
-    </div>
-  </footer>
-</section>
-
-<script>
-const SUMMARY = {
-  wordpress: "Senior Web Developer with 5+ years of core expertise across both WordPress and Shopify development, having delivered 50+ projects for 15+ international clients. On WordPress: deep hands-on experience with custom post types, ACF, Elementor, and hook-based development, alongside structured schema and Core Web Vitals optimization. Currently leading WordPress and Shopify projects at Brandshark, Bangalore.",
-  shopify: "Senior Web Developer with 5+ years of core expertise across both Shopify and WordPress development, having delivered 50+ projects for 15+ international clients. On Shopify: custom theme builds, Liquid templating, checkout flow optimization, and store performance tuning for D2C brands. Currently leading Shopify and WordPress projects at Brandshark, Bangalore."
-};
-const ABOUT_HEAD = { wordpress: "Content-first, code-solid.", shopify: "Storefronts that convert." };
-const ABOUT_TEXT = {
-  wordpress: "WordPress is where I go deep — custom post types, ACF-driven content models, Elementor and WPBakery builds, and performance tuning that holds up under real editorial traffic. I care about the same things a good WordPress build always needs: clean template structure, fast Core Web Vitals, and content that stays easy for a client's team to manage long after I've shipped it.",
-  shopify: "Shopify is where I build for conversion — custom Liquid themes, metafield-driven product pages, and checkout flows tuned for real D2C traffic. I care about the same things every good Shopify build needs: fast storefronts, clean theme architecture, and product experiences that make merchandising easy for a brand's team long after launch."
-};
-const CTA_LABEL = { wordpress: "View Case Studies →", shopify: "View the Store →" };
-
-function applyModeContent(mode){
-  document.getElementById('heroSummary').textContent = SUMMARY[mode];
-  document.getElementById('aboutHeading').textContent = ABOUT_HEAD[mode];
-  document.getElementById('aboutParagraph').textContent = ABOUT_TEXT[mode];
-  document.getElementById('heroCtaPrimary').textContent = CTA_LABEL[mode];
-  document.getElementById('hintText').textContent = mode === 'wordpress' ? '↗ try Shopify mode' : '↗ try WordPress mode';
-}
-
-const body = document.body;
-const btnWP = document.getElementById('btnWP');
-const btnShopify = document.getElementById('btnShopify');
-
-function setMode(mode){
-  body.classList.remove('mode-wordpress','mode-shopify');
-  body.classList.add('mode-' + mode);
-  btnWP.classList.toggle('active', mode === 'wordpress');
-  btnShopify.classList.toggle('active', mode === 'shopify');
-  applyModeContent(mode);
-  try{ localStorage.setItem('ak-mode', mode); }catch(e){}
-}
-btnWP.addEventListener('click', () => setMode('wordpress'));
-btnShopify.addEventListener('click', () => setMode('shopify'));
-
-let savedMode = 'wordpress';
-try{ savedMode = localStorage.getItem('ak-mode') || 'wordpress'; }catch(e){}
-setMode(savedMode);
-
-document.querySelectorAll('.contact-item[data-copy]').forEach(item => {
-  item.addEventListener('click', () => {
-    const text = item.getAttribute('data-copy');
-    navigator.clipboard?.writeText(text).catch(()=>{});
-    const flash = item.querySelector('.copy-flash');
-    flash.classList.add('show');
-    setTimeout(() => flash.classList.remove('show'), 1400);
-  });
-});
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){ entry.target.classList.add('in-view'); observer.unobserve(entry.target); }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alfaiz Khan — Senior WordPress &amp; Shopify Developer</title>
+<meta name="description" content="Alfaiz Khan is a Senior WordPress &amp; Shopify Developer with 5+ years of experience delivering 50+ projects for 15+ international clients." />
+<meta name="author" content="Alfaiz Khan" />
+<link rel="canonical" href="https://alfaiz18.github.io/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Alfaiz Khan — Senior WordPress & Shopify Developer" />
+<meta property="og:description" content="5+ years building high-performance WordPress and Shopify experiences for international clients." />
+<meta property="og:url" content="https://alfaiz18.github.io/" />
+<meta property="og:image" content="https://alfaiz18.github.io/assets/images/og-cover.jpg" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Alfaiz Khan — Senior WordPress & Shopify Developer" />
+<meta name="twitter:description" content="5+ years building high-performance WordPress and Shopify experiences for international clients." />
+<meta name="twitter:image" content="https://alfaiz18.github.io/assets/images/og-cover.jpg" />
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+
+<!-- Fonts: Syne (display), DM Sans (body), Space Mono (mono/labels) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="style.css" />
+
+<!-- Schema.org Person markup — TODO: fill sameAs / email once confirmed -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Alfaiz Khan",
+  "jobTitle": "Senior WordPress & Shopify Developer",
+  "url": "https://alfaiz18.github.io/",
+  "worksFor": [
+    { "@type": "Organization", "name": "Brandshark" },
+    { "@type": "Organization", "name": "EvenDigit" }
+  ]
 }
 </script>
+</head>
+<body>
 
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ================= NAV ================= -->
+<nav class="site-nav" aria-label="Primary">
+  <a href="#hero" class="nav-logo">Alfaiz<span>.</span></a>
+
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <div class="nav-cta">
+    <a href="resume/resume.pdf" class="btn btn-ghost btn-small magnetic" download>Resume</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+
+    <div class="container hero-inner">
+      <p class="hero-kicker reveal"><span class="dot"></span> Available for select projects</p>
+
+      <h1 class="hero-name reveal">Alfaiz Khan</h1>
+
+      <p class="hero-role reveal">
+        Senior <span class="accent-wp">WordPress</span> &amp; <span class="accent-shopify">Shopify</span> Developer
+      </p>
+
+      <p class="hero-intro reveal">
+        I build fast, reliable, and conversion-ready websites across both the WordPress and
+        Shopify ecosystems — from custom themes and headless builds to storefront performance
+        and SEO. <!-- TODO: replace with your own 2–3 sentence introduction --> [Add a short personal introduction here.]
+      </p>
+
+      <div class="hero-actions reveal">
+        <a href="#projects" class="btn btn-primary magnetic">View Projects</a>
+        <a href="resume/resume.pdf" class="btn btn-ghost magnetic" download>Download Resume</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="reveal">
+          <div class="stat-num"><span data-count="5" data-suffix="+">0</span></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="reveal">
+          <div class="stat-num"><span data-count="50" data-suffix="+">0</span></div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="reveal">
+          <div class="stat-num"><span data-count="15" data-suffix="+">0</span></div>
+          <div class="stat-label">International Clients</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true"><span class="line"></span> Scroll</div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="section" id="about">
+    <div class="container">
+      <p class="eyebrow reveal">About</p>
+
+      <div class="about-grid">
+        <div class="about-portrait reveal">
+          <!-- TODO: replace with real portrait at assets/images/portrait.jpg -->
+          <div class="placeholder-tag">Professional portrait<br />assets/images/portrait.jpg</div>
+        </div>
+
+        <div class="about-text">
+          <p class="reveal">Senior WordPress &amp; Shopify Developer with 5+ years of experience delivering 50+ projects for 15+ international clients.</p>
+          <p class="reveal"><!-- TODO: add your full bio paragraph(s) here — background, focus areas, and what you're known for. --> [Add extended bio content here.]</p>
+          <p class="reveal">[Add a second paragraph if needed — e.g. how you approach projects, or what clients can expect working with you.]</p>
+
+          <ul class="strengths-list reveal reveal-group" aria-label="Core strengths">
+            <li style="--i:0">Custom WordPress theme development</li>
+            <li style="--i:1">Shopify storefront &amp; checkout optimization</li>
+            <li style="--i:2">Performance &amp; Core Web Vitals</li>
+            <li style="--i:3">SEO-focused development</li>
+            <li style="--i:4">Headless WordPress &amp; Shopify Hydrogen</li>
+            <li style="--i:5">[Add another core strength]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow reveal">Skills</p>
+          <h2 class="section-title reveal">Two stacks. One standard.</h2>
+        </div>
+        <p class="section-desc reveal">WordPress and Shopify expertise shown side by side — I work across both, not one or the other.</p>
+      </div>
+
+      <div class="skills-grid">
+        <article class="skill-card wp reveal">
+          <div class="skill-card-head">
+            <h3 class="skill-card-title">WordPress</h3>
+            <span class="skill-card-icon">WP</span>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Custom Themes</span>
+            <span class="skill-tag">Elementor</span>
+            <span class="skill-tag">Divi</span>
+            <span class="skill-tag">ACF</span>
+            <span class="skill-tag">WooCommerce</span>
+            <span class="skill-tag">Hooks</span>
+            <span class="skill-tag">CPT</span>
+            <span class="skill-tag">WPBakery</span>
+          </div>
+        </article>
+
+        <article class="skill-card shopify reveal">
+          <div class="skill-card-head">
+            <h3 class="skill-card-title">Shopify</h3>
+            <span class="skill-card-icon">SH</span>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Liquid</span>
+            <span class="skill-tag">Metafields</span>
+            <span class="skill-tag">Metaobjects</span>
+            <span class="skill-tag">Checkout Optimization</span>
+            <span class="skill-tag">Theme Development</span>
+          </div>
+        </article>
+
+        <article class="skill-card neutral reveal">
+          <div class="skill-card-head">
+            <h3 class="skill-card-title">Frontend</h3>
+            <span class="skill-card-icon">FE</span>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">GSAP</span>
+          </div>
+        </article>
+
+        <article class="skill-card neutral reveal">
+          <div class="skill-card-head">
+            <h3 class="skill-card-title">Backend</h3>
+            <span class="skill-card-icon">BE</span>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">PHP</span>
+          </div>
+        </article>
+
+        <article class="skill-card neutral reveal">
+          <div class="skill-card-head">
+            <h3 class="skill-card-title">Other</h3>
+            <span class="skill-card-icon">◆</span>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">SEO</span>
+            <span class="skill-tag">Core Web Vitals</span>
+          </div>
+        </article>
+
+        <article class="skill-card neutral reveal">
+          <div class="skill-card-head">
+            <h3 class="skill-card-title">Headless</h3>
+            <span class="skill-card-icon">◇</span>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">WordPress REST API</span>
+            <span class="skill-tag">GraphQL</span>
+            <span class="skill-tag">Shopify Hydrogen</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section class="section" id="experience">
+    <div class="container">
+      <p class="eyebrow reveal">Experience</p>
+      <h2 class="section-title reveal">Where I've worked</h2>
+
+      <div class="timeline experience-list">
+        <!-- TODO: confirm which is current, add real dates & descriptions -->
+        <div class="timeline-item reveal">
+          <div class="timeline-date">[Add dates]</div>
+          <div>
+            <span class="timeline-current-tag">Current</span>
+            <div class="timeline-role">[Add job title]</div>
+            <div class="timeline-company">Brandshark</div>
+            <p class="timeline-desc">[Add description of your role and responsibilities at Brandshark.]</p>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">[Add dates]</div>
+          <div>
+            <div class="timeline-role">[Add job title]</div>
+            <div class="timeline-company">EvenDigit</div>
+            <p class="timeline-desc">[Add description of your role and responsibilities at EvenDigit.]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow reveal">Selected Work</p>
+          <h2 class="section-title reveal">Projects</h2>
+        </div>
+        <p class="section-desc reveal">A mix of WordPress and Shopify builds — filter by platform to see either side of the work.</p>
+      </div>
+
+      <div class="filters reveal" role="group" aria-label="Filter projects by platform">
+        <button class="filter-btn is-active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="wordpress">WordPress</button>
+        <button class="filter-btn" data-filter="shopify">Shopify</button>
+        <button class="filter-btn" data-filter="wordpress shopify">WordPress + Shopify</button>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+        <!-- Cards injected below are static (no JS build step) so the grid works with JS disabled too -->
+
+        <!-- WordPress projects -->
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/cometrank.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">CometRank</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/cometrank.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/planet-ganges.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Planet Ganges</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/planet-ganges.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/pelazzio.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Pelazzio</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/pelazzio.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/procloz.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Procloz</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/procloz.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/fidelis-pet.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Fidelis Pet</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/fidelis-pet.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/softude-ai.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Softude AI</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/softude-ai.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/evendigit.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">EvenDigit</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/evendigit.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/alhambra-school-of-music.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Alhambra School of Music</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/alhambra-school-of-music.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/india-talents.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">India Talents</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/india-talents.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Betterhood appears on both supplied lists — shown as a dual-platform project -->
+        <article class="project-card reveal" data-category="wordpress shopify">
+          <div class="project-media"><span class="project-category-pill">WordPress + Shopify</span><div class="placeholder-tag">Add preview image<br>assets/projects/betterhood.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Betterhood</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span><span class="badge">Shopify</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/betterhood.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="wordpress">
+          <div class="project-media"><span class="project-category-pill">WordPress</span><div class="placeholder-tag">Add preview image<br>assets/projects/trifid.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Trifid</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">WordPress</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/trifid.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Shopify projects -->
+        <article class="project-card reveal" data-category="shopify">
+          <div class="project-media"><span class="project-category-pill">Shopify</span><div class="placeholder-tag">Add preview image<br>assets/projects/oulac.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Oulac</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">Shopify</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/oulac.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="shopify">
+          <div class="project-media"><span class="project-category-pill">Shopify</span><div class="placeholder-tag">Add preview image<br>assets/projects/elan-india.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Elan India</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">Shopify</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/elan-india.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="shopify">
+          <div class="project-media"><span class="project-category-pill">Shopify</span><div class="placeholder-tag">Add preview image<br>assets/projects/bear-fruit-jewelry.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Bear Fruit Jewelry</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">Shopify</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/bear-fruit-jewelry.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="shopify">
+          <div class="project-media"><span class="project-category-pill">Shopify</span><div class="placeholder-tag">Add preview image<br>assets/projects/yokkao-asia.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Yokkao Asia</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">Shopify</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/yokkao-asia.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="shopify">
+          <div class="project-media"><span class="project-category-pill">Shopify</span><div class="placeholder-tag">Add preview image<br>assets/projects/ageless-zen.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Ageless Zen</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">Shopify</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/ageless-zen.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="shopify">
+          <div class="project-media"><span class="project-category-pill">Shopify</span><div class="placeholder-tag">Add preview image<br>assets/projects/pluscenta.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">Pluscenta</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">Shopify</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/pluscenta.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="shopify">
+          <div class="project-media"><span class="project-category-pill">Shopify</span><div class="placeholder-tag">Add preview image<br>assets/projects/petglow.jpg</div></div>
+          <div class="project-body">
+            <h3 class="project-title">PetGlow</h3>
+            <p class="project-desc">[Add a short project description.]</p>
+            <div class="project-badges"><span class="badge">Shopify</span></div>
+            <div class="project-actions">
+              <a href="#" class="btn btn-ghost btn-small">Visit Website</a>
+              <a href="projects/petglow.html" class="btn btn-primary btn-small">Case Study</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact-cta">
+        <p class="eyebrow reveal" style="justify-content:center;">Contact</p>
+        <h2 class="section-title reveal">Let's build something reliable.</h2>
+        <p class="section-desc reveal">Open to WordPress and Shopify projects — reach out through any of the channels below.</p>
+        <div class="contact-actions reveal">
+          <a href="mailto:youremail@example.com" class="btn btn-primary magnetic">Email Me</a>
+          <a href="resume/resume.pdf" class="btn btn-ghost magnetic" download>Download Resume</a>
+        </div>
+      </div>
+
+      <div class="contact-cards">
+        <button class="contact-card reveal" data-copy="youremail@example.com" aria-label="Copy email address">
+          <span class="copy-flag">Copied</span>
+          <span class="contact-card-label">Email</span>
+          <span class="contact-card-value">[Add email]</span>
+        </button>
+
+        <button class="contact-card reveal" data-copy="+00 000 000 0000" aria-label="Copy phone number">
+          <span class="copy-flag">Copied</span>
+          <span class="contact-card-label">Phone</span>
+          <span class="contact-card-value">[Add phone number]</span>
+        </button>
+
+        <a href="#" class="contact-card reveal" aria-label="Visit LinkedIn profile">
+          <span class="contact-card-label">LinkedIn</span>
+          <span class="contact-card-value">[Add LinkedIn URL]</span>
+        </a>
+
+        <a href="https://alfaiz18.github.io/" class="contact-card reveal" aria-label="Visit portfolio">
+          <span class="contact-card-label">Portfolio</span>
+          <span class="contact-card-value">alfaiz18.github.io</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <p>© <span id="year">2026</span> Alfaiz Khan. All rights reserved.</p>
+  <div class="footer-socials">
+    <a href="#" aria-label="LinkedIn">[LinkedIn]</a>
+    <a href="#" aria-label="GitHub">[GitHub]</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
