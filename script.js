@@ -181,11 +181,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------------------------------------------------
      7. Copy-to-clipboard on contact cards
+     The card itself is a real mailto:/tel: link (so it's clickable
+     and works without JS); the nested .copy-btn copies the value
+     without triggering navigation.
   --------------------------------------------------- */
-  document.querySelectorAll("[data-copy]").forEach((card) => {
-    card.addEventListener("click", async () => {
-      const value = card.getAttribute("data-copy");
-      const flag = card.querySelector(".copy-flag");
+  document.querySelectorAll(".copy-btn[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const value = btn.getAttribute("data-copy");
+      const flag = btn.closest(".contact-card")?.querySelector(".copy-flag");
       try {
         await navigator.clipboard.writeText(value);
         if (flag) {
@@ -293,6 +298,95 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     heroBg.appendChild(svg);
+  }
+
+  /* ---------------------------------------------------
+     10b. Hero — mouse-reactive particle field
+     Small dots drift slowly and gently part around the cursor,
+     like ripples on water. Confined to the hero section only.
+  --------------------------------------------------- */
+  const particleHost = document.querySelector(".hero-particles");
+  if (particleHost && !prefersReducedMotion) {
+    const canvas = document.createElement("canvas");
+    particleHost.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+
+    let width, height, dpr;
+    const mouse = { x: -9999, y: -9999 };
+    let particles = [];
+
+    const rootStyles = getComputedStyle(document.documentElement);
+    const colorWp = rootStyles.getPropertyValue("--accent-wp").trim() || "#7c93ff";
+    const colorShopify = rootStyles.getPropertyValue("--accent-shopify").trim() || "#6fbf8a";
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = particleHost.clientWidth;
+      height = particleHost.clientHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const density = Math.min(90, Math.floor((width * height) / 16000));
+      particles = Array.from({ length: density }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        baseX: 0,
+        baseY: 0,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.15,
+        r: Math.random() * 1.6 + 0.6,
+        color: Math.random() > 0.5 ? colorWp : colorShopify,
+      })).map((p) => ({ ...p, baseX: p.x, baseY: p.y }));
+    }
+
+    function step() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach((p) => {
+        // gentle drift
+        p.baseX += p.vx;
+        p.baseY += p.vy;
+        if (p.baseX < 0 || p.baseX > width) p.vx *= -1;
+        if (p.baseY < 0 || p.baseY > height) p.vy *= -1;
+
+        // ripple away from cursor
+        const dx = p.baseX - mouse.x;
+        const dy = p.baseY - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const radius = 130;
+        let x = p.baseX;
+        let y = p.baseY;
+        if (dist < radius) {
+          const force = (radius - dist) / radius;
+          x += (dx / (dist || 1)) * force * 26;
+          y += (dy / (dist || 1)) * force * 26;
+        }
+
+        ctx.beginPath();
+        ctx.arc(x, y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = 0.55;
+        ctx.fill();
+      });
+      requestAnimationFrame(step);
+    }
+
+    const heroSection = particleHost.closest(".hero") || particleHost;
+    heroSection.addEventListener("mousemove", (e) => {
+      const rect = particleHost.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    heroSection.addEventListener("mouseleave", () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
+    requestAnimationFrame(step);
   }
 
   /* ---------------------------------------------------
