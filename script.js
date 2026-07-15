@@ -180,32 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------------
-     7. Copy-to-clipboard on contact cards
-     The card itself is a real mailto:/tel: link (so it's clickable
-     and works without JS); the nested .copy-btn copies the value
-     without triggering navigation.
-  --------------------------------------------------- */
-  document.querySelectorAll(".copy-btn[data-copy]").forEach((btn) => {
-    btn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const value = btn.getAttribute("data-copy");
-      const flag = btn.closest(".contact-card")?.querySelector(".copy-flag");
-      try {
-        await navigator.clipboard.writeText(value);
-        if (flag) {
-          flag.textContent = "Copied";
-          flag.classList.add("is-shown");
-          setTimeout(() => flag.classList.remove("is-shown"), 1600);
-        }
-      } catch (err) {
-        /* Clipboard may be unavailable — fail silently, link still works */
-      }
-    });
-  });
-
-  /* ---------------------------------------------------
-     8. Magnetic buttons (subtle pull toward cursor)
+     7. Magnetic buttons (subtle pull toward cursor)
   --------------------------------------------------- */
   if (!prefersReducedMotion && window.matchMedia("(hover: hover)").matches) {
     document.querySelectorAll(".magnetic").forEach((el) => {
@@ -222,175 +197,190 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------------
-     9. Custom cursor dot (desktop, decorative only)
+     8. Custom cursor — premium lagged glow ring (desktop only)
+     Two-piece cursor (outer ring + inner dot) that eases toward
+     the pointer with a soft lerp instead of snapping instantly,
+     and blooms into an accent-colored ring over interactive elements.
   --------------------------------------------------- */
   if (!prefersReducedMotion && window.matchMedia("(hover: hover)").matches) {
-    const cursor = document.createElement("div");
-    cursor.className = "cursor-dot";
-    cursor.setAttribute("aria-hidden", "true");
-    document.body.appendChild(cursor);
+    const ring = document.createElement("div");
+    ring.className = "cursor-ring";
+    ring.setAttribute("aria-hidden", "true");
+    ring.innerHTML = '<span class="cursor-ring-dot"></span>';
+    document.body.appendChild(ring);
+    document.documentElement.classList.add("has-custom-cursor");
+
+    const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const current = { x: target.x, y: target.y };
 
     window.addEventListener("mousemove", (e) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
+      target.x = e.clientX;
+      target.y = e.clientY;
+      ring.style.opacity = "1";
     }, { passive: true });
 
-    document.querySelectorAll("a, button, .project-card").forEach((el) => {
-      el.addEventListener("mouseenter", () => cursor.classList.add("is-hovering"));
-      el.addEventListener("mouseleave", () => cursor.classList.remove("is-hovering"));
+    document.addEventListener("mouseleave", () => { ring.style.opacity = "0"; });
+
+    function tick() {
+      current.x += (target.x - current.x) * 0.18;
+      current.y += (target.y - current.y) * 0.18;
+      ring.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) translate(-50%, -50%)`;
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    document.querySelectorAll("a, button, .project-card, .tech-tile, input, textarea, select").forEach((el) => {
+      el.addEventListener("mouseenter", () => ring.classList.add("is-hovering"));
+      el.addEventListener("mouseleave", () => ring.classList.remove("is-hovering"));
     });
   }
 
   /* ---------------------------------------------------
-     10. Hero background — subtle animated flowing lines
-     Pure SVG + CSS animation, no libraries.
+     9. Site-wide background — dense, physics-based dust field
+     Thousands of tiny particles drift slowly and are gently
+     displaced by the cursor, then ease back — like dust or
+     smoke currents. Runs as one fixed full-viewport canvas behind
+     every section on every page, not just the hero. Pure canvas,
+     no libraries.
   --------------------------------------------------- */
-  const heroBg = document.querySelector(".hero-bg");
-  if (heroBg) {
-    const paths = [
-      "M -100 150 C 200 50, 500 350, 900 120 S 1400 300, 1700 100",
-      "M -100 300 C 250 450, 550 100, 950 320 S 1400 150, 1700 350",
-      "M -100 480 C 300 350, 600 550, 1000 400 S 1450 500, 1700 420",
-    ];
-    const colors = ["var(--accent-wp)", "var(--accent-shopify)", "var(--accent-wp)"];
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("viewBox", "0 0 1600 600");
-    svg.setAttribute("preserveAspectRatio", "none");
-
-    paths.forEach((d, i) => {
-      const path = document.createElementNS(svgNS, "path");
-      path.setAttribute("d", d);
-      path.setAttribute("class", "flow-line");
-      path.setAttribute("stroke", colors[i % colors.length]);
-      svg.appendChild(path);
-
-      if (!prefersReducedMotion) {
-        const length = 2200;
-        path.style.strokeDasharray = String(length);
-        path.style.strokeDashoffset = String(length);
-        path.animate(
-          [
-            { strokeDashoffset: length },
-            { strokeDashoffset: 0 },
-          ],
-          {
-            duration: 5000 + i * 900,
-            delay: i * 300,
-            easing: "cubic-bezier(0.16,1,0.3,1)",
-            fill: "forwards",
-          }
-        );
-        path.animate(
-          [
-            { transform: "translateY(0px)" },
-            { transform: `translateY(${i % 2 === 0 ? "-" : ""}14px)` },
-            { transform: "translateY(0px)" },
-          ],
-          {
-            duration: 7000 + i * 500,
-            delay: 5000,
-            iterations: Infinity,
-            easing: "ease-in-out",
-          }
-        );
-      }
-    });
-
-    heroBg.appendChild(svg);
-  }
-
-  /* ---------------------------------------------------
-     10b. Hero — mouse-reactive particle field
-     Small dots drift slowly and gently part around the cursor,
-     like ripples on water. Confined to the hero section only.
-  --------------------------------------------------- */
-  const particleHost = document.querySelector(".hero-particles");
-  if (particleHost && !prefersReducedMotion) {
+  (function initParticleField() {
     const canvas = document.createElement("canvas");
-    particleHost.appendChild(canvas);
+    canvas.className = "site-particles";
+    canvas.setAttribute("aria-hidden", "true");
+    document.body.prepend(canvas);
     const ctx = canvas.getContext("2d");
 
     let width, height, dpr;
-    const mouse = { x: -9999, y: -9999 };
+    const mouse = { x: -9999, y: -9999, active: false };
     let particles = [];
 
     const rootStyles = getComputedStyle(document.documentElement);
     const colorWp = rootStyles.getPropertyValue("--accent-wp").trim() || "#7c93ff";
     const colorShopify = rootStyles.getPropertyValue("--accent-shopify").trim() || "#6fbf8a";
+    const colorNeutral = "#f5f5f3";
+
+    // Roughly one particle per ~1400px^2 of viewport, capped for performance.
+    // Slightly sparser than a hero-only version since this now covers the
+    // whole page continuously.
+    function particleCount() {
+      const area = width * height;
+      return Math.min(1800, Math.max(400, Math.round(area / 1400)));
+    }
+
+    function makeParticle() {
+      const homeX = Math.random() * width;
+      const homeY = Math.random() * height;
+      const roll = Math.random();
+      return {
+        homeX, homeY,
+        x: homeX, y: homeY,
+        vx: 0, vy: 0,
+        driftAngle: Math.random() * Math.PI * 2,
+        driftSpeed: 0.04 + Math.random() * 0.1,
+        r: Math.random() * 1.2 + 0.35,
+        alpha: Math.random() * 0.4 + 0.12,
+        color: roll < 0.42 ? colorWp : roll < 0.8 ? colorNeutral : colorShopify,
+      };
+    }
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = particleHost.clientWidth;
-      height = particleHost.clientHeight;
+      width = window.innerWidth;
+      height = window.innerHeight;
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const density = Math.min(90, Math.floor((width * height) / 16000));
-      particles = Array.from({ length: density }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        baseX: 0,
-        baseY: 0,
-        vx: (Math.random() - 0.5) * 0.15,
-        vy: (Math.random() - 0.5) * 0.15,
-        r: Math.random() * 1.6 + 0.6,
-        color: Math.random() > 0.5 ? colorWp : colorShopify,
-      })).map((p) => ({ ...p, baseX: p.x, baseY: p.y }));
+      particles = Array.from({ length: particleCount() }, makeParticle);
     }
 
     function step() {
       ctx.clearRect(0, 0, width, height);
-      particles.forEach((p) => {
-        // gentle drift
-        p.baseX += p.vx;
-        p.baseY += p.vy;
-        if (p.baseX < 0 || p.baseX > width) p.vx *= -1;
-        if (p.baseY < 0 || p.baseY > height) p.vy *= -1;
 
-        // ripple away from cursor
-        const dx = p.baseX - mouse.x;
-        const dy = p.baseY - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const radius = 130;
-        let x = p.baseX;
-        let y = p.baseY;
-        if (dist < radius) {
-          const force = (radius - dist) / radius;
-          x += (dx / (dist || 1)) * force * 26;
-          y += (dy / (dist || 1)) * force * 26;
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // slow ambient drift — the particle's "home" wanders gently
+        p.driftAngle += (Math.random() - 0.5) * 0.06;
+        p.homeX += Math.cos(p.driftAngle) * p.driftSpeed;
+        p.homeY += Math.sin(p.driftAngle) * p.driftSpeed;
+        if (p.homeX < -20) p.homeX = width + 20;
+        if (p.homeX > width + 20) p.homeX = -20;
+        if (p.homeY < -20) p.homeY = height + 20;
+        if (p.homeY > height + 20) p.homeY = -20;
+
+        // spring pulling current position toward the drifting home point
+        const springK = 0.02;
+        p.vx += (p.homeX - p.x) * springK;
+        p.vy += (p.homeY - p.y) * springK;
+
+        // cursor displacement — smooth radial falloff, like current in water
+        if (mouse.active) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          const radius = 160;
+          if (dist < radius) {
+            const falloff = 1 - dist / radius;
+            const force = falloff * falloff * 2.4;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
         }
 
+        // damping keeps motion smooth and organic instead of jittery
+        p.vx *= 0.9;
+        p.vy *= 0.9;
+        p.x += p.vx;
+        p.y += p.vy;
+
         ctx.beginPath();
-        ctx.arc(x, y, p.r, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        ctx.globalAlpha = 0.55;
+        ctx.globalAlpha = p.alpha;
         ctx.fill();
-      });
+      }
+      ctx.globalAlpha = 1;
       requestAnimationFrame(step);
     }
 
-    const heroSection = particleHost.closest(".hero") || particleHost;
-    heroSection.addEventListener("mousemove", (e) => {
-      const rect = particleHost.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
-    heroSection.addEventListener("mouseleave", () => {
-      mouse.x = -9999;
-      mouse.y = -9999;
-    });
+    // Reduced-motion: render the field once as a static, gently visible
+    // texture instead of a continuous animation loop.
+    function stepOnce() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach((p) => {
+        ctx.beginPath();
+        ctx.arc(p.homeX, p.homeY, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
 
-    window.addEventListener("resize", resize, { passive: true });
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    }, { passive: true });
+    document.addEventListener("mouseleave", () => { mouse.active = false; });
+
+    window.addEventListener("resize", () => {
+      resize();
+      if (prefersReducedMotion) stepOnce();
+    }, { passive: true });
+
     resize();
-    requestAnimationFrame(step);
-  }
+    if (prefersReducedMotion) {
+      stepOnce();
+    } else {
+      requestAnimationFrame(step);
+    }
+  })();
 
   /* ---------------------------------------------------
-     11. Footer year
+     10. Footer year
   --------------------------------------------------- */
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
