@@ -296,12 +296,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------------------------------------------------
-     10. Site-wide background — dense, physics-based dust field
-     Thousands of tiny particles drift slowly and are gently
-     displaced by the cursor, then ease back — like dust or
-     smoke currents. Runs as one fixed full-viewport canvas behind
-     every section on every page, not just the hero. Pure canvas,
-     no libraries.
+     10. Site-wide background — uniform dot grid
+     An evenly-spaced grid of small dots (like the reference image)
+     that stay in place but gently push away from the cursor and
+     spring back when it moves on. Runs as one fixed full-viewport
+     canvas behind every section on every page. Pure canvas, no libraries.
   --------------------------------------------------- */
   (function initParticleField() {
     const canvas = document.createElement("canvas");
@@ -314,33 +313,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const mouse = { x: -9999, y: -9999, active: false };
     let particles = [];
 
-    const rootStyles = getComputedStyle(document.documentElement);
-    const colorWp = rootStyles.getPropertyValue("--accent-wp").trim() || "#7c93ff";
-    const colorShopify = rootStyles.getPropertyValue("--accent-shopify").trim() || "#6fbf8a";
-    const colorNeutral = "#f5f5f3";
+    const GRID_SPACING = 34; // px between dots, matches an even grid look
+    const DOT_COLOR = "#9a9aa2"; // single dulled neutral tone, like the reference
+    const DOT_RADIUS = 1.3;
+    const DOT_ALPHA = 0.22;
 
-    // One particle per ~550px^2 of viewport, capped for performance.
-    // This matches (and slightly exceeds) how dense the original
-    // hero-only version looked, now spread across the whole page.
-    function particleCount() {
-      const area = width * height;
-      return Math.min(2600, Math.max(700, Math.round(area / 550)));
-    }
-
-    function makeParticle() {
-      const homeX = Math.random() * width;
-      const homeY = Math.random() * height;
-      const roll = Math.random();
-      return {
-        homeX, homeY,
-        x: homeX, y: homeY,
-        vx: 0, vy: 0,
-        driftAngle: Math.random() * Math.PI * 2,
-        driftSpeed: 0.04 + Math.random() * 0.1,
-        r: Math.random() * 1.5 + 0.6,
-        alpha: Math.random() * 0.05 + 0.8,
-        color: roll < 0.42 ? colorWp : roll < 0.8 ? colorNeutral : colorShopify,
-      };
+    function buildGrid() {
+      const cols = Math.ceil(width / GRID_SPACING) + 1;
+      const rows = Math.ceil(height / GRID_SPACING) + 1;
+      const grid = [];
+      for (let j = 0; j < rows; j++) {
+        for (let i = 0; i < cols; i++) {
+          const homeX = i * GRID_SPACING;
+          const homeY = j * GRID_SPACING;
+          grid.push({ homeX, homeY, x: homeX, y: homeY, vx: 0, vy: 0 });
+        }
+      }
+      return grid;
     }
 
     function resize() {
@@ -352,26 +341,19 @@ document.addEventListener("DOMContentLoaded", () => {
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      particles = Array.from({ length: particleCount() }, makeParticle);
+      particles = buildGrid();
     }
 
     function step() {
       ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = DOT_COLOR;
+      ctx.globalAlpha = DOT_ALPHA;
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        // slow ambient drift — the particle's "home" wanders gently
-        p.driftAngle += (Math.random() - 0.5) * 0.06;
-        p.homeX += Math.cos(p.driftAngle) * p.driftSpeed;
-        p.homeY += Math.sin(p.driftAngle) * p.driftSpeed;
-        if (p.homeX < -20) p.homeX = width + 20;
-        if (p.homeX > width + 20) p.homeX = -20;
-        if (p.homeY < -20) p.homeY = height + 20;
-        if (p.homeY > height + 20) p.homeY = -20;
-
-        // spring pulling current position toward the drifting home point
-        const springK = 0.02;
+        // spring pulling current position back toward its fixed grid slot
+        const springK = 0.06;
         p.vx += (p.homeX - p.x) * springK;
         p.vy += (p.homeY - p.y) * springK;
 
@@ -380,40 +362,37 @@ document.addEventListener("DOMContentLoaded", () => {
           const dx = p.x - mouse.x;
           const dy = p.y - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-          const radius = 160;
+          const radius = 120;
           if (dist < radius) {
             const falloff = 1 - dist / radius;
-            const force = falloff * falloff * 2.4;
+            const force = falloff * falloff * 3.2;
             p.vx += (dx / dist) * force;
             p.vy += (dy / dist) * force;
           }
         }
 
-        // damping keeps motion smooth and organic instead of jittery
-        p.vx *= 0.9;
-        p.vy *= 0.9;
+        // damping keeps motion smooth instead of jittery/bouncy
+        p.vx *= 0.85;
+        p.vy *= 0.85;
         p.x += p.vx;
         p.y += p.vy;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
+        ctx.arc(p.x, p.y, DOT_RADIUS, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.globalAlpha = 1;
       requestAnimationFrame(step);
     }
 
-    // Reduced-motion: render the field once as a static, gently visible
-    // texture instead of a continuous animation loop.
+    // Reduced-motion: render the grid once as a static texture, no cursor loop.
     function stepOnce() {
       ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = DOT_COLOR;
+      ctx.globalAlpha = DOT_ALPHA;
       particles.forEach((p) => {
         ctx.beginPath();
-        ctx.arc(p.homeX, p.homeY, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
+        ctx.arc(p.homeX, p.homeY, DOT_RADIUS, 0, Math.PI * 2);
         ctx.fill();
       });
       ctx.globalAlpha = 1;
