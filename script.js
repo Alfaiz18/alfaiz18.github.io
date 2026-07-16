@@ -313,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mouse = { x: -9999, y: -9999, active: false };
     let particles = [];
 
-    const GRID_SPACING = 34; // px between dots, matches an even grid look
+    const GRID_SPACING = 20; // px between dots, matches an even grid look
     const DOT_COLOR = "#9a9aa2"; // single dulled neutral tone, like the reference
     const DOT_RADIUS = 1.3;
     const DOT_ALPHA = 0.22;
