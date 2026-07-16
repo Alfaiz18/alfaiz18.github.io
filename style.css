@@ -44,7 +44,7 @@
   --fs-mono: 0.8rem;
 
   /* Layout */
-  --container: 1240px;
+  --container: 1670px;
   --gutter: clamp(1.5rem, 5vw, 5rem);
   /* Applied to BOTH top and bottom of every section, so two adjacent
      sections combine to a consistent ~80px visual gap instead of doubling. */
