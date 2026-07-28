@@ -84,14 +84,14 @@ body::before {
 }
 
 .container {
-  max-width: 1180px;
+  max-width: 1760px;
   margin: 0 auto;
   padding: 0 24px;
   position: relative;
   z-index: 1;
 }
 .container--wide {
-  max-width: 1320px;
+  max-width: 1760px;
 }
 
 /* Cursor glow */
