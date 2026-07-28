@@ -193,7 +193,7 @@ body::before {
   gap: 22px;
   font-size: 14px;
   color: var(--fg-dim);
-  margin-left: auto; /* Pushes links to the right side of the wide nav */
+  margin: auto; /* Pushes links to the right side of the wide nav */
 }
 .nav__links a {
   transition: color 0.2s;
