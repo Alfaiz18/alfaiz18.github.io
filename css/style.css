@@ -31,6 +31,7 @@
   --radius-lg: 22px;
 
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-display: "Syne", "Inter", sans-serif; /* Added Syne for headings */
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -134,6 +135,7 @@ body::before {
   font-size: 60px;
   font-weight: 800;
   letter-spacing: -0.03em;
+  font-family: var(--font-display); /* Applied Syne */
 }
 .loader-mark span {
   background: var(--accent-grad);
@@ -176,6 +178,7 @@ body::before {
   gap: 10px;
   font-weight: 700;
   letter-spacing: -0.01em;
+  font-family: var(--font-display); /* Applied Syne */
 }
 .nav__brand-mark {
   width: 30px;
@@ -193,7 +196,7 @@ body::before {
   gap: 22px;
   font-size: 14px;
   color: var(--fg-dim);
-  margin: auto; /* Pushes links to the right side of the wide nav */
+  margin-left: auto; /* Pushes links to the right side of the wide nav */
 }
 .nav__links a {
   transition: color 0.2s;
@@ -344,6 +347,7 @@ body::before {
 }
 
 .hero__title {
+  font-family: var(--font-display); /* Applied Syne */
   font-size: clamp(48px, 8vw, 104px);
   line-height: 0.98;
   letter-spacing: -0.045em;
@@ -387,6 +391,7 @@ body::before {
   backdrop-filter: blur(12px);
 }
 .stat__num {
+  font-family: var(--font-display); /* Applied Syne */
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -443,6 +448,7 @@ body::before {
   margin-bottom: 16px;
 }
 .section__title {
+  font-family: var(--font-display); /* Applied Syne */
   font-size: clamp(32px, 4.5vw, 52px);
   letter-spacing: -0.035em;
   line-height: 1.05;
@@ -473,7 +479,12 @@ body::before {
 }
 .glass-card:hover::before { opacity: 1; }
 .glass-card:hover { border-color: var(--border-2); transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.glass-card h3 { margin: 6px 0 6px; font-size: 20px; letter-spacing: -0.01em; }
+.glass-card h3 { 
+  font-family: var(--font-display); /* Applied Syne */
+  margin: 6px 0 6px; 
+  font-size: 20px; 
+  letter-spacing: -0.01em; 
+}
 .glass-card p { margin: 0; color: var(--fg-dim); font-size: 14.5px; }
 
 /* ============ ABOUT ============ */
@@ -498,40 +509,88 @@ body::before {
 }
 .about__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
-/* ============ SKILLS ============ */
+/* ============ SKILLS (Snap Carousel) ============ */
+.skills-wrapper {
+  position: relative;
+  margin: 0 -24px; /* Allow it to bleed to container edges */
+}
 .skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 14px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding: 0 24px 20px;
+  cursor: grab;
+  scroll-padding-left: 24px;
 }
+.skills-grid::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.skills-grid:active {
+  cursor: grabbing;
+}
+
 .skill {
-  padding: 18px 16px;
-  background: var(--surface);
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: 160px;
+  height: 160px;
+  background: var(--bg-2);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  text-align: center;
-  transition: 0.3s var(--ease);
-  cursor: default;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
 }
+
 .skill:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
+  transform: translateY(-6px);
+  border-color: var(--skill-brand, var(--accent));
+  box-shadow: 0 10px 30px -5px var(--skill-glow, rgba(124, 92, 255, 0.4));
   background: var(--surface-2);
-  box-shadow: var(--shadow-glow);
 }
+
 .skill__ico {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: var(--accent-grad);
-  color: #0b0b12;
-  font-size: 20px;
-  font-weight: 800;
+  width: 48px;
+  height: 48px;
   display: grid;
   place-items: center;
-  margin: 0 auto 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 24px;
+  transition: transform 0.3s var(--ease);
 }
-.skill__name { font-size: 14px; font-weight: 600; }
+.skill:hover .skill__ico {
+  transform: scale(1.1);
+}
+
+.skill__name {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-display);
+  color: var(--fg);
+}
+
+/* Brand Colors Mapping */
+.skill--js { --skill-brand: #F7DF1E; --skill-glow: rgba(247, 223, 30, 0.35); }
+.skill--php { --skill-brand: #777BB4; --skill-glow: rgba(119, 123, 180, 0.35); }
+.skill--wp { --skill-brand: #21759B; --skill-glow: rgba(33, 117, 155, 0.35); }
+.skill--shopify { --skill-brand: #95BF47; --skill-glow: rgba(149, 191, 71, 0.35); }
+.skill--html { --skill-brand: #E34F26; --skill-glow: rgba(227, 79, 38, 0.35); }
+.skill--css { --skill-brand: #1572B6; --skill-glow: rgba(21, 114, 182, 0.35); }
+.skill--woo { --skill-brand: #7F54B3; --skill-glow: rgba(127, 84, 179, 0.35); }
+.skill--gql { --skill-brand: #E10098; --skill-glow: rgba(225, 0, 152, 0.35); }
+.skill--elementor { --skill-brand: #92003B; --skill-glow: rgba(146, 0, 59, 0.35); }
+.skill--gsap { --skill-brand: #88CE02; --skill-glow: rgba(136, 206, 2, 0.35); }
+.skill--git { --skill-brand: #F05032; --skill-glow: rgba(240, 80, 50, 0.35); }
 
 /* ============ TIMELINE ============ */
 /* Removed max-width: 860px so timeline spans full container width */
@@ -552,7 +611,11 @@ body::before {
 }
 .service:hover { transform: translateY(-6px); border-color: var(--border-2); box-shadow: var(--shadow-glow); }
 .service__ico { font-size: 30px; margin-bottom: 12px; }
-.service h3 { margin: 0 0 8px; font-size: 18px; }
+.service h3 { 
+  font-family: var(--font-display); /* Applied Syne */
+  margin: 0 0 8px; 
+  font-size: 18px; 
+}
 .service p { color: var(--fg-dim); font-size: 14px; margin: 0; }
 
 /* ============ TESTIMONIALS ============ */
