@@ -156,11 +156,13 @@ body::before {
   top: 16px;
   left: 50%;
   transform: translateX(-50%);
+  width: calc(100% - 32px); /* Full width minus 16px margin on each side */
+  max-width: var(--container-max); /* Enforces the 1760px max width */
   z-index: 50;
   display: flex;
   align-items: center;
   gap: 28px;
-  padding: 10px 14px 10px 18px;
+  padding: 10px 24px;
   background: rgba(12, 12, 18, 0.72);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
@@ -191,6 +193,7 @@ body::before {
   gap: 22px;
   font-size: 14px;
   color: var(--fg-dim);
+  margin-left: auto; /* Pushes links to the right side of the wide nav */
 }
 .nav__links a {
   transition: color 0.2s;
@@ -221,6 +224,7 @@ body::before {
   border: 0;
   padding: 8px;
   cursor: pointer;
+  margin-left: auto; /* Pushes toggle to the right on mobile */
 }
 .nav__toggle span {
   display: block;
